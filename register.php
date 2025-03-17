@@ -1,6 +1,12 @@
-<?php 
 
-include "./db/database.php";
+
+<?php 
+include "./components/header.php";
+
+
+if (isLoggedIn()) {
+    redirect("admin.php");
+}
 
 $username = $email = $password = $confPassword = $age = $phone = $gender = $terms = "";
 $usernameErr = $emailErr = $passwordErr = $confPasswordErr = $ageErr = $phoneErr = $genderErr = $termsErr = "";
@@ -9,12 +15,23 @@ $successMessage= "";
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
 
+    //! Create a new user
+
+    $username = $_POST["username"];
+    $email = $_POST["email"];
+    $password = $_POST["password"];
+    $confPassword = $_POST["confPassword"];
+    $age = $_POST["age"];
+    $phone = $_POST["phone"];
+    $gender = $_POST["gender"];
+    $terms = $_POST["terms"];
+    
 
 
-    if(empty($_POST["username"])) {
+    if(empty($username)) {
         $usernameErr = "Username is required";
     } else {
-        $username = mysqli_real_escape_string($conn, $_POST["username"]);
+        $username = mysqli_real_escape_string($conn, $username);
         if(!preg_match("/^[a-zA-Z0-9_]{5,20}$/", $username)) {
           $usernameErr = "Username must be 5-20 chars (letters, numbers, underscore)";
         }
@@ -22,10 +39,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 
-    if(empty($_POST["email"])) {
+    if(empty($email)) {
         $usernameErr = "Email is required";
     } else {
-        $email = mysqli_real_escape_string($conn, $_POST["email"]);
+        $email = mysqli_real_escape_string($conn, $email);
         if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
           $emailErr = "Invalid email format)";
         }
@@ -33,10 +50,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 
-     if (empty($_POST["password"])) {
+     if (empty($password)) {
         $passwordErr = "Password is required";
     } else {
-        $password = trim($_POST["password"]);
+        $password = trim($password);
         
         if (
             strlen($password) < 8 || 
@@ -48,10 +65,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    if (empty($_POST["confPassword"])) {
+    if (empty($confPassword)) {
         $confPasswordErr = "Confirmation password is required";
     } else {
-        $confPassword = trim($_POST["confPassword"]);
+        $confPassword = trim($confPassword);
         
         if ($password !== $confPassword) {
             $confPasswordErr = "Passwords do not match";
@@ -64,38 +81,34 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 
-
-
-    if (empty($_POST["age"])) {
+    if (empty($age)) {
         $ageErr = "Age is required";
     } else {
-        $age = mysqli_real_escape_string($conn, $_POST["age"]);
+        $age = mysqli_real_escape_string($conn, $age);
         if ($age < 18 || $age > 100) {
             $ageErr = "Age must be between 18 and 100";
         }
     }
 
-   
 
-
-    if (empty($_POST["phone"])) {
+    if (empty($phone)) {
         $phoneErr = "Phone number is required";
     } else {
-        $phone = filter_var(trim($_POST["phone"]), FILTER_SANITIZE_NUMBER_INT);
+        $phone = filter_var(trim($phone), FILTER_SANITIZE_NUMBER_INT);
         if (!preg_match("/^[0-9]{10,15}$/", $phone)) {
             $phoneErr = "Invalid phone number (10-15 digits)";
         }
     }
 
 
-    if (empty($_POST["gender"])) {
+    if (empty($gender)) {
         $genderErr = "Gender is required";
     } else {
-        $gender = mysqli_real_escape_string($conn, $_POST["gender"]);
+        $gender = mysqli_real_escape_string($conn, $gender);
     }
 
 
-    if (!isset($_POST["terms"])) {
+    if (!isset($terms)) {
         $termsErr = "You must agree to the terms and conditions";
     } else {
         $terms = 1; 
@@ -123,7 +136,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->bind_param("sssissi", $username, $email, $hashedPassword, $age, $phone, $gender, $terms);
     
             if ($stmt->execute()) {
-                $successMessage = "<h3 class='success'>Registration successful!</h3>";
+                $_SESSION["logged_in"] = true; // This is how we know the user is logged in
+                $_SESSION["username"] = $username;
+                redirect("admin.php");
             } else {
                 $successMessage = "<h3 class='error'> Registration failed (error: " . $stmt->error . ")</h3>";
             }
@@ -135,49 +150,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration Page</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-
-<body class="register">
-    <nav>
-    <ul>
-        <li>
-            <a href="index.php">Home</a>
-        </li>
-
-        <!-- When the user is logged in -->
-        <li>
-            <a href="admin.html">Admin</a>
-        </li>
-        <li>
-            <a href="logout.html">Logout</a>
-        </li>
-
-        <!-- When the user is not logged in -->
-        <li>
-            <a href="register.php">Register</a>
-        </li>
-        <li>
-            <a href="login.php">Login</a>
-        </li>
-    </ul>
-    </nav>
     
+    <div class="container"> 
+        <div class="form-container"> 
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
 
             <h2>Create your Account</h2>
 
-            <input type="text" name="username" placeholder="username" required>
+            <input type="text" name="username" placeholder="username" value="<?php echo isset($username) ? $username : "" ?>" required>
             <span class="error"><?php echo $usernameErr; ?></span>
 
-            <input type="email" name="email" placeholder="email" required>
+            <input type="email" name="email" placeholder="email" value="<?php echo isset($email) ? $email : "" ?>" required>
             <span class="error"><?php echo $emailErr; ?></span>
 
             <input type="password" name="password" placeholder="password" required>
@@ -187,15 +170,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             <span class="error"><?php echo $confPasswordErr; ?></span>
 
 
-            <input type="number" name="age" placeholder="age"" required>
+            <input type="number" name="age" placeholder="age"" value="<?php echo isset($age) ? $age : "" ?>" required>
             <span class="error"><?php echo $ageErr; ?></span>
 
-            <input type="text" name="phone" placeholder="phone number">
+            <input type="text" name="phone" placeholder="phone number" value="<?php echo isset($phone) ? $phone : "" ?>">
             <span class="error"><?php echo $phoneErr; ?></span>
 
+            <div>
             <input type="radio" name="gender" value="Male"  <?php if ($gender == "Male") echo "checked"; ?>> Male
             <input type="radio" name="gender" value="Female"  <?php if ($gender == "Female") echo "checked"; ?>> Female
             <input type="radio" name="gender" value="Other"  <?php if ($gender == "Other") echo "checked"; ?>> Other
+            </div>
             <span class="error"><?php echo $genderErr; ?></span>
 
             <label><input type="checkbox" name="terms" value="agree"> I agree to the terms and conditions</label>
@@ -204,8 +189,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="submit" value="Register">
         </form>
 
-    
-</body>
-</html>
+        </div>
+    </div>
 
-<?php mysqli_close($conn); ?>
+<?php include "./components/footer.php"; ?>
+    

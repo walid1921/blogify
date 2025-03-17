@@ -1,24 +1,65 @@
-/* General Styles */
+/* General Styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
 body {
-    margin: 0;
-    padding-top: 20px;
-}
-
-.container {
-    margin: 10px;
-}
-
-/* Index (Home) Page */
-body.index {
     background-color: #f4f4f4;
+    color: #333;
 }
 
-body.index .container {
-    margin: 0;
+h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
 }
+
+/* Navbar */
+nav {
+    background-color: #333;
+    padding: 10px 0;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    padding: 10px 40px;
+    transition: 0.3s;
+}
+
+nav ul li a:hover {
+    background-color: #575757;
+    color: white;
+}
+
+nav ul li a.active {
+    background-color: #575757;
+    color: white;
+}
+
+
+/* Pages style */
+.login {
+    background-color: #ebebeb;
+}
+
 
 /* Hero Section */
-body.index .hero {
+.hero {
     background-image: url("../images/hero-image.png");
     background-size: cover;
     background-position: center;
@@ -42,155 +83,173 @@ body.index .hero {
     z-index: -1;
 }
 
-body.index .hero .hero-content {
-    max-width: 600px;
-    padding: 20px;
+.hero h1 {
+    font-size: 2.5em;
 }
 
-body.index .hero .hero-content h1 {
-    font-size: 3rem;
-    margin-bottom: 20px;
+.hero p {
+    font-size: 1.2em;
+    margin-top: 10px;
 }
 
-body.index .hero .hero-content p {
-    font-size: 1.5rem;
-    margin-bottom: 30px;
+.hero-buttons {
+    margin-top: 20px;
 }
 
-body.index .hero .hero-content .hero-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-}
-
-body.index .hero .hero-content .hero-buttons .btn {
-    padding: 12px 30px;
+.hero-buttons .btn {
+    display: inline-block;
+    background: #007bff;
     color: white;
+    padding: 10px 20px;
     text-decoration: none;
-    font-size: 1.2rem;
     border-radius: 5px;
-    background-color: #ff6b6b;
+    transition: 0.3s;
+    font-weight: bold;
 }
 
-body.index .hero .hero-content .hero-buttons .btn:hover {
-    background-color: #ff4b4b;
+.hero-buttons .btn:hover {
+    background: #004080;
+    color: white;
 }
 
-/* Register and Login Pages */
-body.register {
-    background-color: #fff3e0;
+.container {
+    height: 100vh;
 }
 
-body.login {
-    background-color: #e0f7fa;
-}
-
-body.register, body.login .form-container {
+/* Form Styling */
+.form-container {
+    max-width: 400px;
+    margin: auto;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
     padding: 20px;
-}
-
-body.register .form-container h2, 
-body.login .form-container h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
-    text-align: center;
-    color: #333;
-}
-
-body.register form, 
-body.login form {
-    background-color: #fff;
-    padding: 20px;
+    border: 1px solid #ccc;
     border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
-    width: 100%;
-    max-width: 400px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
-body.register form input[type='text'], 
-body.register form input[type='email'], 
-body.register form input[type='number'],
-body.register form input[type='password'], 
-body.login form input[type='text'], 
-body.login form input[type='password'] {
+.form-container form {
+    width: 100%;
+   display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.form-container input[type="text"],
+.form-container input[type="email"],
+.form-container input[type="password"],
+.form-container input[type="number"] {
     width: 100%;
     padding: 10px;
-    margin-bottom: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    box-sizing: border-box;
-    font-size: 16px;
 }
 
-body.register form input[type='submit'], 
-body.login form input[type='submit'] {
-    width: 100%;
-    padding: 14px;
-    background-color: #333;
+.form-container input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #007bff; /* Change checkbox color */
+    cursor: pointer;
+}
+
+.form-container input[type="submit"] {
+    background-color: #007bff;
     color: white;
+    border: none;
+    padding: 10px 15px;
     font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.form-container input[type="radio"] {
+    margin-right: 5px;
+}
+
+.form-container input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Table Styling */
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.user-table th, .user-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.user-table th {
+    background-color: #007bff;
+    color: white;
+}
+
+.user-table td {
+    background-color: #f9f9f9;
+}
+
+/* Buttons */
+.edit, .delete {
+    padding: 5px 10px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    text-transform: uppercase;
+    transition: 0.3s;
+    font-size: 12px;
 }
 
-body.register form input[type='submit']:hover, 
-body.login form input[type='submit']:hover {
-    background-color: #ff6b6b;
+.edit {
+    background: #28a745;
+    color: white;
 }
 
-body.register form label, 
-body.login form label {
+.edit:hover {
+    background: #218838;
+}
+
+.delete {
+    background: #dc3545;
+    color: white;
+}
+
+.delete:hover {
+    background: #c82333;
+}
+
+.error {
+    color: red;
+    font-size: 12px;
     display: block;
-    margin-bottom: 8px;
-    font-size: 14px;
-    color: #555;
+    margin-top: 5px;
 }
 
-/* Navigation */
-nav {
-    background-color: #333;
-    display: flex;
-    justify-content: center;
+
+.toast {
     position: fixed;
-    width: 100%;
-    top: 0;
+    top: 20px;
+    right: 20px;
+    background: #28a745;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     z-index: 1000;
-}
-
-nav ul {
-    display: flex;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-
-nav ul li {
-    margin: 0 10px;
-}
-
-nav ul li a {
-    display: block;
-    color: white;
-    padding: 14px 20px;
-    text-align: center;
-    text-decoration: none;
-    font-family: Arial, sans-serif;
     font-size: 16px;
-    transition: background-color 0.3s ease;
+    animation: fadeIn 0.5s;
 }
 
-nav ul li a:hover {
-    background-color: #575757;
-    color: white;
+.toast.error {
+    background: #dc3545;
 }
 
-nav ul li a.active {
-    background-color: #575757;
-    color: yellow;
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
