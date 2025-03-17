@@ -2,15 +2,11 @@
 
 
 function activeLink($pageName) {
-
     $currentPage = basename($_SERVER["SCRIPT_FILENAME"]);
-
     return $currentPage === $pageName ? "active" : ""; 
-   
 }
 
 function pageClass() {
-
     return basename($_SERVER["SCRIPT_FILENAME"], ".php");
 }
 
