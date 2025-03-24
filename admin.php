@@ -7,15 +7,16 @@ if(!isLoggedIn()){
 }
 
 
+
 //! Fetch all users
 $sql = "SELECT * FROM users";
-$stmt = $conn->prepare($sql); // prepare() : prepares the SQL query, but does not execute it yet, its for security reasons to prevent SQL injection 
+$stmt = $conn->prepare($sql);
 $stmt->execute();
 $result = $stmt->get_result();
 
 
 
-if($_SERVER["REQUEST_METHOD"] === "POST") { // to detect any request method equal to POST
+if($_SERVER["REQUEST_METHOD"] === "POST") { 
 
     //! Update user
     if(isset($_POST["editUser"])) {
@@ -38,7 +39,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST") { // to detect any request method equa
         redirect("admin.php");
 
     //! Delete user
-    } elseif (isset($_POST["deleteUser"])) {
+    } elseif (isset($_POST["deleteUser"])){
         $userId = mysqli_real_escape_string($conn, $_POST["userId"]);
 
         $sql = "DELETE FROM users WHERE id = $userId";
@@ -57,6 +58,8 @@ if($_SERVER["REQUEST_METHOD"] === "POST") { // to detect any request method equa
 
 ?>
 
+<!-- Accessing Session Data on Another Page  if (isset($_SESSION["username"])) -->
+
 <?php if(isset($_SESSION["toast"])): ?>
     <div class="toast <?php echo $_SESSION["toast"]["type"]; ?>">
         <?php echo $_SESSION["toast"]["message"]; ?>
@@ -70,9 +73,13 @@ if($_SERVER["REQUEST_METHOD"] === "POST") { // to detect any request method equa
 <?php endif; ?>
 
 
-<h1>Welcome <?php echo $_SESSION["username"] ?></h1>
+<?php if(isAdmin()): ?>
+    <h1 style="text-align:center; margin-top:60px;">Welcome <?php echo $_SESSION["username"] ?></h1>
+<?php else: ?>
+    <?php redirect("app.php"); ?>
+<?php endif; ?>
 
-<div class="container">
+<div class="tableContainer">
     <table class="user-table">
         <thead>
         <tr>
@@ -88,8 +95,8 @@ if($_SERVER["REQUEST_METHOD"] === "POST") { // to detect any request method equa
         </thead>
         <tbody>
 
-
-        <?php while ($user = mysqli_fetch_assoc($result)): ?>
+         <!-- The mysqli_fetch_array() function fetches a result row as an associative array, a numeric array, or both. -->
+        <?php while ($user = mysqli_fetch_array($result)): ?>
 
             <tr>
                 <td><?php echo $user["id"]; ?></td>

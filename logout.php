@@ -2,9 +2,11 @@
 
 include "./components/header.php";
 
+// Destroying a Session
+
 session_start();
 
-$_SESSION = [];
+session_unset();
 
 session_destroy();
 
