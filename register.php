@@ -12,7 +12,7 @@ if (isLoggedIn()) {
     redirect("app.php");
 }
 
-// isLoggedIn(), redirect() are both custom functions that i've made. custom functions are reusable used to keep the code "Dry"
+// isLoggedIn(), redirect() are both custom functions that i've made. custom functions are reusable used to keep the code "Dry".
 
 // Go to the helpers.php
 
