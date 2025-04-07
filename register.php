@@ -27,7 +27,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     // $_POST is a SuperGlobal array that holds the data submitted through the form. it's connected with the name attribute of the input fields in the form.
     // The trim() function removes whitespace from the beginning and end of a string.
     // The filter_var() function is used to validate and sanitize data. In this case, it is used to sanitize the phone number input by removing any illegal characters. The FILTER_SANITIZE_NUMBER_INT removes all characters except digits, plus and minus signs. This ensures that the phone number is stored in a clean format in the database.
-    // The isset() function checks if a variable is set (is clicked) and is not NULL. In this case, it checks if the terms checkbox was checked by the user. If it was checked, the $terms variable is set to 1 (true), otherwise it is set to 0 (false).
+    // The isset() function checks if a variable is set (is clicked) and is not NULL. In this case, it checks if the terms checkbox was checked by the user. If it was checked, the $terms variable is set to 1 (true), otherwise it is set to 0 (false)..
 
     $username = trim($_POST["username"]);
     $email = trim($_POST["email"]);
