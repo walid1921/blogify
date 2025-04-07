@@ -1,74 +1,76 @@
-<?php 
-include "./components/header.php"; 
+<?php
+require_once "session.php";
+require_once "./db/database.php";
+require_once "utils/helpers.php";
 
-
+// If user is already logged in, redirect
 if (isLoggedIn()) {
-    redirect("admin.php");
+    redirect('app.php');
 }
-
 
 $error = "";
 
-if($_SERVER["REQUEST_METHOD"] == "POST"){
-
-    $username = $_POST["username"];
-    $password = $_POST["password"];
-    
-
-    if (empty(trim($username)) || empty(trim($password))) {
-        $error = "Username and Password are required";
-    } else {
-        $username = mysqli_real_escape_string($conn, $username);
-        $password = mysqli_real_escape_string($conn, $password);
-        
-        $sql = "SELECT * FROM users WHERE username = '$username'";
-        $result = mysqli_query($conn, $sql);
-        
-        if (mysqli_num_rows($result) === 1) {
-            $row = mysqli_fetch_assoc($result);
-            if (password_verify($password, $row["password"])) {
-                if ($row["admin"] == 1) {
-                session_regenerate_id(true); // This is a security measure to prevent session hijacking 
-                $_SESSION["logged_in"] = true; // This is how we know the user is logged in
-                $_SESSION["username"] = $row["username"]; // 
-                $_SESSION["admin"] = true; // This is how we know the user is an admin 
-                redirect("admin.php");
-                } else {
-                session_regenerate_id(true);
-                $_SESSION["logged_in"] = true; 
-                $_SESSION["username"] = $row["username"];
-                redirect("app.php");
-                }
-
-                
-            } else {
-                $error = "Invalid username or password";
-            }
-        } else {
-            $error = "User not found";
-        }
-    }
-
+function getUserByUsername($pdo, $username) {
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE username = :username LIMIT 1");
+    $stmt->execute(['username' => $username]);
+    return $stmt->fetch(PDO::FETCH_ASSOC); // returns one user or false
 }
+
+function handleLoginSession($user, $isAdmin) {
+    session_regenerate_id(true); // Prevent session hijacking
+    $_SESSION["logged_in"] = true; // This is how we know the user is logged in
+    $_SESSION["username"] = $user["username"]; // this to store the name of the user to be used across pages
+    $_SESSION["admin"] = $isAdmin; // This is how we know the user is an adm
+    redirect($isAdmin ? 'admin.php' : 'app.php');
+}
+
+function validateLoginInput($username, $password) {
+    if (empty($username) || empty($password)) {
+        return "Username and Password are required.";
+    }
+    return "";
+}
+
+function processLogin($pdo, $username, $password) {
+    $user = getUserByUsername($pdo, $username);
+    if ($user && password_verify($password, $user["password"])) {
+        handleLoginSession($user, $user["admin"] === 1);
+    } else {
+        return "Your login credentials are incorrect. Please try again.";
+        // here one of the security precautions to not let the hacker knows that the user already exists in the DB or no
+    }
+    return "";
+}
+
+// Handle POST request
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $username = trim($_POST["username"]);
+    $password = trim($_POST["password"]);
+
+    $error = validateLoginInput($username, $password);
+    if (!$error) {
+        $error = processLogin($pdo, $username, $password);
+    }
+}
+
+
+include "./components/header.php";
 ?>
 
-    
-    <div class="hero <?php echo pageClass() ?>">
-        <div class="form-container">
-            <form method="POST" action="">
+<div class="hero <?php echo pageClass() ?>">
+    <div class="form-container">
+        <form method="POST" action="">
 
-                <span class="error"><?php echo $error; ?></span><br><br>
+            <span class="error"><?php echo $error; ?></span><br><br>
 
-                <h2>Login</h2>
+            <h2>Login</h2>
 
-                <input value="<?php echo isset($username) ? $username : "" ?>" type="text" name="username" placeholder="username" required><br><br>
-                <input type="password" name="password" placeholder="password" required><br><br>
+            <input value="<?php echo isset($username) ? htmlspecialchars($username) : "" ?>" type="text" name="username" placeholder="username" required><br><br>
+            <input type="password" name="password" placeholder="password" required><br><br>
 
-    
-                <input type="submit" value="Login">
-            </form>
-        </div>
+            <input type="submit" value="Login">
+        </form>
     </div>
-    
+</div>
+
 <?php include "./components/footer.php"; ?>
-;

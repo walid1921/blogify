@@ -1,25 +1,48 @@
 <?php
 
-// Here is a list of the diffrent APIs in PHP to connect to a database:
-// MySQLi (improved): supports both procedural and object-oriented programming styles - recommended for beginners 
-// PDO (PHP Data Objects) : supports multiple databases and is more secure than MySQLi - recommended for advanced users 
-// ODBC (Open Database Connectivity) : supports multiple databases and is used for connecting to remote databases - recommended for advanced users 
+// Here is a list of the different APIs in PHP to connect to a database:
+// MySQLi : recommended for beginners, but not secure, because it doesn't support prepared statements, in case of SQL injection => So use it only for learning purposes
+// PDO (PHP Data Objects) : supports multiple databases (mysql, sqlLite) and is more secure than MySQLi - recommended for advanced users
+// ODBC (Open Database Connectivity) : supports multiple databases and is used for connecting to remote databases - recommended for advanced users
 
-// 1. MySQLi 
 
-$host = "localhost"; // hostName or IP address
-$user = "root";
+$host = "localhost"; // Hostname or the IP address of the server where the database is running. It is set to localhost for a local database.
+$user = "root"; // The username used to connect to the database.
 $password = "root";
 $dbname = "registration_test";
 
-$conn = new mysqli($host, $user, $password, $dbname);
+// 1. MySQLi
+//$conn = new mysqli($host, $user, $password, $dbname);
 
- 
-if ($conn->connect_error) {  // Check connection
-    die("Connection failed :" . $conn->connect_error);  // die() function prints a message and exits the current script
-} 
+//if ($conn->connect_error) {
+//    die("Connection failed :" . $conn->connect_error);
+//}
 // else if ($conn) {
 //     echo "Connection successful";
 // }
 
-?>
+
+
+// 2. PDO : php database object
+$dsn = "mysql:host=$host;dbname=$dbname";
+
+try {
+    $pdo = new PDO($dsn, $user, $password); // This creates a new PDO object, which serves as the primary connection to the database.
+    $pdo-> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // This sets the error mode to exception, which means that any database errors will throw exceptions.
+//    echo "Connected successfully!";
+} catch (PDOException $e) { // This catches any exceptions thrown during the connection process. e : the exception object that contains information about the error.
+    die("Connection failed :" . $e->getMessage()); // This terminates the script and displays the error message.
+}
+
+// To change the database name and password through terminal
+// 1. Open the terminal and navigate to the directory where your database is located.
+// 2. Use the command line to access your database management system (e.g., MySQL, PostgreSQL).
+// 3. Use the command to connect to your database (e.g., mysql -u root -p).
+// 4. Enter your password when prompted.
+// 5. Use the command to change the database name (e.g., ALTER DATABASE old_db_name RENAME TO new_db_name;).
+// 6. Use the command to change the password (e.g., ALTER USER 'username'@'localhost' IDENTIFIED BY 'new_password';).
+// 7. Exit the database management system (e.g., exit;).
+
+
+
+// Then go to register.php file and follow

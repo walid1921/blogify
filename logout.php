@@ -1,15 +1,10 @@
 <?php
 
-include "./components/header.php";
+require_once "session.php";
+require_once "utils/helpers.php";
 
 // Destroying a Session
-
-session_start();
-
 session_unset();
-
 session_destroy();
 
-redirect("index.php");
-
-?>
+redirect("login.php");

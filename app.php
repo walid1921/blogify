@@ -1,18 +1,21 @@
-<?php 
+<?php
+require_once "session.php";
+require_once "./db/database.php";
+require_once "utils/helpers.php";
 
-include "./components/header.php";
-
-if (!isLoggedIn()) {
-    redirect("index.php");
+if(!isLoggedIn()) {
+    redirect("login.php");
 }
 
+include "./components/header.php";
 ?>
 
+    <div style="text-align:center; margin-top:60px; display:flex; flex-direction: column; gap:100px; ">
 
-    <div class="container">
-       
+        <h1 style="text-align:center; margin-top:60px;">Welcome <?php echo $_SESSION["username"]; ?></h1>
+
         <h1>A To Do List App will be here</h1>
-       
+
     </div>
 
 

@@ -1,17 +1,16 @@
-<?php 
+<?php
 
-//! Secure session start
 session_start([
-    'use_only_cookies' => 1,        // Prevents session ID from being passed in the URL, and make sure that its used only as a cookie.
-    'use_strict_mode' => 1,         // Prevents attackers from setting a predefined session ID.
-    'cookie_httponly' => 1,         // Stops JavaScript from accessing session cookies (prevents XSS attacks).
-    'cookie_secure' => 0,           // Ensures the session cookie is sent only over HTTPS. Set it to 0 if your website is on HTTP
-    'cookie_samesite' => 'Strict',  // Protects against Cross-Site Request Forgery (CSRF) attacks.
+    'use_only_cookies' => 1,
+    'use_strict_mode' => 1,
+    'cookie_httponly' => 1,
+    'cookie_secure' => 1,
+    'cookie_samesite' => 'Strict',
 ]);
 
-//! Regenerate session ID every 5 minutes and After a user logs in. 
+//! Regenerate session ID every 5 minutes and After a user logs in.
 // This prevents attackers from using stolen session IDs.
-if (!isset($_SESSION['LAST_REGEN']) || time() - $_SESSION['LAST_REGEN'] > 300) {  
+if (!isset($_SESSION['LAST_REGEN']) || time() - $_SESSION['LAST_REGEN'] > 300) {
     session_regenerate_id(true); // Generates a new session ID & deletes the old one
     $_SESSION['LAST_REGEN'] = time();
 }
@@ -54,5 +53,3 @@ $_SESSION['LAST_ACTIVITY'] = time(); // Update last activity
 
 // $handler = new SecureSessionHandler();
 // session_set_save_handler($handler, true);
-
-

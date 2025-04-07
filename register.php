@@ -1,56 +1,49 @@
 <?php
+require_once "session.php";
+require_once "./db/database.php";
+require_once "utils/helpers.php";
 
-global $conn;
-include "./components/header.php";
+// This the registration page for new users with (Validation - Sanitization - Hashing  - Error Handling - Checking if the user exists) and storing its data in the database.
 
-// This the registration page that handles the user registration by validating and storing its data securely in a database.
-// Sessions + Form Handling (Validation - Sanitization - Hashing  - Error Handling - Checking if the user exists)
-
-
-// It begins by checking if a user is already logged-in if so, they are redirected to the app page.
+// It begins by checking if a user is already logged-in if so, they are redirected to the app page, by using these two customized functions
+// (reusable, keep the code dry and readable, their name should be clear) => helpers.php
 if (isLoggedIn()) {
     redirect("app.php");
 }
 
-// isLoggedIn(), redirect() are both custom functions that i've made. custom functions are reusable used to keep the code "Dry".
 
-// Go to the helpers.php
+// If not (user is not logged-in), its has to create a new user using a controlled Form
 
-// If not, its has to create a new user using a controlled Form
-
-// I initialized variables to hold user input and error messages coming from the form.
+// we initialize variables to hold user input and error messages coming from the form. Scroll down to the form
 $username = $email = $password = $confPassword = $age = $phone = $gender = $terms = "";
 $usernameErr = $emailErr = $passwordErr = $confPasswordErr = $ageErr = $phoneErr = $genderErr = $termsErr = "";
 $successMessage= "";
 
 
 
-// 2. Here to Check if the request method is POST, for that we use the SuperGlobal $_SERVER["REQUEST_METHOD"]. Because we have two types of requests: GET and POST. The GET method is used to request data from the server, while the POST method is used to send data to a server to create/update a resource. In this case, we are using the POST method to send data to the server for user registration.
+// Here to Check if the request method is POST, for that we use the SuperGlobal $_SERVER["REQUEST_METHOD"]. Because we have two types of requests: GET and POST. The GET method is used to request data from the server, while the POST method is used to send data to a server to create/update a resource. In this case, we are using the POST method to send data to the server for user registration.
 if($_SERVER["REQUEST_METHOD"] == "POST") {
-    
-    // $_POST = Data is not visible in the URL, will be secure. It is ideal for sensitive data.
-    // $_GET = Data is visible to everyone in the URL and its not secure. Data has a limit to send. It can send only strings and it is ideal for non-sensitive data. like Search
 
-    // The mysqli_real_escape_string() to sanitize and ensure that any special characters in the input are escaped, making it safe to use in SQL queries (preventing SQL injection attacks)
+    // $_POST is a SuperGlobal array that holds the data submitted through the form. it's connected with the name attribute of the input fields in the form.
     // The trim() function removes whitespace from the beginning and end of a string.
-    // The filter_var() function is used to validate and sanitize data. In this case, it is used to sanitize the phone number input by removing any illegal characters. The FILTER_SANITIZE_NUMBER_INT filter removes all characters except digits, plus and minus signs. This ensures that the phone number is stored in a clean format in the database.
-    // The isset() function checks if a variable is set and is not NULL. In this case, it checks if the terms checkbox was checked by the user. If it was checked, the $terms variable is set to 1 (true), otherwise it is set to 0 (false).
+    // The filter_var() function is used to validate and sanitize data. In this case, it is used to sanitize the phone number input by removing any illegal characters. The FILTER_SANITIZE_NUMBER_INT removes all characters except digits, plus and minus signs. This ensures that the phone number is stored in a clean format in the database.
+    // The isset() function checks if a variable is set (is clicked) and is not NULL. In this case, it checks if the terms checkbox was checked by the user. If it was checked, the $terms variable is set to 1 (true), otherwise it is set to 0 (false).
 
-    $username = mysqli_real_escape_string($conn, $_POST["username"]);
-
-    $email = mysqli_real_escape_string($conn, $_POST["email"]);
+    $username = trim($_POST["username"]);
+    $email = trim($_POST["email"]);
     $password = trim($_POST["password"]);
     $confPassword = trim($_POST["confPassword"]);
-    $age = mysqli_real_escape_string($conn, $_POST["age"]);
+    $age = trim($_POST["age"]);
     $phone = filter_var(trim($_POST["phone"]), FILTER_SANITIZE_NUMBER_INT);
-    $gender = mysqli_real_escape_string($conn, $_POST["gender"]);
+    $gender = trim($_POST["gender"]);
     $terms = isset($_POST["terms"]) ? 1 : 0;
+
     
 
     // Username validation:
-    // The empty() function checks if the variable is empty ("")
-    // The preg_match() is a built-in function checks if the username matches the specified pattern, it takes two arguments: the pattern and the string to check.
-    // So it says, If the username is empty or not valid, it sets an error message.
+    // The empty() function checks if the variable is empty ("") // why required attribute not enough, because its not secure enough, so we have to check it in the backend too, because simply you can disable the required attribute in the browser using the developer tools and you will be able to submit the form without filling the username field.
+    // The preg_match() is a built-in function checks if the username matches the condition, it takes two arguments: the condition and the string to check.
+    // So basically it says, If the username is empty or not valid, it sets an error message.
 
     if (empty($username) || !preg_match("/^[a-zA-Z0-9_]{5,20}$/", $username)) {
         $usernameErr = "Username must be 5-20 chars (letters, numbers, underscore)";
@@ -98,49 +91,51 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
     
     // If all validations pass, proceed with registration
-    if (!$usernameErr && !$emailErr && !$passwordErr && !$confPasswordErr && !$ageErr && !$phoneErr && !$genderErr && !$termsErr)
-{
-        
-
+    if (!$usernameErr && !$emailErr && !$passwordErr && !$confPasswordErr && !$ageErr && !$phoneErr && !$genderErr && !$termsErr) {
 
         // Check if username or email already exists, preventing duplicate registrations
 
-        // prepare() prepares an SQL statement for execution, and returns a statement object
-        // the SQL query checks if a row exists in the users table where The username, email matches a given value. ? is a placeholder for this value. means SQL query is prepared with placeholders (?)
-        $stmtCheck = $conn->prepare("SELECT * FROM users WHERE username = ? OR email = ?");
-        // bind_param() method, does two things: Links the actual values of $username and $email to the placeholders (?), and Defines the data type.
-        // SQL injection is prevented because user input is not directly inserted into the query.
-        $stmtCheck->bind_param("ss", $username, $email);
+        // we use prepared method in order to securly work with the database and to prevent SQL injection attacks.
+        // its basically the same when we used sanitaze inputs to prevent like script injection in the form, this will be to protect the database from SQL injection attacks.
+        // for example attackers can inject malicious SQL code into the database query (SQL query to delete database), which can lead to data breaches or unauthorized access.
+
+        // The prepare() method is used to prepare an SQL statement for execution. It takes a SQL query as an argument and returns a statement object.
+        // the SQL query checks if a row exists in the users table where The username, email matches a given value. : is a placeholder for this value. means SQL query is prepared with placeholders (:)
         // The execute() method runs the prepared SQL query with the values bound earlier. At this point, the database checks if there are any rows in the users table where: The username matches $username, OR The email matches $email.
-        $stmtCheck->execute();
-        // The get_result() method to fetch the result from the query. $result now holds the database response, which could be A row or Empty
-        $result = $stmtCheck->get_result();
-        $stmtCheck->close();  // Close the statement to free up memory and prevent potential issues
-    
-        if ($result->num_rows > 0) { // num_rows property returns the number of rows in the result set.
+        // The fetch method to fetch the result from the query. $result now holds the database response, which could be A row or Empty
+
+        $stmtCheck = $pdo->prepare("SELECT * FROM users WHERE username = :username OR email = :email");
+        $stmtCheck->execute(['username' => $username, 'email' => $email]);
+        $result = $stmtCheck->fetch(PDO::FETCH_ASSOC);
+
+        if ($result) {
             $usernameErr = "Username or email already exists";
         } else{
-            // Insert user into database
-            $stmt = $conn->prepare("INSERT INTO users (username, email, password, age, phone, gender, terms) VALUES (?, ?, ?, ?, ?, ?, ?)");
-            $stmt->bind_param("sssissi", $username, $email, $hashedPassword, $age, $phone, $gender, $terms);
-            
-            // Upon successful registration:
-            if ($stmt->execute()) {
-                session_regenerate_id(true); // Create a new ID for new registration Prevent session hijacking
-                $_SESSION["logged_in"] = true; // Set session variable to indicate user is logged in.
-                $_SESSION["admin"] = false; // Set session variable to indicate user is not an admin
-                $_SESSION["username"] = $username; // Store username in session to be used later
+            // Insert new user data into database
+            $stmt = $pdo->prepare("INSERT INTO users (username, email, password, age, phone, gender, terms) VALUES (:username, :email, :password, :age, :phone, :gender, :terms)");
+            $stmt->execute([
+                'username' => $username,
+                'email' => $email,
+                'password' => $hashedPassword,
+                'age' => $age,
+                'phone' => $phone,
+                'gender' => $gender,
+                'terms' => $terms
+            ]);
+
+            if ($stmt->rowCount()) {
+                $_SESSION["logged_in"] = true;
+                $_SESSION["admin"] = false;
+                $_SESSION["username"] = $username;
                 redirect("app.php");
             } else {
                 $successMessage = "<h3 class='error'> Registration failed (error: " . $stmt->error . ")</h3>";
             }
-    
-            $stmt->close();
         }
     }
-    
 }
 
+include "./components/header.php";
 ?>
     
     <div class="hero">
