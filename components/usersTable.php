@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         </thead>
 
         <tbody>
-            <?php if ($users && count($users) > 0): ?>
+            <?php if (!empty($users) && count($users) > 0): ?>
                 <?php foreach ($users as $user): ?>
                     <tr>
                         <td><?php echo htmlspecialchars($user["id"]); ?></td>
