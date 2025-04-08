@@ -10,6 +10,9 @@
                 <a class="<?php echo activeLink("app.php") ?>" href="app.php">App</a>
             </li>
             <li>
+                <a class="<?php echo activeLink("settings.php") ?>" href="settings.php">Settings</a>
+            </li>
+            <li>
                 <a href="logout.php">Logout</a>
             </li>
 
@@ -20,6 +23,9 @@
 
             <li>
                 <a class="<?php echo activeLink("admin.php") ?>" href="admin.php">Admin</a>
+            </li>
+            <li>
+                <a class="<?php echo activeLink("settings.php") ?>" href="settings.php">Settings</a>
             </li>
             <li>
                 <a href="logout.php">Logout</a>
