@@ -135,7 +135,7 @@ nav {
 }
 
 .tableContainer {
-  margin: 50px;
+  margin: 0 80px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -244,7 +244,6 @@ nav {
 .user-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
   border-radius: $border-radius;
 
   th,
@@ -263,6 +262,13 @@ nav {
 
   td {
     background-color: #f9f9f9;
+
+    span {
+      display: block;
+      margin-bottom: 10px;
+      color: darkred;
+      font-size: 12px
+    }
   }
 }
 
