@@ -3,7 +3,7 @@ require_once "session.php";
 require_once "./db/database.php";
 require_once "utils/helpers.php";
 
-// This the registration page for new users with (Validation - Sanitization - Hashing  - Error Handling - Checking if the user exists) and storing its data in the database.
+// This the registration page for new users with (Validation - Sanitization - Hashing  - Error Handling - Checking if the user exists - session "helpers.php" & session security "session.php" ) and storing its data in the database.
 
 // It begins by checking if a user is already logged-in if so, they are redirected to the app page, by using these two customized functions
 // (reusable, keep the code dry and readable, their name should be clear) => helpers.php

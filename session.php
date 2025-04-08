@@ -1,12 +1,13 @@
 <?php
-
 session_start([
-    'use_only_cookies' => 1,
-    'use_strict_mode' => 1,
-    'cookie_httponly' => 1,
-    'cookie_secure' => 1,
-    'cookie_samesite' => 'Strict',
+    'use_only_cookies' => 1, // this ensures that PHP only uses cookies to store session data, to prevent session fixation attacks
+    'use_strict_mode' => 1, // this ensures that PHP will not accept uninitialized session IDs, to prevent session fixation attacks
+    'cookie_httponly' => 1, // this ensures that the session cookie is only accessible via HTTP, to prevent JavaScript access
+    'cookie_secure' => 1, // this ensures that the session cookie is only sent over HTTPS, to prevent eavesdropping
+    'cookie_samesite' => 'Strict', // this ensures that the session cookie is only sent to the same site, to prevent CSRF attacks
 ]);
+
+//
 
 //! Regenerate session ID every 5 minutes and After a user logs in.
 // This prevents attackers from using stolen session IDs.

@@ -11,17 +11,6 @@ function pageClass() {
 }
 
 // isLoggedIn() checks if the user is logged in by checking the session variable.
-// A session in PHP is a way to store information (variables, data) across multiple pages for a user.
-// Why : for User Authentication – Keep users logged in across multiple pages.
-// How it Works in PHP
-// 1. The user visits a website, a session starts with session_start(), where we have to use it in the Top of each page (Top of the script before HTML) we want to use the session stored variables, best in header.php file. This function create a new session or use an existing one, allowing us to store and call session variables.
-// 2. PHP generates a unique session ID for the user and stores it in the browser as a cookie (PHPSESSID). This ID is used to call that session data from the server on next page requests (e.g., user login status, username, shopping cart).
-// 3. Sessions ends when the user closes their browser or with session_destroy() and session_unset();
-
-// $_SESSION is a SuperGlobal array used to store session variables (session data). 
-// $_SESSION["key"] = "value" : Sets a session variable, so this value will be remembered on the server on any page that has session_start() at the top of the page
-// $_SESSION["key"] : call a session variable
-
 function isLoggedIn() {
     return isset($_SESSION["logged_in"]) && $_SESSION["logged_in"] === true;
     // so basically here its double check if the logged_in variable exists and if it's true - this variable will be set in the login functionality (when user login-in)
