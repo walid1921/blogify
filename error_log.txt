@@ -18,3 +18,6 @@ Error: [2] Undefined variable $pdo - /Users/praktikant/Desktop/loginAppExplained
 [2025-04-07 15:52:46] Error: [2] Undefined variable $pdo in /Users/praktikant/Desktop/loginAppExplained/login.php on line 52
 [2025-04-07 15:53:00] Error: [2] Undefined variable $pdo in /Users/praktikant/Desktop/loginAppExplained/login.php on line 52
 [2025-04-07 15:53:26] Error: [2] Undefined variable $pdo in /Users/praktikant/Desktop/loginAppExplained/login.php on line 52
+[2025-04-08 08:18:00] Error: [2] Undefined variable $stm in /Users/praktikant/Desktop/loginAppExplained/components/usersTable.php on line 28
+[2025-04-08 08:18:02] Error: [2] Undefined variable $stm in /Users/praktikant/Desktop/loginAppExplained/components/usersTable.php on line 28
+[2025-04-08 08:18:02] Error: [2] Undefined variable $stm in /Users/praktikant/Desktop/loginAppExplained/components/usersTable.php on line 28
