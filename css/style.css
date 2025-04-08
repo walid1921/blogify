@@ -99,7 +99,7 @@ nav ul li a:hover, nav ul li a.active {
 }
 
 .tableContainer {
-  margin: 50px;
+  margin: 0 80px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -191,7 +191,6 @@ nav ul li a:hover, nav ul li a.active {
 .user-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
   border-radius: 5px;
 }
 .user-table th,
@@ -206,6 +205,12 @@ nav ul li a:hover, nav ul li a.active {
 }
 .user-table td {
   background-color: #f9f9f9;
+}
+.user-table td span {
+  display: block;
+  margin-bottom: 10px;
+  color: darkred;
+  font-size: 12px;
 }
 
 .edit,
