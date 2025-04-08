@@ -1,0 +1,339 @@
+
+$primary-color: #3775b9;
+$primary-hover: #004080;
+$secondary-color: #575757;
+$dark-bg: #333;
+$light-bg: #f4f4f4;
+$text-color: #333;
+$white: #ffffff;
+$error-color: #dc3545;
+$success-color: #28a745;
+$border-radius: 5px;
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-color: $light-bg;
+  color: $text-color;
+}
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: $text-color;
+}
+
+// ======================================
+// NAVBAR
+// ======================================
+nav {
+  background-color: $dark-bg;
+  padding: 10px 0;
+
+  ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+
+    li {
+      display: inline;
+
+      a {
+        text-decoration: none;
+        color: $white;
+        padding: 10px 40px;
+        transition: 0.3s;
+
+        &:hover,
+        &.active {
+          background-color: $secondary-color;
+          color: $white;
+        }
+      }
+    }
+  }
+}
+
+// ======================================
+// PAGES STYLING
+// ======================================
+.login {
+  background-color: #ebebeb;
+}
+
+// ======================================
+// HERO SECTION
+// ======================================
+.hero {
+  background-image: url("../images/hero-image.png");
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $white;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: -1;
+  }
+
+  h1 {
+    font-size: 2.5em;
+  }
+
+  p {
+    font-size: 1.2em;
+    margin-top: 10px;
+  }
+
+  .hero-buttons {
+    margin-top: 20px;
+
+    .btn {
+      display: inline-block;
+      background: $primary-color;
+      color: $white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: $border-radius;
+      transition: 0.3s;
+      font-weight: bold;
+
+      &:hover {
+        background: $primary-hover;
+        color: $white;
+      }
+    }
+  }
+}
+
+// ======================================
+// CONTAINERS
+// ======================================
+.container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tableContainer {
+  margin: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .search {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    margin-bottom: 20px;
+
+    form {
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        width: 100%;
+    }
+
+    input[type="text"] {
+      width: 300px;
+      padding: 10px;
+      border-radius: $border-radius;
+      border: 1px solid #ccc;
+      margin-right: 10px;
+    }
+
+    button {
+      background-color: $primary-color;
+      color: $white;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+      border-radius: $border-radius;
+
+      &:hover {
+        background-color: #0056b3;
+      }
+    }
+  }
+}
+
+// ======================================
+// FORM STYLING
+// ======================================
+.form-container {
+  width: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: $border-radius;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  background-color: $white;
+  color: black;
+
+  form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: $border-radius;
+    }
+
+    input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: $primary-color;
+      cursor: pointer;
+    }
+
+    input[type="radio"] {
+      margin-right: 5px;
+    }
+
+    input[type="submit"] {
+      background-color: $primary-color;
+      color: $white;
+      border: none;
+      padding: 10px 15px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: $border-radius;
+      width: 100%;
+      margin-top: 10px;
+
+      &:hover {
+        background-color: #0056b3;
+      }
+    }
+  }
+}
+
+// ======================================
+// TABLE STYLING
+// ======================================
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  border-radius: $border-radius;
+
+  th,
+  td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+
+  }
+
+  th {
+    background-color: $primary-color;
+    color: $white;
+
+  }
+
+  td {
+    background-color: #f9f9f9;
+  }
+}
+
+// ======================================
+// BUTTONS
+// ======================================
+.edit,
+.delete {
+  padding: 5px 10px;
+  border: none;
+  border-radius: $border-radius;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 12px;
+  color: $white;
+}
+
+.edit {
+  background: $success-color;
+
+  &:hover {
+    background: #218838;
+  }
+}
+
+.delete {
+  background: $error-color;
+
+  &:hover {
+    background: #c82333;
+  }
+}
+
+// ======================================
+// ERROR MESSAGES
+// ======================================
+.error {
+  color: $error-color;
+  font-size: 12px;
+  display: block;
+  margin-top: 5px;
+}
+
+// ======================================
+// TOAST NOTIFICATIONS
+// ======================================
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: $success-color;
+  color: $white;
+  padding: 15px 20px;
+  border-radius: $border-radius;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  font-size: 16px;
+  animation: fadeIn 0.5s;
+
+  &.error {
+    background: $error-color;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

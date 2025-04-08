@@ -1,0 +1,23 @@
+{
+  "name": "loginappexplained",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "scss" : "sass --watch scss:css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/walid1921/loginApp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/walid1921/loginApp/issues"
+  },
+  "homepage": "https://github.com/walid1921/loginApp#readme",
+  "description": "",
+  "devDependencies": {
+    "sass": "^1.86.3"
+  }
+}
