@@ -1,7 +1,7 @@
 <?php
-require_once "session.php";
-require_once "./db/database.php";
-require_once "utils/helpers.php";
+require_once "includes/session.php";
+require_once "includes/database.php";
+require_once "includes/helpers.php";
 
 // If user is already logged in, redirect
 if (isLoggedIn()) {
