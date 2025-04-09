@@ -12,8 +12,6 @@ include "./components/header.php";
 
     <div style="text-align:center; margin-top:60px; display:flex; flex-direction: column; gap:100px; ">
 
-        <h1 style="text-align:center; margin-top:60px;">Welcome <?php echo $_SESSION["username"]; ?></h1>
-
         <h1>A To Do List App will be here</h1>
 
     </div>

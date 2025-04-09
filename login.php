@@ -5,7 +5,7 @@ require_once "includes/helpers.php";
 
 // If user is already logged in, redirect
 if (isLoggedIn()) {
-    redirect('app.php');
+    redirect('todo.php');
 }
 
 $error = "";
@@ -21,7 +21,7 @@ function handleLoginSession($user, $isAdmin) {
     $_SESSION["logged_in"] = true; // This is how we know the user is logged in
     $_SESSION["username"] = $user["username"]; // this to store the name of the user to be used across pages
     $_SESSION["admin"] = $isAdmin; // This is how we know the user is an adm
-    redirect($isAdmin ? 'admin.php' : 'app.php');
+    redirect($isAdmin ? 'admin.php' : 'todo.php');
 }
 
 function validateLoginInput($username, $password) {

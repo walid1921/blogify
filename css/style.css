@@ -117,8 +117,9 @@ nav ul li a:hover, nav ul li a.active {
   justify-content: space-between;
   align-items: center;
   gap: 10px;
-  background-color: #3775b9;
-  color: #fff;
+  background-color: rgba(55, 117, 185, 0.5);
+  color: #ffffff;
+  border: 1px solid #3775b9;
   padding: 0.5rem 1rem;
   border-radius: 1rem;
   font-weight: lighter;
@@ -144,9 +145,6 @@ nav ul li a:hover, nav ul li a.active {
   padding: 5px 10px;
   cursor: pointer;
   border-radius: 5px;
-}
-.tableContainer .search button:hover {
-  background-color: rgb(43.3125, 92.1375, 145.6875);
 }
 
 .form-container {

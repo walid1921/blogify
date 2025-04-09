@@ -11,7 +11,7 @@ include "./components/header.php";
             <div class="hero-buttons">
 
                 <?php if(isLoggedIn()) : ?>
-                    <a class="btn" href="app.php">App</a>
+                    <a class="btn" href="todo.php">App</a>
                     <a class="btn" href="logout.php">Logout</a>
 
                 <?php else:  ?>

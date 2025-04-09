@@ -3,12 +3,12 @@ require_once "includes/session.php";
 require_once "includes/database.php";
 require_once "includes/helpers.php";
 
-// This the registration page for new users with (Validation - Sanitization - Hashing  - Error Handling - Checking if the user exists - session "helpers.php" & session security "includes/session.php" ) and storing its data in the database.
+// This the registration page for new users with (Validation - Sanitization - Password Hashing  - Error Handling - Checking if the user exists - session "helpers.php" & session security "includes/session.php" ) and storing its data in the database.
 
 // It begins by checking if a user is already logged-in if so, they are redirected to the app page, by using these two customized functions
 // (reusable, keep the code dry and readable, their name should be clear) => helpers.php
 if (isLoggedIn()) {
-    redirect("app.php");
+    redirect("todo.php");
 }
 
 
@@ -127,7 +127,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION["logged_in"] = true;
                 $_SESSION["admin"] = false;
                 $_SESSION["username"] = $username;
-                redirect("app.php");
+                redirect("todo.php");
             } else {
                 $successMessage = "<h3 class='error'> Registration failed (error: " . $stmt->error . ")</h3>";
             }

@@ -7,10 +7,10 @@
         <?php if(isLoggedIn() && !isAdmin()) : ?>
 
             <li>
-                <a class="<?php echo activeLink("app.php") ?>" href="app.php">App</a>
+                <a class="<?php echo activeLink("todo.php") ?>" href="todo.php">To do</a>
             </li>
             <li>
-                <a class="<?php echo activeLink("settings.php") ?>" href="settings.php">Settings</a>
+                <a class="<?php echo activeLink("profile.php") ?>" href="profile.php">Profile</a>
             </li>
             <li>
                 <a href="logout.php">Logout</a>
@@ -18,14 +18,14 @@
 
         <?php elseif(isLoggedIn() && isAdmin()): ?>
             <li>
-                <a class="<?php echo activeLink("app.php") ?>" href="app.php">App</a>
+                <a class="<?php echo activeLink("todo.php") ?>" href="todo.php">To Do</a>
             </li>
 
             <li>
                 <a class="<?php echo activeLink("admin.php") ?>" href="admin.php">Admin</a>
             </li>
             <li>
-                <a class="<?php echo activeLink("settings.php") ?>" href="settings.php">Settings</a>
+                <a class="<?php echo activeLink("profile.php") ?>" href="profile.php">Profile</a>
             </li>
             <li>
                 <a href="logout.php">Logout</a>

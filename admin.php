@@ -9,7 +9,7 @@ if (!isLoggedIn()) {
 }
 
 if (!isAdmin()) {
-    redirect("app.php");
+    redirect("todo.php");
 }
 
 // Handle form submissions for editing and deleting users

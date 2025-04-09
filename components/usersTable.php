@@ -7,7 +7,7 @@ if (!isLoggedIn()) {
 }
 
 if (!isAdmin()) {
-    redirect("app.php");
+    redirect("todo.php");
 }
 
 $search = "";
