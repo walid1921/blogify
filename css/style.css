@@ -105,12 +105,24 @@ nav ul li a:hover, nav ul li a.active {
   justify-content: center;
   align-items: center;
 }
-.tableContainer .search {
-  width: 100%;
+.tableContainer .table-header {
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+  width: 100%;
+}
+.tableContainer .table-header h3 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  background-color: #3775b9;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  font-weight: lighter;
+  font-size: 14px;
 }
 .tableContainer .search form {
   display: flex;
@@ -134,7 +146,7 @@ nav ul li a:hover, nav ul li a.active {
   border-radius: 5px;
 }
 .tableContainer .search button:hover {
-  background-color: #0056b3;
+  background-color: rgb(43.3125, 92.1375, 145.6875);
 }
 
 .form-container {
@@ -193,11 +205,30 @@ nav ul li a:hover, nav ul li a.active {
   border-collapse: collapse;
   border-radius: 5px;
 }
+.user-table .admin {
+  background-color: #e74c3c;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+}
+.user-table .user {
+  background-color: #3498db;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+}
 .user-table th,
 .user-table td {
   padding: 10px;
   border: 1px solid #ddd;
   text-align: center;
+}
+.user-table th span,
+.user-table td span {
+  font-size: 0.9rem;
+  color: #dc3545;
 }
 .user-table th {
   background-color: #3775b9;
@@ -205,12 +236,6 @@ nav ul li a:hover, nav ul li a.active {
 }
 .user-table td {
   background-color: #f9f9f9;
-}
-.user-table td span {
-  display: block;
-  margin-bottom: 10px;
-  color: darkred;
-  font-size: 12px;
 }
 
 .edit,

@@ -1,7 +1,7 @@
 <?php
-require_once "session.php";
-require_once "./db/database.php";
-require_once "utils/helpers.php";
+require_once "includes/session.php";
+require_once "includes/database.php";
+require_once "includes/helpers.php";
 
 if(!isLoggedIn()) {
     redirect("login.php");
@@ -36,7 +36,11 @@ include "./components/header.php";
 
     <div style="text-align:center; margin-top:60px; display:flex; flex-direction: column; gap:100px; ">
 
-        <h1 style="text-align:center; margin-top:60px;"><?php echo $_SESSION["username"]; ?> Update your account here</h1>
+        <div>
+            <h1 style="text-align:center; margin-top:60px; margin-bottom: 20px"><?php echo $_SESSION["username"]; ?> update your account here</h1>
+            <span style="color:red;">Once you updated your Credentials you will be logged out  </span>
+        </div>
+
 
         <div class="tableContainer">
             <table class="user-table">
@@ -61,7 +65,6 @@ include "./components/header.php";
                             <td><?php echo htmlspecialchars($user["phone"]); ?></td>
                             <td><?php echo htmlspecialchars($user["gender"]); ?></td>
                             <td>
-                                <span>Once you updated your Credentials you will be logged out  </span>
                                 <form method="POST" style="display:inline-block;" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                                     <input type="hidden" name="userId" value="<?php echo htmlspecialchars($user["id"]); ?>">
                                     <input type="text" name="username" value="<?php echo htmlspecialchars($user["username"]); ?>" required>

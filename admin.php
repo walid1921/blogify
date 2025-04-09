@@ -1,7 +1,7 @@
 <?php
-require_once "session.php";
-require_once "./db/database.php";
-require_once "./utils/helpers.php";
+require_once "includes/session.php";
+require_once "includes/database.php";
+require_once "includes/helpers.php";
 
 // Check if user is logged in and has admin privileges
 if (!isLoggedIn()) {
@@ -40,7 +40,7 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 include "./components/header.php";
 ?>
 
-<h1 style="text-align:center; margin-top:60px;">Welcome <?php echo $_SESSION["username"]; ?></h1>
+<h1 style="text-align:center; margin-top:60px; margin-bottom:60px;">Welcome <?php echo $_SESSION["username"]; ?></h1>
 
 <!-- Include User Table -->
 <?php include './components/usersTable.php'; ?>

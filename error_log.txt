@@ -1,10 +1,2 @@
-[2025-04-08 12:37:01] Error: [2] Undefined array key "id" in /Users/praktikant/Desktop/loginAppExplained/settings.php on line 66
-[2025-04-08 12:37:01] Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /Users/praktikant/Desktop/loginAppExplained/settings.php on line 66
-[2025-04-08 12:38:23] Error: [2] Undefined array key "id" in /Users/praktikant/Desktop/loginAppExplained/settings.php on line 58
-[2025-04-08 12:38:23] Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /Users/praktikant/Desktop/loginAppExplained/settings.php on line 58
-[2025-04-08 12:38:23] Error: [2] Undefined array key "id" in /Users/praktikant/Desktop/loginAppExplained/settings.php on line 67
-[2025-04-08 12:38:23] Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /Users/praktikant/Desktop/loginAppExplained/settings.php on line 67
-[2025-04-08 12:38:45] Error: [2] Undefined array key "id" in /Users/praktikant/Desktop/loginAppExplained/settings.php on line 59
-[2025-04-08 12:38:45] Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /Users/praktikant/Desktop/loginAppExplained/settings.php on line 59
-[2025-04-08 12:38:45] Error: [2] Undefined array key "id" in /Users/praktikant/Desktop/loginAppExplained/settings.php on line 68
-[2025-04-08 12:38:45] Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /Users/praktikant/Desktop/loginAppExplained/settings.php on line 68
+[2025-04-09 08:40:29] Error: [2] Array to string conversion in /Users/praktikant/Desktop/loginAppExplained/components/usersTable.php on line 31
+[2025-04-09 08:40:30] Error: [2] Array to string conversion in /Users/praktikant/Desktop/loginAppExplained/components/usersTable.php on line 31

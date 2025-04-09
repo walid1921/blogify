@@ -7,7 +7,7 @@ session_start([
     'cookie_samesite' => 'Strict', // this ensures that the session cookie is only sent to the same site, to prevent CSRF attacks
 ]);
 
-//
+require_once "helpers.php";
 
 //! Regenerate session ID every 5 minutes and After a user logs in.
 // This prevents attackers from using stolen session IDs.

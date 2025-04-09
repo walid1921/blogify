@@ -1,7 +1,7 @@
 <?php
 
-require_once "session.php";
-require_once "utils/helpers.php";
+require_once "includes/session.php";
+require_once "includes/helpers.php";
 
 // Destroying a Session
 session_unset(); // to remove all session variables
