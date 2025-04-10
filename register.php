@@ -41,6 +41,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     
 
     // Username validation:
+    // Never trust the user input, we always have to validate and sanitize it.
     // The empty() function checks if the variable is empty ("") // why required attribute not enough, because its not secure enough, so we have to check it in the backend too, because simply you can disable the required attribute in the browser using the developer tools and you will be able to submit the form without filling the username field.
     // The preg_match() is a built-in function checks if the username matches the condition, it takes two arguments: the condition and the string to check.
     // So basically it says, If the username is empty or not valid, it sets an error message.

@@ -1,9 +1,9 @@
 <?php
 
 // Here is a list of the different APIs in PHP to connect to a database:
-// MySQLi : recommended for beginners, but not secure, because it doesn't support prepared statements, in case of SQL injection => So use it only for learning purposes
-// PDO (PHP Data Objects) : supports multiple databases (mysql, sqlLite) and is more secure than MySQLi - recommended for advanced users
-// ODBC (Open Database Connectivity) : supports multiple databases and is used for connecting to remote databases - recommended for advanced users
+// MySQLi : recommended for learning purpose, but not secure, in case of SQL injection, because it doesn't support prepared statements.
+// PDO (PHP Data Objects) : supports multiple databases (mysql, sqlLite) and is more secure than MySQLi
+// ODBC (Open Database Connectivity) : supports multiple databases and is used for connecting to remote databases
 
 
 $host = "localhost"; // Hostname or the IP address of the server where the database is running. It is set to localhost for a local database.

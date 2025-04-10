@@ -21,9 +21,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $newUsername = $_POST["username"];
         $newEmail = $_POST["email"];
 
-        if (editUser($pdo, $userId, $newUsername, $newEmail)) {
-            redirect("logout.php");
-        }
+        editUser($pdo, $userId, $newUsername, $newEmail);
+        redirect("logout.php");
+
+    } elseif (isset($_POST["deleteUser"])) {
+        $userId = $_POST["userId"];
+        deleteUser($pdo, $userId);
+        redirect("logout.php");
     }
 }
 
@@ -36,11 +40,8 @@ include "./components/header.php";
 
     <div style="text-align:center; margin-top:60px; display:flex; flex-direction: column; gap:100px; ">
 
-        <div>
-            <h1 style="text-align:center; margin-top:60px; margin-bottom: 20px"><?php echo $_SESSION["username"]; ?> update your account here</h1>
-            <span style="color:red;">Once you updated your Credentials you will be logged out  </span>
-        </div>
 
+        <h1 style="text-align:center; margin-top:60px; margin-bottom: 20px"><?php echo $_SESSION["username"]; ?> update your account here</h1>
 
         <div class="tableContainer">
             <table class="user-table">
@@ -51,7 +52,10 @@ include "./components/header.php";
                     <th>Age</th>
                     <th>Phone</th>
                     <th>Gender</th>
-                    <th>Update Account</th>
+                    <th style="display:flex; flex-direction: column; gap: 5px">
+                        Update Account
+                        <span style="color:orange; font-size: 12px;">(Once you update your credentials you will be logged out)</span>
+                    </th>
                 </tr>
                 </thead>
 
@@ -71,6 +75,12 @@ include "./components/header.php";
                                     <input type="email" name="email" value="<?php echo htmlspecialchars($user["email"]); ?>" required>
                                     <button class="edit" type="submit" name="editUser">Edit</button>
                                 </form>
+
+                                <form method="post" style="display:inline-block;" onSubmit="return confirm('Are you sure you want to delete your account? After confirmation you will be logged out');">
+                                    <input name="userId" type="hidden" value="<?php echo htmlspecialchars($user["id"]) ?>" />
+                                    <button class="delete" type="submit" name="deleteUser">Delete account</button>
+                                </form>
+
                             </td>
                         </tr>
                     <?php endforeach; ?>
