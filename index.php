@@ -6,8 +6,8 @@ include "./components/header.php";
 ?>
     <div class="hero">
         <div class="hero-content">
-            <h1>Welcome to our PHP App</h1>
-            <p>Securely login and manage your account with us</p>
+            <h1>Welcome to Resonex</h1>
+            <p>Securely login and manage your tasks with us</p>
             <div class="hero-buttons">
 
                 <?php if(isLoggedIn()) : ?>
