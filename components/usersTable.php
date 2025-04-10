@@ -75,14 +75,14 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
                         <td><?php echo htmlspecialchars($user["gender"]); ?></td>
                         <td><?php echo htmlspecialchars($user["created_at"]); ?></td>
                         <td>
-                            <!-- Edit User Form -->
+                            <!-- Edit User  -->
                             <form method="POST" style="display:inline-block;">
                                 <input type="hidden" name="userId" value="<?php echo htmlspecialchars($user["id"]); ?>">
                                 <input type="text" name="username" value="<?php echo htmlspecialchars($user["username"]); ?>" required>
                                 <input type="email" name="email" value="<?php echo htmlspecialchars($user["email"]); ?>" required>
                                 <button class="edit" type="submit" name="editUser">Edit</button>
                             </form>
-                            <!-- Delete User Form -->
+                            <!-- Delete User  -->
                             <form method="POST" style="display:inline-block;" onsubmit="return confirm('Are you sure you want to delete this user?');">
                                 <input type="hidden" name="userId" value="<?php echo htmlspecialchars($user["id"]); ?>">
                                 <button class="delete" type="submit" name="deleteUser">Delete</button>

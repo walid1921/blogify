@@ -19,15 +19,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $newUsername = $_POST["username"];
         $newEmail = $_POST["email"];
 
-        if (editUser($pdo, $userId, $newUsername, $newEmail)) {
-            redirect("admin.php");
-        }
+        editUser($pdo, $userId, $newUsername, $newEmail);
+        redirect("admin.php");
+
     } elseif (isset($_POST["deleteUser"])) {
         $userId = $_POST["userId"];
-
-        if (deleteUser($pdo, $userId)) {
-            redirect("admin.php");
-        }
+        deleteUser($pdo, $userId);
+        redirect("admin.php");
     }
 }
 
