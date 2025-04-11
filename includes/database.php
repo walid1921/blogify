@@ -2,14 +2,15 @@
 
 $host = "localhost"; // Hostname or the IP address of the server where the database is running. It is set to localhost for a local database.
 $user = "root"; // The username used to connect to the database.
-$password = "root";
+$password = "Wilo1921@";
 $dbname = "registration_test";
 
 // 1. MySQLi
 //$conn = new mysqli($host, $user, $password, $dbname);
 
 //if ($conn->connect_error) {
-//    die("Connection failed :" . $conn->connect_error);
+//    die("Connection fai
+//led :" . $conn->connect_error);
 //}
 // else if ($conn) {
 //     echo "Connection successful";
