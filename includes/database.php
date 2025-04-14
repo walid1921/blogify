@@ -11,7 +11,7 @@ $dbname = "registration_test";
 //if ($conn->connect_error) {
 //    die("Connection fai
 //led :" . $conn->connect_error);
-//}
+//
 // else if ($conn) {
 //     echo "Connection successful";
 // }
