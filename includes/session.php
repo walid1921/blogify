@@ -9,15 +9,13 @@ session_start([
 
 require_once "helpers.php";
 
-//! Regenerate session ID every 5 minutes and After a user logs in.
-// This prevents attackers from using stolen session IDs.
-if (!isset($_SESSION['LAST_REGEN']) || time() - $_SESSION['LAST_REGEN'] > 300) {
-    session_regenerate_id(true); // Generates a new session ID & deletes the old one
+//! 5. Regenerate session ID every 5min and after every new login.
+if (!isset($_SESSION['LAST_REGEN']) || (time() - $_SESSION['LAST_REGEN']) > 300) { // 300s = 5min
+    session_regenerate_id(true); // regenerates a new session ID & deletes the old one
     $_SESSION['LAST_REGEN'] = time();
 }
 
-//! Check for session hijacking
-// Store the user’s IP and browser details. Why? If an attacker steals a session but has a different IP/browser, they will be logged out
+//! 6. Check for session hijacking
 if (!isset($_SESSION['USER_IP'])) {
     $_SESSION['USER_IP'] = $_SERVER['REMOTE_ADDR'];
     $_SESSION['USER_AGENT'] = $_SERVER['HTTP_USER_AGENT'];
@@ -27,9 +25,8 @@ if (!isset($_SESSION['USER_IP'])) {
     redirect("login.php");
 }
 
-//! Destroy session after inactivity
-// This ensures attackers cannot reuse old sessions.
-if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 600)) { // 600 seconds = 10 minutes
+//! 7. Destroy session after inactivity
+if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 600)) { // 600s = 10min
     session_unset();
     session_destroy();
     redirect("login.php");
