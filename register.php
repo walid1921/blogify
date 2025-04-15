@@ -22,7 +22,7 @@ $successMessage= "";
 
 
 // Here to Check if the request method is POST, for that we use the SuperGlobal $_SERVER["REQUEST_METHOD"]. Because we have two types of requests: GET and POST. The GET method is used to request data from the server, while the POST method is used to send data to a server to create/update a resource. In this case, we are using the POST method to send data to the server for user registration.
-if($_SERVER["REQUEST_METHOD"] == "POST") {
+if($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // $_POST is a SuperGlobal array that holds the data submitted through the form. it's connected with the name attribute of the input fields in the form.
     // The trim() function removes whitespace from the beginning and end of a string.
@@ -96,8 +96,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Check if username or email already exists, preventing duplicate registrations
 
-        // we use prepared method in order to securly work with the database and to prevent SQL injection attacks.
-        // its basically the same when we used sanitaze inputs to prevent like script injection in the form, this will be to protect the database from SQL injection attacks.
+        // we use prepared method in order to securely work with the database and to prevent SQL injection attacks.
+        // its basically the same when we used sanitize inputs to prevent like script injection in the form, this will be to protect the database from SQL injection attacks.
         // for example attackers can inject malicious SQL code into the database query (SQL query to delete database), which can lead to data breaches or unauthorized access.
 
         // The prepare() method is used to prepare an SQL statement for execution. It takes a SQL query as an argument and returns a statement object.
@@ -141,8 +141,7 @@ include "./components/header.php";
     
     <div class="hero">
         <div class="form-container">
-        <!-- htmlspecialchars() function converts special characters to HTML entities, preventing XSS attacks.
-        $_SERVER["PHP_SELF"] returns the filename of the currently executing script. This is used to submit the form to the same page for processing. -->
+        <!-- htmlspecialchars() function converts special characters to HTML entities, preventing XSS attacks. -->
 
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
 
@@ -182,6 +181,9 @@ include "./components/header.php";
 
             <label><input type="checkbox" name="terms" value="agree"> I agree to the terms and conditions</label>
             <span class="error"><?php echo $termsErr; ?></span>
+
+            <p style=font-size:14px>Already have an account? <a href="login.php" >Login</a></p>
+
 
             <input type="submit" value="Register">
         </form>
