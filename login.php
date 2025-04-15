@@ -68,6 +68,8 @@ include "./components/header.php";
             <input value="<?php echo isset($username) ? htmlspecialchars($username) : "" ?>" type="text" name="username" placeholder="username" required><br><br>
             <input type="password" name="password" placeholder="password" required><br><br>
 
+            <p style=font-size:14px>Don't have an account? <a href="register.php" >Register</a></p>
+
             <input type="submit" value="Login">
         </form>
     </div>
