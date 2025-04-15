@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         $stmt = $pdo->prepare("SELECT * FROM users WHERE username LIKE :search OR email LIKE :search");
         $stmt->execute(['search' => "%$search%"]);
     } else {
-        $stmt = $pdo->query("SELECT * FROM users");
+        $stmt = $pdo->query("SELECT * FROM users"); // we used query instead of prepare because we don't need to bind any parameters
     }
 
     $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
 
 <div class="tableContainer">
     <div class="table-header">
-        <h3><span><?php echo count($users); ?> active users</span></h3>
+        <h3><span><?php echo !empty($users) ? count($users) : 0 ?> active users</span></h3>
 
         <div class="search">
             <form method="GET" action="">
@@ -60,14 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             <?php if (!empty($users) && count($users) > 0): ?>
                 <?php foreach ($users as $user): ?>
                     <tr>
-                        <td><?php
-                            if (htmlspecialchars($user["admin"]) == 1) {
-                                echo "<span class='admin'>Admin</span>";
-                            } else {
-                                echo "<span class='user'>User</span>";
-                            }
-                            ?>
-                        </td>
+                        <td><?php echo htmlspecialchars($user["admin"]) ? "<span class='admin'>Admin</span>" : "<span class='user'>User</span>"?></td>
                         <td><?php echo htmlspecialchars($user["username"]); ?></td>
                         <td><?php echo htmlspecialchars($user["email"]); ?></td>
                         <td><?php echo htmlspecialchars($user["age"]); ?></td>

@@ -3,7 +3,7 @@ require_once "includes/session.php";
 require_once "includes/database.php";
 require_once "includes/helpers.php";
 
-// Check if user is logged in and has admin privileges
+// Check if user is logged in and is an admin
 if (!isLoggedIn()) {
     redirect("login.php");
 }
@@ -11,6 +11,8 @@ if (!isLoggedIn()) {
 if (!isAdmin()) {
     redirect("todo.php");
 }
+
+$currentUser = $_SESSION["username"];
 
 // Handle form submissions for editing and deleting users
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -29,16 +31,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 }
 
-// Fetch users for display
-$stmt = $pdo->prepare("SELECT * FROM users");
-$stmt->execute();
-$users = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
 
 include "./components/header.php";
 ?>
 
-<h1 style="text-align:center; margin-top:60px; margin-bottom:60px;">Welcome <?php echo $_SESSION["username"]; ?></h1>
+<h1 style="text-align:center; margin-top:60px; margin-bottom:60px;">Welcome <?php echo $currentUser; ?></h1>
 
 <!-- Include User Table -->
 <?php include './components/usersTable.php'; ?>

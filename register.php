@@ -29,7 +29,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
     $password = trim($_POST["password"]);
     $confPassword = trim($_POST["confPassword"]);
     $age = trim($_POST["age"]);
-    $phone = trim($_POST["phone"]);
+    $phone = filter_var(trim($_POST["phone"]),  FILTER_SANITIZE_NUMBER_INT);
     $gender = trim($_POST["gender"]);
     $terms = isset($_POST["terms"]) ? 1 : 0;
 
@@ -66,7 +66,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     // 10. Phone Validation
-    if (empty($phone) || !preg_match("/^[0-9]{10,15}$/", $phone) || filter_var( $phone,  FILTER_SANITIZE_NUMBER_INT)) {
+    if (empty($phone) || !preg_match("/^[0-9]{10,15}$/", $phone)) {
         $phoneErr = "Invalid phone number (10-15 digits)";
     }
 
@@ -74,7 +74,6 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
     if (!$terms) {
         $termsErr = "You must agree to the terms and conditions";
     }
-
 
     
     // 12. Register the user if no errors
@@ -131,7 +130,7 @@ include "./components/header.php";
                 <input type="email" name="email" placeholder="email" value="<?php echo isset($email) ? $email : "" ?>" required>
                 <span class="error"><?php echo $emailErr; ?></span>
 
-                <input type="password" name="password" placeholder="password" required>
+                <input type="password" name="password" placeholder="password" value="<?php echo isset($password) ? $password : "" ?>" required>
                 <span class="error"><?php echo $passwordErr; ?></span>
 
                 <input type="password" name="confPassword" placeholder="confirm password" required>
