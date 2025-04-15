@@ -8,6 +8,7 @@ if (isLoggedIn()) {
     redirect('todo.php');
 }
 
+$username = $password = "";
 $error = "";
 
 function getUserByUsername($pdo, $username) {
@@ -20,7 +21,7 @@ function handleLoginSession($user, $isAdmin) {
     session_regenerate_id(true); // Prevent session hijacking
     $_SESSION["logged_in"] = true; // This is how we know the user is logged in
     $_SESSION["username"] = $user["username"]; // this to store the name of the user to be used across pages
-    $_SESSION["admin"] = $isAdmin; // This is how we know the user is an adm
+    $_SESSION["admin"] = $isAdmin; // This is how we know the user is an admin
     redirect($isAdmin ? 'admin.php' : 'todo.php');
 }
 
@@ -66,7 +67,7 @@ include "./components/header.php";
             <h2>Login</h2>
 
             <input value="<?php echo isset($username) ? htmlspecialchars($username) : "" ?>" type="text" name="username" placeholder="username" required><br><br>
-            <input type="password" name="password" placeholder="password" required><br><br>
+            <input type="password" name="password" value="<?php echo isset($password) ? $password : "" ?>" placeholder="password" required><br><br>
 
             <p style=font-size:14px>Don't have an account? <a href="register.php" >Register</a></p>
 
