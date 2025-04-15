@@ -10,14 +10,11 @@ function pageClass() {
     return basename($_SERVER["SCRIPT_FILENAME"], ".php");
 }
 
-// isLoggedIn() checks if the user is logged in by checking the session variable.
+
 function isLoggedIn() {
     return isset($_SESSION["logged_in"]) && $_SESSION["logged_in"] === true;
-    // so basically here its double check if the logged_in variable exists and if it's true - this variable will be set in the login functionality (when user login-in)
 }
 
-// redirect() is a function that takes a URL as an argument and redirects the user to that URL using the header().
-// Then it exits the script. to ensure no further code is executed after the redirect.
 function redirect($location) {
     header("Location: {$location}");
     exit;

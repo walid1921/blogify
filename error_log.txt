@@ -1,2 +1,0 @@
-[2025-04-09 08:40:29] Error: [2] Array to string conversion in /Users/praktikant/Desktop/loginAppExplained/components/usersTable.php on line 31
-[2025-04-09 08:40:30] Error: [2] Array to string conversion in /Users/praktikant/Desktop/loginAppExplained/components/usersTable.php on line 31
