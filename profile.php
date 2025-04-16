@@ -1,7 +1,9 @@
 <?php
+global $pdo;
 require_once "includes/session.php";
 require_once "includes/database.php";
 require_once "includes/helpers.php";
+require_once "includes/crudUser.php";
 
 if(!isLoggedIn()) {
     redirect("login.php");
@@ -30,8 +32,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         redirect("logout.php");
     }
 }
-
-
 
 
 

@@ -124,6 +124,21 @@ nav {
   }
 }
 
+.primary-btn {
+    background-color: $primary-color;
+    color: $white;
+    padding: 5px 10px;
+    border-radius: $border-radius;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    border: none;
+
+    &:hover {
+        background-color: $primary-hover;
+        color: $white;
+    }
+}
+
 // ======================================
 // CONTAINERS
 // ======================================
@@ -165,6 +180,10 @@ nav {
   }
 
   .search {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+
     form {
         display: flex;
         justify-content: end;
@@ -181,8 +200,8 @@ nav {
     }
 
     button {
-      background-color: $primary-color;
       color: $white;
+      background-color: $primary-color;
       border: none;
       padding: 5px 10px;
       cursor: pointer;
@@ -197,6 +216,7 @@ nav {
 .form-container {
   width: 400px;
   display: flex;
+    flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 20px;
@@ -371,3 +391,47 @@ nav {
     transform: translateY(0);
   }
 }
+
+
+
+
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+
+  .modal-content {
+    background-color: white;
+    margin: 10% auto;
+    padding: 20px;
+    width: 400px;
+    border-radius: 10px;
+    position: relative;
+  }
+
+  .close {
+    font-size: 24px;
+    cursor: pointer;
+    font-weight : lighter;
+    color: gray;
+
+    &:hover {
+        color: $secondary-color;
+    }
+  }
+}
+
+
+
+

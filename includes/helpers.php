@@ -51,13 +51,3 @@ function handleError($errno, $errstr, $errfile, $errline) {
 }
 
 set_error_handler('handleError');
-
-function editUser($pdo, $userId, $newUsername, $newEmail) {
-    $stmt = $pdo->prepare("UPDATE users SET username = :username, email = :email WHERE id = :id");
-    return $stmt->execute([':username' => $newUsername, ':email' => $newEmail, ':id' => $userId]);
-}
-
-function deleteUser($pdo, $userId) {
-    $stmt = $pdo->prepare("DELETE FROM users WHERE id = :id");
-    return $stmt->execute([':id' => $userId]);
-}

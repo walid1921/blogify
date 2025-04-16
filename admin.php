@@ -2,6 +2,7 @@
 require_once "includes/session.php";
 require_once "includes/database.php";
 require_once "includes/helpers.php";
+require_once "includes/crudUser.php";
 
 // Check if user is logged in and is an admin
 if (!isLoggedIn()) {
