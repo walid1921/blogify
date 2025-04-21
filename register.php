@@ -14,7 +14,6 @@ $errors = [];
 $successMessage = "";
 
 
-
 // Handle submission
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     registerUser($pdo, $_POST, $errors, $successMessage, true);
