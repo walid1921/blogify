@@ -1,5 +1,4 @@
 <?php
-
 global $pdo;
 require_once "includes/session.php";
 require_once "includes/database.php";
@@ -13,6 +12,7 @@ if (isLoggedIn()) {
 
 $errors = [];
 $successMessage = "";
+
 
 
 // Handle submission

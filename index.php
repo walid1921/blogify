@@ -19,6 +19,7 @@ include "./components/header.php";
                     <a class="btn" href="register.php">Register</a>
 
                 <?php endif; ?>
+
             </div>
         </div>
     </div>
