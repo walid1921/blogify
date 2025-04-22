@@ -175,7 +175,7 @@ nav ul li a:hover, nav ul li a.active {
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   background-color: #ffffff;
   color: black;
 }
@@ -268,10 +268,10 @@ nav ul li a:hover, nav ul li a.active {
 }
 
 .edit {
-  background: #28a745;
+  background: #ffc107;
 }
 .edit:hover {
-  background: #218838;
+  background: #e0a800;
 }
 
 .delete {
@@ -346,6 +346,156 @@ nav ul li a:hover, nav ul li a.active {
 }
 .modal .close:hover {
   color: #575757;
+}
+
+.todoApp {
+  text-align: center;
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 50px;
+  /* Notification Container */
+  /* Success Notification */
+  /* Error Notification */
+  /* Fade In and Out Animation */
+}
+.todoApp .notification-container {
+  position: fixed;
+  top: 20px;
+  right: 0px;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 600px;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.todoApp .notification {
+  padding: 15px;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  animation: fadeInOut 4s forwards;
+}
+.todoApp .notification.success {
+  background-color: #28a745;
+}
+.todoApp .notification.error {
+  background-color: #dc3545;
+}
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+.todoApp form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.todoApp form input[type=text] {
+  width: 300px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-right: 10px;
+}
+.todoApp form button {
+  color: #ffffff;
+  background-color: #3775b9;
+  border: none;
+  padding: 10px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+.todoApp form button:hover {
+  background-color: #0056b3;
+}
+.todoApp ul {
+  list-style-type: none;
+  padding: 0;
+  width: 600px;
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid #eaeaea;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+.todoApp ul::-webkit-scrollbar {
+  width: 10px;
+}
+.todoApp ul::-webkit-scrollbar-thumb {
+  background-color: #4f575f;
+  border-radius: 10px;
+}
+.todoApp ul::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+.todoApp ul li {
+  background-color: #ffffff;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #eaeaea;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.todoApp ul li span.completed {
+  background-color: #d4edda;
+  text-decoration: line-through;
+  color: #6c757d;
+  padding: 10px;
+}
+.todoApp ul li form {
+  display: inline-block;
+}
+.todoApp ul button.complete {
+  background: #28a745;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+.todoApp ul button.complete:hover {
+  background: #218838;
+}
+.todoApp ul button.delete {
+  background-color: #dc3545;
+  color: white;
+  margin-left: 10px;
+  transition: background-color 0.3s ease;
+}
+.todoApp ul button.delete:hover {
+  background-color: #c82333;
+}
+.todoApp ul button.undo {
+  background-color: #ffc107;
+  color: white;
+  margin-left: 10px;
+  transition: background-color 0.3s ease;
+}
+.todoApp ul button.undo:hover {
+  background-color: #e0a800;
 }
 
 /*# sourceMappingURL=style.css.map */
