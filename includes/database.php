@@ -6,6 +6,7 @@ $password = "root";
 $dbname = "registration_test";
 
 
+
 $dsn = "mysql:host=$host;dbname=$dbname";
 
 try {
