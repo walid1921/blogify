@@ -5,7 +5,7 @@ require_once "includes/database.php";
 require_once "includes/helpers.php";
 require_once "includes/crudUser.php";
 
-// 2. Check if user is already logged in
+// Check if user is already logged in
 if (isLoggedIn()) {
     redirect("todo.php");
 }
