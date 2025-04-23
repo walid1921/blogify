@@ -1,1 +1,11 @@
-[2025-04-22 11:30:44] Error: [2] Undefined variable $tasks in /Users/walid.kouider-ayad/Desktop/Projects/loginApp/todo.php on line 27
+[2025-04-23 11:16:36] Error: [2] Undefined variable $currentUser in /Users/walid.kouider-ayad/Desktop/Projects/loginApp/view/tasksView.php on line 14
+[2025-04-23 11:16:36] Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /Users/walid.kouider-ayad/Desktop/Projects/loginApp/view/tasksView.php on line 14
+[2025-04-23 11:16:37] Error: [2] Undefined variable $currentUser in /Users/walid.kouider-ayad/Desktop/Projects/loginApp/view/tasksView.php on line 14
+[2025-04-23 11:16:37] Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /Users/walid.kouider-ayad/Desktop/Projects/loginApp/view/tasksView.php on line 14
+[2025-04-23 11:17:05] Error: [2] Undefined variable $currentUser in /Users/walid.kouider-ayad/Desktop/Projects/loginApp/view/tasksView.php on line 14
+[2025-04-23 11:17:05] Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /Users/walid.kouider-ayad/Desktop/Projects/loginApp/view/tasksView.php on line 14
+[2025-04-23 11:29:08] Error: [2] Undefined array key "username" in /Users/walid.kouider-ayad/Desktop/Projects/loginApp/controllers/taskController.php on line 13
+[2025-04-23 11:29:08] Error: [2] Undefined array key "user_id" in /Users/walid.kouider-ayad/Desktop/Projects/loginApp/models/Task.php on line 28
+[2025-04-23 11:47:37] Error: [8] session_start(): Ignoring session_start() because a session is already active (started from /Users/walid.kouider-ayad/Desktop/Projects/loginApp/includes/session.php on line 2) in /Users/walid.kouider-ayad/Desktop/Projects/loginApp/includes/crudUser.php on line 112
+[2025-04-23 12:25:22] Error: [2] Array to string conversion in /Users/walid.kouider-ayad/Desktop/Projects/loginApp/controllers/taskController.php on line 18
+[2025-04-23 12:26:50] Error: [2] Array to string conversion in /Users/walid.kouider-ayad/Desktop/Projects/loginApp/controllers/taskController.php on line 18

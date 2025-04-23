@@ -15,6 +15,7 @@ if (!isAdmin()) {
 }
 
 $currentUser = $_SESSION["username"];
+$idUser = $_SESSION['user_id'];
 
 // Handle form submissions for editing and deleting users
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -37,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 include "./components/header.php";
 ?>
 
-<h1 style="text-align:center; margin-top:60px; margin-bottom:60px;">Welcome <?php echo $currentUser; ?></h1>
+<h1 style="text-align:center; margin-top:60px; margin-bottom:60px;">Welcome <?php echo $currentUser, $idUser; ?></h1>
 
 <!-- Include User Table -->
 <?php include './components/usersTable.php'; ?>

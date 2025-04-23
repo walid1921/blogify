@@ -102,11 +102,35 @@ function registerUser($pdo, $formData, &$errors, &$successMessage, $autoLogin = 
         // 12. Check if the user was inserted
         if ($stmt->rowCount()) {
             if ($autoLogin) {
-                session_start();
-                $_SESSION["logged_in"] = true;
-                $_SESSION["admin"] = false;
-                $_SESSION["username"] = $username;
-                redirect("todo.php");
+
+
+                //  How lastInsertId() Really Works
+                //  Connection-Specific: The method returns the ID generated for the current database connection
+                //  Each PHP request gets its own dedicated database connection
+                //  No other user's registration can interfere during your script execution
+                //
+                //  Immediate Response: It returns the ID from your most recent insert on this connection
+                //  Even if 1000 users register simultaneously, each gets their own correct ID
+                //
+                //  Atomic Operation: Database inserts are atomic - no two users can get the same ID
+
+                $userId = $pdo->lastInsertId();
+                $stmt = $pdo->prepare("SELECT * FROM users WHERE id = :id");
+                $stmt->execute([':id' => $userId]);
+                $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                if ($user){
+                    session_start();
+                    $_SESSION["logged_in"] = true;
+                    $_SESSION["username"] = $user["username"];
+                    $_SESSION["admin"] = $user["admin"] === 1; // This is how we know the user is an admin
+                    $_SESSION['user_id'] = $user['id'];
+
+                    redirect("todo.php");
+                } else {
+                    $errors['database'] = "User created but could not log in automatically";
+                }
+
             } else {
                 redirect("admin.php");
             }
