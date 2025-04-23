@@ -1,11 +1,16 @@
 <div class="todoApp">
 
     <!-- Notification Container -->
-    <div class="notification-container">
-        <div class="notification success">
-            <!-- Success message will go here -->
+
+    <?php if(isset($_SESSION["message"])): ?>
+        <div class="notification-container">
+            <div class="notification <?php echo $_SESSION["msg_type"]?>">
+                <!-- Success message will go here -->
+                <?php echo  $_SESSION["message"];?>
+                <?php unset($_SESSION["message"]);?>
+            </div>
         </div>
-    </div>
+    <?php endif; ?>
 
     <!-- Main Content Container -->
 
@@ -37,20 +42,20 @@
                 <!-- Complete Task -->
                 <?php if (!$task['is_completed']) :?>
                     <form method="POST" style="display:inline;">
-                        <input type="hidden" name="id" value="1">
+                        <input type="hidden" name="id" value="<?php echo htmlspecialchars($task['id'])?>">
                         <button class="complete" type="submit" name="complete_task">Complete</button>
                     </form>
 
                 <?php else:?>
                     <form method="POST" style="display:inline;">
-                        <input type="hidden" name="id" value="1">
+                        <input type="hidden" name="id" value="<?php echo htmlspecialchars($task['id'])?>">
                         <button class="undo" type="submit" name="undo_complete_task">Undo</button>
                     </form>
                 <?php endif;?>
 
                 <!-- Delete Task -->
-                <form method="POST" style="display:inline;">
-                    <input type="hidden" name="id" value="1">
+                <form onSubmit="return confirm('Are you sure you want to delete this Task?')" method="POST" style="display:inline;">
+                    <input type="hidden" name="id" value="<?php echo htmlspecialchars($task['id'])?>">
                     <button class="delete" type="submit" name="delete_task">Delete</button>
                 </form>
             </div>

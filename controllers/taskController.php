@@ -17,9 +17,9 @@ class TaskController {
         $tasks = $taskModel->getAllTasks();
 
         // to display the tasks
-//         echo "<pre>";
-//         var_dump($tasks);
-//         echo "</pre>";
+        // echo "<pre>";
+        // var_dump($tasks);
+        // echo "</pre>";
 
 
 
@@ -33,21 +33,38 @@ class TaskController {
         //    echo "Ok";
 
             if(isset($_POST["add_task"])) {
+                // to test
+                // $task = trim($_POST["task"]);
+                // echo "Task added: " . htmlspecialchars($task);
+
+
                 // Handle adding a new task
                 $task = trim($_POST["task"]);
                 $taskModel->task = $task;
                 $taskModel->createTask();
+                $_SESSION["message"] = "Task added successfully!";
+                $_SESSION["msg_type"] = "success";
                 redirect("todo.php");
 
-                // Display success message
-                // echo "Task added: " . htmlspecialchars($task);
-                // Use the toast notification function
-                // toast("Task added: " . htmlspecialchars($task), "success");
+            } elseif (isset($_POST["complete_task"])){
+                // to test:    echo "complete";    OR    var_dump($_POST);   OR   var_dump($_POST["id"]);
 
+                $taskModel->complete($_POST["id"]);
+                $_SESSION["message"] = "Task completed successfully!";
+                $_SESSION["msg_type"] = "success";
+                redirect("todo.php");
 
-                // to test
-                // $task = trim($_POST["task"]);
-                // echo "Task added: " . htmlspecialchars($task);
+            } elseif (isset($_POST["undo_complete_task"])) {
+                $taskModel->undoComplete($_POST["id"]);
+                $_SESSION["message"] = "Task marked as incomplete!";
+                $_SESSION["msg_type"] = "success";
+                redirect("todo.php");
+
+            } elseif (isset($_POST["delete_task"])) {
+                $taskModel->deleteTask($_POST["id"]);
+                $_SESSION["message"] = "Task deleted successfully!";
+                $_SESSION["msg_type"] = "success";
+                redirect("todo.php");
             }
         }
 

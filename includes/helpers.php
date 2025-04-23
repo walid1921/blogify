@@ -1,5 +1,4 @@
-<?php 
-
+<?php
 
 function activeLink($pageName) {
     $currentPage = basename($_SERVER["SCRIPT_FILENAME"]);

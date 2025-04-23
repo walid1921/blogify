@@ -44,6 +44,29 @@ class Task {
             ]);
         }
 
+        //! update task
+        public function complete($id) {
+            // to test : var_dump($id);
+
+            $query = "UPDATE $this->table SET is_completed = 1 WHERE id = :id";
+            $stmt = $this->pdo->prepare($query);
+            return $stmt->execute([':id' => $id]);
+        }
+
+
+        public function undoComplete($id) {
+            $query = "UPDATE $this->table SET is_completed = 0 WHERE id = :id";
+            $stmt = $this->pdo->prepare($query);
+            return $stmt->execute([':id' => $id]);
+        }
+
+        //! delete task
+        public function deleteTask($id) {
+            $query = "DELETE FROM $this->table WHERE id = :id";
+            $stmt = $this->pdo->prepare($query);
+            return $stmt->execute([':id' => $id]);
+        }
+
 
 //
 //        public function updateTask($id, $title, $description, $status) {
