@@ -1,17 +1,66 @@
 <?php
 
+require_once __DIR__ . '/../config/database.php';
+
+
 class Task {
-    private $pdo;
+        private $pdo;
+        private $table = "tasks";
+        public $id;
+        public $task;
+        public $status;
+        public $created_at;
+        public $is_completed;
 
-    public function __construct($pdo) {
-       $db = new Database();
-       $this->pdo = $db->getConnection();
-    }
 
-    public function getAllTasks() {
-        $stmt = $this->pdo->prepare("SELECT * FROM tasks ORDER BY id DESC");
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
+        public function __construct() {
+            $db = new Database();
+            $this->pdo  = $db->getConnection();
+        }
+
+        //! fetch tasks for the current user
+        public function getAllTasks() {
+            $query = "SELECT * FROM tasks WHERE user_id = :user_id ORDER BY created_at DESC";
+            $stmt = $this->pdo->prepare($query);
+            $stmt->execute([':user_id' => $_SESSION['user_id']]);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        //!
+        public function getTaskById($id) {
+            $query = "SELECT * FROM $this->table WHERE id = :id";
+            $stmt = $this->pdo->prepare($query);
+            $stmt->execute([':id' => $id]);
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        }
+
+        //! create a new task for the current user
+        public function createTask() {
+            $query = "INSERT INTO $this->table (task, user_id) VALUES (:task, :user_id)";
+            $stmt = $this->pdo->prepare($query);
+            return $stmt->execute([
+                    ':task' => $this->task,
+                    ':user_id' => $_SESSION['user_id']
+            ]);
+        }
+
+
+//
+//        public function updateTask($id, $title, $description, $status) {
+//            $stmt = $this->pdo->prepare("UPDATE tasks SET title = :title, description = :description, status = :status WHERE id = :id");
+//            $stmt->bindParam(':id', $id);
+//            $stmt->bindParam(':title', $title);
+//            $stmt->bindParam(':description', $description);
+//            $stmt->bindParam(':status', $status);
+//            return $stmt->execute();
+//        }
+//
+//        public function deleteTask($id) {
+//            $stmt = $this->pdo->prepare("DELETE FROM tasks WHERE id = :id");
+//            $stmt->bindParam(':id', $id);
+//            return $stmt->execute();
+//        }
+
+
 
 }

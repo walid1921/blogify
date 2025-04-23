@@ -23,6 +23,7 @@ function handleLoginSession($user, $isAdmin) {
     $_SESSION["logged_in"] = true; // This is how we know the user is logged in
     $_SESSION["username"] = $user["username"]; // this to store the name of the user to be used across pages
     $_SESSION["admin"] = $isAdmin; // This is how we know the user is an admin
+    $_SESSION['user_id'] = $user['id']; // Store user ID in session
     redirect($isAdmin ? 'admin.php' : 'todo.php');
 }
 

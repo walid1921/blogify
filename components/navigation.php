@@ -7,7 +7,7 @@
         <?php if(isLoggedIn() && !isAdmin()) : ?>
 
             <li>
-                <a class="<?php echo activeLink("todo.php") ?>" href="todo.php">To do</a>
+                <a class="<?php echo activeLink("todo.php") ?>" href="todo.php">Tasks</a>
             </li>
             <li>
                 <a class="<?php echo activeLink("profile.php") ?>" href="profile.php">Profile</a>
@@ -18,7 +18,7 @@
 
         <?php elseif(isLoggedIn() && isAdmin()): ?>
             <li>
-                <a class="<?php echo activeLink("todo.php") ?>" href="todo.php">To Do</a>
+                <a class="<?php echo activeLink("todo.php") ?>" href="todo.php">Tasks</a>
             </li>
 
             <li>

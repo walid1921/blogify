@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         $stmt = $pdo->prepare("SELECT * FROM users WHERE username LIKE :search OR email LIKE :search");
         $stmt->execute(['search' => "%$search%"]);
     } else {
-        $stmt = $pdo->query("SELECT * FROM users"); // we used query instead of prepare because we don't need to bind any parameters
+        $stmt = $pdo->query("SELECT * FROM users ORDER BY created_at DESC "); // we used query instead of prepare because we don't need to bind any parameters
     }
 
     $users = $stmt->fetchAll(PDO::FETCH_ASSOC);

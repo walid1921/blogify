@@ -540,7 +540,7 @@ nav {
       list-style-type: none;
       padding: 0;
       width: 600px;
-      max-height: 300px;
+      max-height: 500px;
       overflow-y: auto;
       border: 1px solid #eaeaea;
       border-radius: 8px;
@@ -548,11 +548,11 @@ nav {
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
 
       &::-webkit-scrollbar {
-        width: 10px;
+        width: 5px;
       }
 
       &::-webkit-scrollbar-thumb {
-        background-color: #4f575f;
+        background-color: #8d9aa3;
         border-radius: 10px;
       }
 
