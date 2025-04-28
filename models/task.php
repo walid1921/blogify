@@ -68,21 +68,6 @@ class Task {
         }
 
 
-//
-//        public function updateTask($id, $title, $description, $status) {
-//            $stmt = $this->pdo->prepare("UPDATE tasks SET title = :title, description = :description, status = :status WHERE id = :id");
-//            $stmt->bindParam(':id', $id);
-//            $stmt->bindParam(':title', $title);
-//            $stmt->bindParam(':description', $description);
-//            $stmt->bindParam(':status', $status);
-//            return $stmt->execute();
-//        }
-//
-//        public function deleteTask($id) {
-//            $stmt = $this->pdo->prepare("DELETE FROM tasks WHERE id = :id");
-//            $stmt->bindParam(':id', $id);
-//            return $stmt->execute();
-//        }
 
 
 
