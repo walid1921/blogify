@@ -27,8 +27,3 @@
         }
 
     }
-
-// to use this you just have to include this file and create an instance of the Database class like this:
-// $db = new Database();
-// $pdo = $db->getConnection();
-// and then you can use the $pdo variable to interact with the database.
