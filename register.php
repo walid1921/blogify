@@ -5,7 +5,7 @@ require_once "includes/database.php";
 require_once "includes/helpers.php";
 require_once "includes/crudUser.php";
 
-// Check if user is already logged in
+
 if (isLoggedIn()) {
     redirect("todo.php");
 }
@@ -25,7 +25,6 @@ include "./components/header.php";
 
 <div class="hero">
     <div class="form-container">
-        <!-- htmlspecialchars() function converts special characters to HTML entities, preventing XSS attacks. -->
 
         <?php if ($successMessage): ?>
             <p style="color: green;"><?php echo $successMessage; ?></p>

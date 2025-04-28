@@ -16,6 +16,3 @@ try {
 } catch (PDOException $e) {
     die("Connection failed :" . $e->getMessage());
 }
-
-
-// Then go to register.php file and follow

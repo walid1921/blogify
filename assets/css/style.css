@@ -113,7 +113,7 @@ nav ul li a:hover, nav ul li a.active {
 }
 
 .tableContainer {
-  margin: 0 80px;
+  margin: 80px;
   display: flex;
   flex-direction: column;
   justify-content: center;
