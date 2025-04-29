@@ -2,6 +2,7 @@
     <ul>
         <li>
             <a class="<?php echo activeLink("index.php") ?>" href="index.php">Home</a>
+            <a class="<?php echo activeLink("blog.php") ?>" href="blog.php">Home</a>
         </li>
 
         <?php if(isLoggedIn() && !isAdmin()) : ?>
@@ -16,7 +17,7 @@
                 <a href="logout.php">Logout</a>
             </li>
 
-        <?php elseif(isLoggedIn() && isAdmin()): ?>
+        <?php elseif(isLoggedIn() && isAdmin()): ?>x
             <li>
                 <a class="<?php echo activeLink("todo.php") ?>" href="todo.php">Tasks</a>
             </li>
