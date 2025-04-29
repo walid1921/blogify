@@ -62,11 +62,10 @@ include "./components/header.php";
 
 <div class="hero <?php echo pageClass() ?>">
     <div class="form-container">
+        <h2>Login</h2>
+
         <form method="POST" action="">
-
             <span class="error"><?php echo $error; ?></span><br><br>
-
-            <h2>Login</h2>
 
             <input value="<?php echo isset($username) ? htmlspecialchars($username) : "" ?>" type="text" name="username" placeholder="username" required><br><br>
             <input type="password" name="password" value="<?php echo isset($password) ? $password : "" ?>" placeholder="password" required><br><br>

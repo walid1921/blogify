@@ -1,0 +1,2 @@
+[2025-04-29 13:53:54] Error: [2] Undefined array key "username" in /Users/walid.kouider-ayad/Desktop/Projects/loginApp/controllers/taskController.php on line 13
+[2025-04-29 13:53:54] Error: [2] Undefined array key "user_id" in /Users/walid.kouider-ayad/Desktop/Projects/loginApp/models/Task.php on line 25

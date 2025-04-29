@@ -11,6 +11,11 @@ $success-color: #28a745;
 $edit-color: #ffc107;
 $border-radius: 5px;
 
+@mixin hover-transition {
+  transition: all 0.3s ease-in-out;
+}
+
+
 
 * {
   margin: 0;
@@ -34,33 +39,81 @@ h2 {
 // ======================================
 // NAVBAR
 // ======================================
-nav {
-  background-color: $dark-bg;
-  padding: 10px 0;
 
-  ul {
-    list-style: none;
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 30px;
+  background-color: $dark-bg;
+
+  .nav-left {
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      text-decoration: none;
+      color: $white;
+
+    }
+  }
+
+  .nav-center {
+    flex: 1;
     display: flex;
     justify-content: center;
 
-    li {
-      display: inline;
+    .nav-links {
+      list-style: none;
+      display: flex;
 
-      a {
-        text-decoration: none;
-        color: $white;
-        padding: 10px 40px;
-        transition: 0.3s;
-
-        &:hover,
-        &.active {
-          background-color: $secondary-color;
+      li {
+        a {
           color: $white;
+          padding: 10px 30px;
+          text-decoration: none;
+          font-weight: 500;
+          @include hover-transition;
+
+          &:hover {
+            background-color: $secondary-color;
+            border-radius: $border-radius;
+            color: $white;
+
+          }
+        }
+      }
+    }
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+
+    .auth-links {
+      list-style: none;
+      display: flex;
+      color: $white;
+
+      li {
+        a {
+          text-decoration: none;
+          color: $white;
+          font-weight: 500;
+          padding: 10px 30px;
+          @include hover-transition;
+
+          &:hover {
+            background-color: $secondary-color;
+            border-radius: $border-radius;
+            color: $white;
+          }
         }
       }
     }
   }
 }
+
 
 // ======================================
 // PAGES STYLING
@@ -114,7 +167,7 @@ nav {
       padding: 10px 20px;
       text-decoration: none;
       border-radius: $border-radius;
-      transition: 0.3s;
+      @include hover-transition;
       font-weight: bold;
 
       &:hover {
@@ -131,7 +184,7 @@ nav {
     padding: 5px 10px;
     border-radius: $border-radius;
     text-decoration: none;
-    transition: background-color 0.3s;
+    @include hover-transition;
     border: none;
 
     &:hover {
@@ -144,11 +197,202 @@ nav {
 // CONTAINERS
 // ======================================
 .container {
-  height: 100vh;
+  min-height: 100vh;
+  padding: 40px 20px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  background-color: #f9f9f9;
+
+  .filter-bar {
+    width: 100%;
+    max-width: 1200px;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    display: flex;
+    justify-content: flex-start;
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+
+      .filter-btn {
+        background: $white;
+        border: 1px solid $primary-color;
+        color: $primary-color;
+        padding: 8px 18px;
+        border-radius: 50px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        font-weight: 600;
+        @include hover-transition;
+
+        &.active, &:hover {
+          background-color: $primary-color;
+          color: $white;
+        }
+      }
+    }
+  }
+
+  .pagination {
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 12px;
+    flex-wrap: wrap;
+
+    .page-link, .next-btn {
+      display: inline-block;
+      padding: 10px 16px;
+      border: 1px solid $primary-color;
+      border-radius: 6px;
+      color: $primary-color;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 0.9rem;
+      @include hover-transition;
+
+      &:hover {
+        background-color: $primary-color;
+        color: $white;
+      }
+    }
+
+    .active {
+      background-color: $primary-color;
+      color: $white;
+    }
+
+    .dots {
+      color: $secondary-color;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+  }
+
+
+  .blogs-wrapper {
+    width: 100%;
+    max-width: 1200px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
+
+  .blog {
+    background-color: $white;
+    border-radius: $border-radius;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    border : 1px solid #8d9aa3;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      cursor: pointer;
+    }
+
+    img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .content {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      h2 {
+        position: absolute;
+        font-size: 1.4rem;
+        text-align: start;
+        color: $primary-color;
+        width: 100%;
+        margin: 0;
+        top: 0;
+        left: 0;
+        padding: 20px;
+        background-color: rgba(255, 255, 255, 0.4);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+      }
+
+      .author {
+        display: flex;
+        gap: 10px;
+        font-size: 0.85rem;
+        color: $secondary-color;
+
+        .author-name {
+          font-weight: bold;
+        }
+      }
+
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 5px;
+
+        .tag {
+          font-size: 0.7rem;
+          padding: 4px 12px;
+          border-radius: 50px;
+          border: 1px solid $primary-color;
+
+          &:hover {
+            @include hover-transition;
+          }
+        }
+      }
+
+      p {
+        font-size: 0.9rem;
+      }
+
+      button {
+        a {
+          text-decoration: none;
+          color: $primary-color;
+
+          &:hover {
+            color: $primary-hover;
+          }
+        }
+
+        display: flex;
+
+        align-items: center;
+        color: $primary-color;
+        text-decoration: none;
+        font-size: 1rem;
+        font-weight: 600;
+        margin-top: 10px;
+        padding: 8px 16px;
+
+        @include hover-transition;
+
+        &:active,
+        &:hover {
+          color: $primary-hover;
+        }
+      }
+    }
+  }
 }
+
+
 
 .tableContainer {
   margin: 80px;
@@ -217,7 +461,7 @@ nav {
 .form-container {
   width: 400px;
   display: flex;
-    flex-direction: column;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 20px;
@@ -241,6 +485,14 @@ nav {
       padding: 10px;
       border: 1px solid #ccc;
       border-radius: $border-radius;
+    }
+
+    textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: $border-radius;
+        resize: none;
     }
 
     input[type="checkbox"] {
@@ -330,7 +582,7 @@ nav {
   border: none;
   border-radius: $border-radius;
   cursor: pointer;
-  transition: 0.3s;
+  @include hover-transition;
   font-size: 12px;
   color: $white;
 }
@@ -526,7 +778,7 @@ nav {
         padding: 10px 10px;
         cursor: pointer;
         border-radius: $border-radius;
-        transition: background-color 0.3s ease;
+        @include hover-transition;
 
         &:hover {
           background-color: #0056b3;
@@ -586,7 +838,7 @@ nav {
       button.complete {
         background: $success-color;
         color: white;
-        transition: background-color 0.3s ease;
+        @include hover-transition;
 
         &:hover {
           background: #218838;
@@ -598,7 +850,7 @@ nav {
         background-color: $error-color;
         color: white;
         margin-left: 10px;
-        transition: background-color 0.3s ease;
+        @include hover-transition;
 
         &:hover {
           background-color: #c82333;
@@ -609,7 +861,7 @@ nav {
         background-color: $edit-color;
         color: white;
         margin-left: 10px;
-        transition: background-color 0.3s ease;
+        @include hover-transition;
 
         &:hover {
           background-color: #e0a800;

@@ -1,57 +1,64 @@
-<!-- Main Content -->
-<main class="container my-5">
-    <!-- Blog Post 1 -->
-    <div class="row mb-4">
-        <div class="col-md-4">
-            <img
-                src="https://via.placeholder.com/350x200"
-                class="img-fluid"
-                alt="Blog Post Image"
-            >
-        </div>
-        <div class="col-md-8">
-            <h2>Blog Post Title 1</h2>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nisl eros,
-                pulvinar facilisis justo mollis, auctor consequat urna.
-            </p>
-            <a href="article.html" class="btn btn-primary">Read More</a>
-        </div>
-    </div>
-    <!-- Blog Post 2 -->
-    <div class="row mb-4">
-        <div class="col-md-4">
-            <img
-                src="https://via.placeholder.com/350x200"
-                class="img-fluid"
-                alt="Blog Post Image"
-            >
-        </div>
-        <div class="col-md-8">
-            <h2>Blog Post Title 2</h2>
-            <p>
-                Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in,
-                pharetra a, ultricies in, diam. Sed arcu.
-            </p>
-            <a href="#" class="btn btn-primary">Read More</a>
+<?php
+require_once "includes/session.php";
+require_once "includes/database.php";
+require_once "includes/helpers.php";
+include "./components/header.php";
+?>
+
+<main class="container">
+
+    <div class="filter-bar">
+        <div class="filters">
+            <button class="filter-btn active">All</button>
+            <button class="filter-btn">Product</button>
+            <button class="filter-btn">Tools</button>
+            <button class="filter-btn">Software Development</button>
+            <button class="filter-btn">Design</button>
+            <button class="filter-btn">Marketing</button>
         </div>
     </div>
-    <!-- Blog Post 3 -->
-    <div class="row mb-4">
-        <div class="col-md-4">
-            <img
-                src="https://via.placeholder.com/350x200"
-                class="img-fluid"
-                alt="Blog Post Image"
-            >
-        </div>
-        <div class="col-md-8">
-            <h2>Blog Post Title 3</h2>
-            <p>
-                Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu
-                vulputate magna eros eu erat.
-            </p>
-            <a href="#" class="btn btn-primary">Read More</a>
+
+    <div class="blogs-wrapper">
+
+        <?php for ($i = 1; $i <= 6; $i++): ?>
+            <div class="blog">
+                <img src="./assets/images/laptop.jpg" alt="Blog Post Image">
+                <div class="content">
+                    <h2>Blog Post Title <?php echo $i; ?></h2>
+
+                    <div class="tags">
+                        <span class="tag"><?php echo ($i % 2 == 0) ? 'Product' : 'Tools'; ?></span>
+                        <?php if ($i % 3 == 0): ?><span class="tag">Software Development</span><?php endif; ?>
+                        <?php if ($i % 4 == 0): ?><span class="tag">Design</span><?php endif; ?>
+                    </div>
+
+                    <div class="author">
+                        <span class="author-name">Author <?php echo $i; ?></span>
+                        <span class="created-date"><?php echo date('d M Y', strtotime("-$i days")); ?></span>
+                    </div>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.</p>
+
+                    <button class="blog-btn">
+                        <a  href="article.php?id=<?php echo $i; ?>">Read Post</a>
+
+                        <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        <?php endfor; ?>
+
+        <div class="pagination">
+            <a href="#" class="page-link active">1</a>
+            <a href="#" class="page-link">2</a>
+            <a href="#" class="page-link">3</a>
+            <span class="dots">...</span>
+            <a href="#" class="page-link">10</a>
+            <a href="#" class="next-btn">Next →</a>
         </div>
     </div>
+
 </main>
+
+<?php include "./components/footer.php"; ?>
