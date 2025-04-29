@@ -17,26 +17,59 @@ h2 {
   color: #333;
 }
 
-nav {
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 30px;
   background-color: #333;
-  padding: 10px 0;
 }
-nav ul {
-  list-style: none;
+.navbar .nav-left .logo {
+  font-size: 24px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #ffffff;
+}
+.navbar .nav-center {
+  flex: 1;
   display: flex;
   justify-content: center;
 }
-nav ul li {
-  display: inline;
+.navbar .nav-center .nav-links {
+  list-style: none;
+  display: flex;
 }
-nav ul li a {
+.navbar .nav-center .nav-links li a {
+  color: #ffffff;
+  padding: 10px 30px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease-in-out;
+}
+.navbar .nav-center .nav-links li a:hover {
+  background-color: #575757;
+  border-radius: 5px;
+  color: #ffffff;
+}
+.navbar .nav-right {
+  display: flex;
+  align-items: center;
+}
+.navbar .nav-right .auth-links {
+  list-style: none;
+  display: flex;
+  color: #ffffff;
+}
+.navbar .nav-right .auth-links li a {
   text-decoration: none;
   color: #ffffff;
-  padding: 10px 40px;
-  transition: 0.3s;
+  font-weight: 500;
+  padding: 10px 30px;
+  transition: all 0.3s ease-in-out;
 }
-nav ul li a:hover, nav ul li a.active {
+.navbar .nav-right .auth-links li a:hover {
   background-color: #575757;
+  border-radius: 5px;
   color: #ffffff;
 }
 
@@ -83,7 +116,7 @@ nav ul li a:hover, nav ul li a.active {
   padding: 10px 20px;
   text-decoration: none;
   border-radius: 5px;
-  transition: 0.3s;
+  transition: all 0.3s ease-in-out;
   font-weight: bold;
 }
 .hero .hero-buttons .btn:hover {
@@ -97,7 +130,7 @@ nav ul li a:hover, nav ul li a.active {
   padding: 5px 10px;
   border-radius: 5px;
   text-decoration: none;
-  transition: background-color 0.3s;
+  transition: all 0.3s ease-in-out;
   border: none;
 }
 .primary-btn:hover {
@@ -106,10 +139,169 @@ nav ul li a:hover, nav ul li a.active {
 }
 
 .container {
-  height: 100vh;
+  min-height: 100vh;
+  padding: 40px 20px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  background-color: #f9f9f9;
+}
+.container .filter-bar {
+  width: 100%;
+  max-width: 1200px;
+  margin-bottom: 30px;
+  margin-top: 30px;
+  display: flex;
+  justify-content: flex-start;
+}
+.container .filter-bar .filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.container .filter-bar .filters .filter-btn {
+  background: #ffffff;
+  border: 1px solid #3775b9;
+  color: #3775b9;
+  padding: 8px 18px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.3s ease-in-out;
+}
+.container .filter-bar .filters .filter-btn.active, .container .filter-bar .filters .filter-btn:hover {
+  background-color: #3775b9;
+  color: #ffffff;
+}
+.container .pagination {
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.container .pagination .page-link, .container .pagination .next-btn {
+  display: inline-block;
+  padding: 10px 16px;
+  border: 1px solid #3775b9;
+  border-radius: 6px;
+  color: #3775b9;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all 0.3s ease-in-out;
+}
+.container .pagination .page-link:hover, .container .pagination .next-btn:hover {
+  background-color: #3775b9;
+  color: #ffffff;
+}
+.container .pagination .active {
+  background-color: #3775b9;
+  color: #ffffff;
+}
+.container .pagination .dots {
+  color: #575757;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+.container .blogs-wrapper {
+  width: 100%;
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+.container .blog {
+  background-color: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border: 1px solid #8d9aa3;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s, box-shadow 0.3s;
+  position: relative;
+}
+.container .blog:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+}
+.container .blog img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+.container .blog .content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.container .blog .content h2 {
+  position: absolute;
+  font-size: 1.4rem;
+  text-align: start;
+  color: #3775b9;
+  width: 100%;
+  margin: 0;
+  top: 0;
+  left: 0;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.container .blog .content .author {
+  display: flex;
+  gap: 10px;
+  font-size: 0.85rem;
+  color: #575757;
+}
+.container .blog .content .author .author-name {
+  font-weight: bold;
+}
+.container .blog .content .tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 5px;
+}
+.container .blog .content .tags .tag {
+  font-size: 0.7rem;
+  padding: 4px 12px;
+  border-radius: 50px;
+  border: 1px solid #3775b9;
+}
+.container .blog .content .tags .tag:hover {
+  transition: all 0.3s ease-in-out;
+}
+.container .blog .content p {
+  font-size: 0.9rem;
+}
+.container .blog .content button {
+  display: flex;
+  align-items: center;
+  color: #3775b9;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 10px;
+  padding: 8px 16px;
+  transition: all 0.3s ease-in-out;
+}
+.container .blog .content button a {
+  text-decoration: none;
+  color: #3775b9;
+}
+.container .blog .content button a:hover {
+  color: #004080;
+}
+.container .blog .content button:active, .container .blog .content button:hover {
+  color: #004080;
 }
 
 .tableContainer {
@@ -194,6 +386,13 @@ nav ul li a:hover, nav ul li a.active {
   border: 1px solid #ccc;
   border-radius: 5px;
 }
+.form-container form textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: none;
+}
 .form-container form input[type=checkbox] {
   width: 18px;
   height: 18px;
@@ -262,7 +461,7 @@ nav ul li a:hover, nav ul li a.active {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: 0.3s;
+  transition: all 0.3s ease-in-out;
   font-size: 12px;
   color: #ffffff;
 }
@@ -427,7 +626,7 @@ nav ul li a:hover, nav ul li a.active {
   padding: 10px 10px;
   cursor: pointer;
   border-radius: 5px;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease-in-out;
 }
 .todoApp form button:hover {
   background-color: #0056b3;
@@ -474,7 +673,7 @@ nav ul li a:hover, nav ul li a.active {
 .todoApp ul button.complete {
   background: #28a745;
   color: white;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease-in-out;
 }
 .todoApp ul button.complete:hover {
   background: #218838;
@@ -483,7 +682,7 @@ nav ul li a:hover, nav ul li a.active {
   background-color: #dc3545;
   color: white;
   margin-left: 10px;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease-in-out;
 }
 .todoApp ul button.delete:hover {
   background-color: #c82333;
@@ -492,7 +691,7 @@ nav ul li a:hover, nav ul li a.active {
   background-color: #ffc107;
   color: white;
   margin-left: 10px;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease-in-out;
 }
 .todoApp ul button.undo:hover {
   background-color: #e0a800;

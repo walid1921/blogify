@@ -30,9 +30,10 @@ include "./components/header.php";
             <p style="color: green;"><?php echo $successMessage; ?></p>
         <?php endif; ?>
 
-        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+        <h2>Create your Account</h2>
 
-            <h2>Create your Account</h2>
+
+        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
 
             <input type="text" name="username" placeholder="username" value="<?php echo isset($_POST['username']) ? $_POST['username'] : "" ?>" required>
             <span class="error"><?php echo isset($errors['username']) ? $errors['username'] : ''; ?></span>
