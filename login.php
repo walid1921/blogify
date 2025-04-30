@@ -60,21 +60,33 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 include "./components/header.php";
 ?>
 
-<div class="hero <?php echo pageClass() ?>">
-    <div class="form-container">
-        <h2>Login</h2>
+<div>
+    <canvas id="gradient-canvas"></canvas>
 
-        <form method="POST" action="">
-            <span class="error"><?php echo $error; ?></span><br><br>
 
-            <input value="<?php echo isset($username) ? htmlspecialchars($username) : "" ?>" type="text" name="username" placeholder="username" required><br><br>
-            <input type="password" name="password" value="<?php echo isset($password) ? $password : "" ?>" placeholder="password" required><br><br>
+    <div class="hero <?php echo pageClass() ?>">
+        <div class="form-container">
+            <h2>Login to your account</h2>
+            <?php if ($error): ?>
+                <span class="error"><?php echo $error; ?></span>
+            <?php endif; ?>
 
-            <p style=font-size:14px>Don't have an account? <a href="register.php" >Register</a></p>
+            <form method="POST" action="">
 
-            <input type="submit" value="Login">
-        </form>
+                <input value="<?php echo isset($username) ? htmlspecialchars($username) : "" ?>" type="text" name="username" placeholder="username" required><br>
+                <input type="password" name="password" value="<?php echo isset($password) ? $password : "" ?>" placeholder="password" required><br>
+
+                <p style=font-size:14px>Don't have an account? <a href="register.php" >Register</a></p>
+
+                <input type="submit" value="Login">
+            </form>
+        </div>
     </div>
+
+
 </div>
+
+<script src="/assets/js/gradient.js"></script>
+
 
 <?php include "./components/footer.php"; ?>

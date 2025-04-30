@@ -1,4 +1,5 @@
 
+//! COLORS
 $primary-color: #3775b9;
 $primary-hover: #004080;
 $secondary-color: #575757;
@@ -36,83 +37,6 @@ h2 {
   color: $text-color;
 }
 
-// ======================================
-// NAVBAR
-// ======================================
-
-
-.navbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 30px;
-  background-color: $dark-bg;
-
-  .nav-left {
-    .logo {
-      font-size: 24px;
-      font-weight: bold;
-      text-decoration: none;
-      color: $white;
-
-    }
-  }
-
-  .nav-center {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-
-    .nav-links {
-      list-style: none;
-      display: flex;
-
-      li {
-        a {
-          color: $white;
-          padding: 10px 30px;
-          text-decoration: none;
-          font-weight: 500;
-          @include hover-transition;
-
-          &:hover {
-            background-color: $secondary-color;
-            border-radius: $border-radius;
-            color: $white;
-
-          }
-        }
-      }
-    }
-  }
-
-  .nav-right {
-    display: flex;
-    align-items: center;
-
-    .auth-links {
-      list-style: none;
-      display: flex;
-      color: $white;
-
-      li {
-        a {
-          text-decoration: none;
-          color: $white;
-          font-weight: 500;
-          padding: 10px 30px;
-          @include hover-transition;
-
-          &:hover {
-            background-color: $secondary-color;
-            border-radius: $border-radius;
-            color: $white;
-          }
-        }
-      }
-    }
-  }
-}
 
 
 // ======================================
@@ -125,58 +49,58 @@ h2 {
 // ======================================
 // HERO SECTION
 // ======================================
-.hero {
-  background-image: url("../images/hero-image.png");
-  background-size: cover;
-  background-position: center;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: $white;
-  text-align: center;
-  position: relative;
-  z-index: 1;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-    z-index: -1;
-  }
-
-  h1 {
-    font-size: 2.5em;
-  }
-
-  p {
-    font-size: 1.2em;
-    margin-top: 10px;
-  }
-
-  .hero-buttons {
-    margin-top: 20px;
-
-    .btn {
-      display: inline-block;
-      background: $primary-color;
-      color: $white;
-      padding: 10px 20px;
-      text-decoration: none;
-      border-radius: $border-radius;
-      @include hover-transition;
-      font-weight: bold;
-
-      &:hover {
-        background: $primary-hover;
-        color: $white;
-      }
-    }
-  }
-}
+//.hero {
+//  background-image: url("../images/hero-image.png");
+//  background-size: cover;
+//  background-position: center;
+//  height: 100vh;
+//  display: flex;
+//  justify-content: center;
+//  align-items: center;
+//  color: $white;
+//  text-align: center;
+//  position: relative;
+//  z-index: 1;
+//
+//  &::before {
+//    content: '';
+//    position: absolute;
+//    top: 0;
+//    width: 100%;
+//    height: 100%;
+//    background-color: rgba(0, 0, 0, 0.6);
+//    z-index: -1;
+//  }
+//
+//  h1 {
+//    font-size: 2.5em;
+//  }
+//
+//  p {
+//    font-size: 1.2em;
+//    margin-top: 10px;
+//  }
+//
+//  .hero-buttons {
+//    margin-top: 20px;
+//
+//    .btn {
+//      display: inline-block;
+//      background: $primary-color;
+//      color: $white;
+//      padding: 10px 20px;
+//      text-decoration: none;
+//      border-radius: $border-radius;
+//      @include hover-transition;
+//      font-weight: bold;
+//
+//      &:hover {
+//        background: $primary-hover;
+//        color: $white;
+//      }
+//    }
+//  }
+//}
 
 .primary-btn {
     background-color: $primary-color;
@@ -455,74 +379,7 @@ h2 {
   }
 }
 
-// ======================================
-// FORM STYLING
-// ======================================
-.form-container {
-  width: 400px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: $border-radius;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  background-color: $white;
-  color: black;
 
-  form {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
-
-    input[type="text"],
-    input[type="email"],
-    input[type="password"],
-    input[type="number"] {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: $border-radius;
-    }
-
-    textarea {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: $border-radius;
-        resize: none;
-    }
-
-    input[type="checkbox"] {
-      width: 18px;
-      height: 18px;
-      accent-color: $primary-color;
-      cursor: pointer;
-    }
-
-    input[type="radio"] {
-      margin-right: 5px;
-    }
-
-    input[type="submit"] {
-      background-color: $primary-color;
-      color: $white;
-      border: none;
-      padding: 10px 15px;
-      font-size: 16px;
-      cursor: pointer;
-      border-radius: $border-radius;
-      width: 100%;
-      margin-top: 10px;
-
-      &:hover {
-        background-color: #0056b3;
-      }
-    }
-  }
-}
 
 // ======================================
 // TABLE STYLING
@@ -601,16 +458,6 @@ h2 {
   &:hover {
     background: #c82333;
   }
-}
-
-// ======================================
-// ERROR MESSAGES
-// ======================================
-.error {
-  color: $error-color;
-  font-size: 12px;
-  display: block;
-  margin-top: 5px;
 }
 
 // ======================================
