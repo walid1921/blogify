@@ -12,12 +12,13 @@ include "./components/header.php";
 
     <div class="hero">
         <div class="form-container">
-            <h2>Contact us</h2>
+            <h2>Get in Touch</h2>
+            <p>Have questions about starting your blog, need help with features, or want to partner with us? We’d love to hear from you.</p>
             <form action="contact.php" method="POST">
 
                 <input type="text" id="name" name="name" placeholder="name" required>
                 <input type="email" id="email" name="email" placeholder="email" required>
-                <textarea id="message" name="message" placeholder="write you message here" required></textarea>
+                <textarea id="message" name="message" placeholder="write your message here" required></textarea>
 
                 <input type="submit" value="Send">
             </form>
