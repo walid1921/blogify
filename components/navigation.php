@@ -1,9 +1,9 @@
 
-
+<!--Desktop Navbar-->
 <nav class="navbar">
-
     <a href="index.php" class="logo">Blogify</a>
 
+    
     <ul class="menu">
         <?php if (isLoggedIn() && !isAdmin()) : ?>
             <li><a class="<?php echo activeLink('todo.php') ?>" href="todo.php">Tasks</a></li>
@@ -22,9 +22,10 @@
     </ul>
     <div class="nav-right">
         <?php if (isLoggedIn()) : ?>
-            <li><a href="logout.php">Logout</a></li>
+            <a href="logout.php">Logout</a>
         <?php else : ?>
-            <li><a class="<?php echo activeLink('login.php') ?> primary-button nav-btn" href="login.php">Login</a></li>
+            <a class="<?php echo activeLink('login.php') ?> primary-button nav-btn" href="login.php">Login</a>
+            <a class="<?php echo activeLink('register.php') ?> secondary-button nav-btn" href="register.php">Register</a>
         <?php endif; ?>
     </div>
     <div class="hamburger">
@@ -33,6 +34,8 @@
         <div class="bar3"></div>
     </div>
 </nav>
+
+<!--  Mobile Navbar-->
 <nav class="mobileNav">
     <ul class="menu">
         <?php if (isLoggedIn() && !isAdmin()) : ?>
@@ -55,6 +58,7 @@
                 <li><a href="logout.php">Logout</a></li>
             <?php else : ?>
                 <li><a class="<?php echo activeLink('login.php') ?> primary-button nav-btn" href="login.php">Login</a></li>
+                <li><a class="<?php echo activeLink('register.php') ?> secondary-button nav-btn" href="register.php">Register</a></li>
             <?php endif; ?>
         </div>
     </ul>
