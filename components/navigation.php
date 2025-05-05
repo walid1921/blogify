@@ -22,7 +22,7 @@
     </ul>
     <div class="nav-right">
         <?php if (isLoggedIn()) : ?>
-            <a href="logout.php">Logout</a>
+            <a class="<?php echo activeLink('logout.php') ?> primary-button nav-btn" href="logout.php">Logout</a>
         <?php else : ?>
             <a class="<?php echo activeLink('login.php') ?> primary-button nav-btn" href="login.php">Login</a>
             <a class="<?php echo activeLink('register.php') ?> secondary-button nav-btn" href="register.php">Register</a>

@@ -150,7 +150,14 @@ function deleteUser($pdo, $userId) {
 }
 
 //! Edit user
-function editUser($pdo, $userId, $newUsername, $newEmail) {
-    $stmt = $pdo->prepare("UPDATE users SET username = :username, email = :email WHERE id = :id");
-    return $stmt->execute([':username' => $newUsername, ':email' => $newEmail, ':id' => $userId]);
+function editUser($pdo, $userId, $newUsername, $newEmail, $newPassword) {
+    $stmt = $pdo->prepare("UPDATE users SET username = :username, email = :email, password = :password WHERE id = :id");
+    return $stmt->execute(
+        [
+            ':username' => $newUsername,
+            ':email' => $newEmail,
+            ':password' => password_hash($newPassword, PASSWORD_DEFAULT), // Hash the new password
+            ':id' => $userId
+        ]
+    );
 }
