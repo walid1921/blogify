@@ -208,24 +208,28 @@ $border-radius: 5px;
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
 
-  .modal-content {
-    background-color: white;
-    margin: 10% auto;
-    padding: 20px;
-    width: 400px;
-    border-radius: 10px;
-    position: relative;
-  }
+  .form-container{
 
-  .close {
-    font-size: 24px;
-    cursor: pointer;
-    font-weight : lighter;
-    color: gray;
-
-    &:hover {
-        color: $secondary-color;
+    .modal-content {
+      background-color: white;
+      margin: 10% auto;
+      padding: 20px;
+      width: 400px;
+      border-radius: 10px;
+      position: relative;
     }
+
+    .close {
+      font-size: 24px;
+      cursor: pointer;
+      font-weight : lighter;
+      color: gray;
+
+      &:hover {
+          color: $secondary-color;
+      }
+    }
+
   }
 }
 

@@ -14,6 +14,8 @@ if (!isAdmin()) {
     redirect("todo.php");
 }
 
+
+
 // Handle form submissions for editing and deleting users
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (isset($_POST["editUser"])) {

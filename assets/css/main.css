@@ -930,8 +930,75 @@ p {
   background-color: var(--color-blue-dark);
 }
 
+.adminPage {
+  width: 100%;
+  max-width: 1200px;
+  margin: 150px auto;
+}
+.adminPage h2 {
+  margin-bottom: var(--spacing-lg);
+}
+.adminPage .admin-header {
+  display: flex;
+  align-items: start;
+  gap: 100px;
+  margin-bottom: var(--spacing-lg);
+}
+.adminPage .admin-header .update-admin {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+}
+.adminPage .admin-header .update-admin p {
+  font-size: 0.9rem;
+  color: #7f7f7f;
+}
+.adminPage .admin-header .update-admin .form-container form .primary-button {
+  margin: var(--spacing-md) 0;
+  background-color: var(--color-purple-1);
+  color: var(--color-white);
+}
+.adminPage .admin-header .update-admin .form-container form .primary-button:hover {
+  background-color: var(--color-blue-dark);
+}
+.adminPage .admin-header .right-column {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.adminPage .admin-header .right-column .password-admin {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+}
+.adminPage .admin-header .right-column .password-admin p {
+  font-size: 0.9rem;
+  color: #7f7f7f;
+}
+.adminPage .admin-header .right-column .password-admin .form-container form .primary-button {
+  margin: var(--spacing-md) 0;
+  background-color: var(--color-purple-1);
+  color: var(--color-white);
+}
+.adminPage .admin-header .right-column .password-admin .form-container form .primary-button:hover {
+  background-color: var(--color-blue-dark);
+}
+.adminPage .admin-header .right-column .delete-admin {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+}
+.adminPage .admin-header .right-column .delete-admin p {
+  font-size: 0.9rem;
+  color: #7f7f7f;
+}
+
 .tableContainer {
-  margin: 80px;
+  margin-top: 100px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1008,6 +1075,7 @@ p {
   padding: 10px;
   border: 1px solid #ddd;
   text-align: center;
+  font-size: 0.9rem;
 }
 .user-table th span,
 .user-table td span {
@@ -1097,6 +1165,30 @@ p {
   background: #c82333;
 }
 
+.delete-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--body-font), serif;
+  font-size: 14px;
+  letter-spacing: 1.25px;
+  border-radius: var(--border-radius);
+  border: none;
+  color: var(--color-white);
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  margin: var(--spacing-md) 0;
+  background-color: var(--color-error);
+}
+.delete-button:hover {
+  background-color: var(--color-blue-dark);
+}
+.delete-button img {
+  height: 16px;
+  margin-right: 10px;
+}
+
 .toast {
   position: fixed;
   top: 20px;
@@ -1139,13 +1231,13 @@ p {
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
 }
-.modal .modal-content {
-  background-color: white;
-  margin: 10% auto;
-  padding: 20px;
-  width: 400px;
-  border-radius: 10px;
-  position: relative;
+.modal .form-container .modal-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  gap: 10px;
 }
 .modal .close {
   font-size: 24px;
@@ -1155,6 +1247,52 @@ p {
 }
 .modal .close:hover {
   color: var(--color-blue-dark);
+}
+
+.deleteAdminModal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.deleteAdminModal .modal-content {
+  background-color: white;
+  padding: 20px;
+  width: 600px;
+  border-radius: 10px;
+  position: relative;
+}
+.deleteAdminModal .modal-content p {
+  font-size: 0.9rem;
+  color: #7f7f7f;
+}
+.deleteAdminModal .modal-content .closeModal {
+  font-size: 24px;
+  cursor: pointer;
+  font-weight: lighter;
+  color: gray;
+}
+.deleteAdminModal .modal-content .closeModal:hover {
+  color: var(--color-blue-dark);
+}
+.deleteAdminModal .modal-content .modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+.deleteAdminModal .modal-content .delete-button {
+  margin-top: 30px;
 }
 
 .waiting-section {
