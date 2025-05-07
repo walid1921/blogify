@@ -107,7 +107,6 @@ class User {
         ]);
     }
 
-
     public function delete($userId) {
         $stmt = $this->pdo->prepare("DELETE FROM users WHERE id = :id");
         return $stmt->execute([':id' => $userId]);

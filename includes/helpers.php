@@ -1,5 +1,7 @@
 <?php
 
+//echo __DIR__;
+
 function activeLink($pageName) {
     $currentPage = basename($_SERVER["SCRIPT_FILENAME"]);
     return $currentPage === $pageName ? "active" : ""; 
@@ -50,3 +52,13 @@ function handleError($errno, $errstr, $errfile, $errline) {
 }
 
 set_error_handler('handleError');
+
+
+//function base_url($path = "") {
+//    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https://" : "http://";
+//    $host = $_SERVER['HTTP_HOST'];
+//    $scriptName = dirname($_SERVER['SCRIPT_NAME']);
+//    $baseUrl = $protocol . $host . $scriptName;
+//
+//    return rtrim($path, '/');
+//}

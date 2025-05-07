@@ -278,6 +278,9 @@
 //! FORM STYLING
 .form-container {
   @include form-container-base;
+  width: 600px;
+
+
 
   form {
     width: 100%;
@@ -289,7 +292,10 @@
     input[type="text"],
     input[type="email"],
     input[type="password"],
-    input[type="number"] {
+    input[type="number"],
+    input[type="url"],
+    input[type="date"],
+    select {
       width: 100%;
       padding: 10px;
       border: 1px solid #ccc;
@@ -697,38 +703,53 @@
 //! Blog Page
 .blog-page {
 
+  max-width: 1200px;
+
+
   .filter-bar {
     width: 100%;
-    max-width: 1200px;
     margin-bottom: 60px;
     margin-top: 30px;
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+
+    .filter-btn {
+      background-color: rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+
+      border: 1px solid var(--color-purple-1);
+      color: var(--color-white);
+      padding: 8px 18px;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      @include hover-transition;
+
+      &.active, &:hover {
+        background-color: var(--color-purple-1);
+        color: var(--color-white);
+      }
+      a {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--color-white);
+        text-decoration: none;
+        font-weight: 600;
+      }
+    }
 
     .filters {
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
 
-      .filter-btn {
-        background-color: rgba(255, 255, 255, 0.4);
-        backdrop-filter: blur(6px);
-        -webkit-backdrop-filter: blur(6px);
 
-        border: 1px solid var(--color-purple-1);
-        color: var(--color-white);
-        padding: 8px 18px;
-        border-radius: var(--border-radius);
-        cursor: pointer;
-        font-size: 0.9rem;
-        font-weight: 600;
-        @include hover-transition;
 
-        &.active, &:hover {
-          background-color: var(--color-purple-1);
-          color: var(--color-white);
-        }
-      }
     }
   }
 
@@ -868,31 +889,44 @@
 }
 
 
-//! ADMIN PAGE
-.adminPage {
+//! PROFILE PAGE
+.profilePage {
 
   width: 100%;
   max-width: 1200px;
-  margin: 150px auto;
+  margin: 150px auto 0 auto;
 
 
     h2 {
       margin-bottom: var(--spacing-lg);
     }
 
+    .account-info{
+      margin-bottom: 40px;
+      span {
+        color: var(--color-purple-1);
+        font-weight: bold;
+      }
+    }
 
 
-    .admin-header {
-        display: flex;
-        align-items: start;
-        gap: 100px;
-        margin-bottom: var(--spacing-lg);
 
-      .update-admin {
+    .user-header {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-bottom: var(--spacing-lg);
+
+      .update-user {
          display: flex;
          flex-direction: column;
          gap: 10px;
          align-items: flex-start;
+
+        .form-container {
+          width: 380px;
+        }
 
 
          p {
@@ -923,8 +957,12 @@
         flex-direction: column;
         gap: 10px;
 
+        .form-container {
+          width: 380px;
+        }
 
-        .password-admin {
+
+        .password-user {
           display: flex;
           flex-direction: column;
           gap: 10px;
@@ -964,8 +1002,47 @@
           }
         }
       }
+
+      .user-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 380px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: var(--border-radius);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        background-color: var(--color-white);
+
+        .user-info-content{
+          margin-top: 3px;
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+
+          span {
+            color: #7f7f7f;
+            font-size: 0.9rem;
+
+          }
+        }
+
+        p{
+          font-size: 0.9rem;
+        }
+
+
+
+      }
     }
 
+}
+
+//! USERS TABLE
+.userTable {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto 150px auto;
 }
 
 
@@ -985,15 +1062,14 @@
     margin-bottom: 20px;
     width: 100%;
 
-    h3 {
+    p {
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 10px;
-      background-color: rgba(55, 117, 185, 0.50);
+      background-color: var(--color-purple-1);
       color: var(--color-white);
-      border: 1px solid var(--color-purple-1);
-      padding: 0.5rem 1rem;
+      padding: 0.2rem 1rem;
       border-radius: 1rem;
       font-weight: lighter;
       font-size: 14px;
@@ -1158,19 +1234,22 @@
   }
 }
 .delete-button {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+
   font-family: var(--body-font), serif;
-  font-size: 14px;
+  font-size: var(--btn-size);
   letter-spacing: 1.25px;
+  font-weight: bold;
   border-radius: var(--border-radius);
   border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: var(--spacing-md) 0;
   color: var(--color-white);
   padding: 8px 16px;
   cursor: pointer;
   transition: all 0.15s ease;
-  margin: var(--spacing-md) 0;
   background-color: var(--color-error);
 
   &:hover {
@@ -1257,9 +1336,7 @@
     }
   }
 }
-
-
-.deleteAdminModal {
+.deleteUserModal {
   display: none;
   position: fixed;
   z-index: 1000;
@@ -1281,28 +1358,28 @@
     border-radius: 10px;
     position: relative;
 
-    p {
-      font-size: 0.9rem;
-      color: #7f7f7f;
-    }
-
-    .closeModal {
-      font-size: 24px;
-      cursor: pointer;
-      font-weight: lighter;
-      color: gray;
-
-      &:hover {
-        color: var(--color-blue-dark);
-      }
-    }
-
     .modal-header {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
       margin-bottom: 20px;
       gap: 10px;
+    }
+
+    p {
+      font-size: 0.9rem;
+      color: #7f7f7f;
+    }
+
+    .close {
+      font-size: 24px;
+      cursor: pointer;
+      font-weight : lighter;
+      color: gray;
+
+      &:hover {
+        color: var(--color-blue-dark);
+      }
     }
 
     .delete-button {

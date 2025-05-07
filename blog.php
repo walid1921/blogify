@@ -18,7 +18,16 @@ include "./components/header.php";
                 <button class="filter-btn">Software Development</button>
                 <button class="filter-btn">Design</button>
                 <button class="filter-btn">Marketing</button>
+
             </div>
+
+
+            <button class="filter-btn with-icon">
+                <a href="blogs_manager.php">
+                    Blogs manager
+                    <img src="/assets/images/arrow-right-light.svg" alt="">
+                </a>
+            </button>
         </div>
 
         <div class="blogs-wrapper">

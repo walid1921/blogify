@@ -8,42 +8,12 @@
         redirect("login.php");
     }
 
-    if (!isAdmin()) {
-        redirect("todo.php");
-    }
-
     $currentUser = $_SESSION["user"];
     $currentUserId = $_SESSION['user_id'];
 
     $search = "";
     $errors = [];
     $successMessage = "";
-
-
-    //$currentUser = $_SESSION["username"];
-    //
-    //$stmt = $pdo->prepare("SELECT id, username, email, password FROM users WHERE username = :username");
-    //$stmt->execute(['username' => $currentUser]);
-    //$users = $stmt->fetch(PDO::FETCH_ASSOC);
-    //
-    //
-    //if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    //    if (isset($_POST["editAdmin"])) {
-    //        $userId = $_SESSION['user_id'];
-    //        $newUsername = $_POST["username"];
-    //        $newEmail = $_POST["email"];
-    //        $newPassword = $_POST["password"];
-    //        $confPassword = $_POST["confPassword"];
-    //
-    //        editUser($pdo, $userId, $newUsername, $newEmail, $newPassword, $confPassword);
-    //        redirect("logout.php");
-    //    } elseif (isset($_POST["deleteUser"])) {
-    //        $userId = $_SESSION['user_id'];
-    //        deleteUser($pdo, $userId);
-    //        redirect("logout.php");
-    //    }
-    //}
-
 
 
     if ($_SERVER["REQUEST_METHOD"] === "GET") {
@@ -57,88 +27,40 @@
         }
 
         $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
 
+    }
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
-        registerUser($pdo, $_POST, $errors, $successMessage);
+
+        if (isset($_POST["registerNewUser"])) {
+            registerUser($pdo, $_POST, $errors, $successMessage, false, true);
+
+        } elseif (isset($_POST["editUser"])) {
+            $userId = $_POST["userId"];
+            $newUsername = $_POST["username"];
+            $newEmail = $_POST["email"];
+            editUser($pdo, $userId, $newUsername, $newEmail);
+            redirect("admin.php");
+
+        } elseif (isset($_POST["deleteUser"])) {
+            $userId = $_POST["userId"];
+            deleteUser($pdo, $userId);
+            redirect("admin.php");
+
+        }
     }
 
 ?>
 
 
-
-<div class="adminPage">
-
-    <div>
-       <h2>Admin Panel</h2>
-
-        <div class="admin-header">
-            <div class="update-admin">
-                <div>
-                    <h5>Account</h5>
-                    <p>Update your account information here. Once you update your credentials you will be logged out.</p>
-                </div>
-
-                <div class="form-container">
-                    <?php if ($successMessage): ?>
-                        <p style="color: green;"><?php echo $successMessage; ?></p>
-                    <?php endif; ?>
-
-                    <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                        <input type="text" name="username" placeholder="username" value="<?php echo isset($_POST['username']) ? $_POST['username'] : "" ?>" required>
-                        <?php if ($errors['username']): ?><span class="error"><?php echo $errors['username'] ?></span><?php endif; ?><br>
-
-                        <input type="email" name="email" placeholder="email" value="<?php echo isset($_POST['email']) ? $_POST['email'] : "" ?>" required>
-                        <?php if ($errors['email']): ?><span class="error"><?php echo $errors['email'] ?></span><?php endif; ?><br>
-
-                        <button class="primary-button" type="submit" name="editAdmin">Save</button>
-                    </form>
-                </div>
-
-                <button class="delete-button" type="submit" name="deleteAdmin" id="deleteAdminBtn">Delete my account <img src="/assets/images/bin.png" alt="bin image"></button>
-
-
-            </div>
-
-            <div class="right-column">
-                <div class="password-admin">
-                    <div>
-                        <h5>Password</h5>
-                        <p>Update your password information here. Once you update your credentials you will be logged out.</p>
-                    </div>
-                    <div class="form-container">
-                        <?php if ($successMessage): ?>
-                            <p style="color: green;"><?php echo $successMessage; ?></p>
-                        <?php endif; ?>
-
-                        <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-
-                            <input type="password" name="password" placeholder="password" value="<?php echo isset($_POST['password']) ? $_POST['password'] : "" ?>" required>
-                            <?php if ($errors['password']): ?><span class="error"><?php echo $errors['password'] ?></span><?php endif; ?><br>
-
-                            <input type="password" name="password" placeholder="password" value="<?php echo isset($_POST['password']) ? $_POST['password'] : "" ?>" required>
-                            <?php if ($errors['password']): ?><span class="error"><?php echo $errors['password'] ?></span><?php endif; ?><br>
-
-                            <input type="password" name="confPassword" placeholder="confirm password" required>
-                            <?php if ($errors['confPassword']): ?><span class="error"><?php echo $errors['confPassword'] ?></span><?php endif; ?><br>
-
-                            <button class="primary-button" type="submit" name="passwordAdmin">Save</button>
-                        </form>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-
+<?php if(isAdmin()): ?>
+    <div class="userTable">
     <div class="tableContainer">
         <h2>Other users</h2>
         <div class="table-header">
-            <h3><span><?php echo !empty($users) ? count($users) : 0 ?> active users</span></h3>
+            <p><span><?php echo !empty($users) ? count($users) : 0 ?> active users</span></p>
 
             <div class="search">
-                <form method="GET" action="">
+                <form method="GET" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                     <input type="text" name="search" placeholder="Search by username or email" value="<?php echo htmlspecialchars($search); ?>">
                     <button type="submit">
                         <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0,0,256,256">
@@ -177,37 +99,53 @@
                         <tr>
                             <td>
                                 <?php
-                                if ($user["id"] == $currentUserId) {
-                                    echo "<span class='admin'>you</span>";
-                                } elseif ($user["admin"]) {
-                                    echo "<span class='admin'>admin</span>";
-                                } else {
-                                    echo "<span class='user'>user</span>";
-                                }
+                                    if ($user["id"] === $currentUserId) {
+                                        echo "<span class='admin'>you</span>";
+                                    } elseif ($user["admin"]) {
+                                        echo "<span class='admin'>admin</span>";
+                                    } else {
+                                        echo "<span class='user'>user</span>";
+                                    }
                                 ?>
                             </td>
-
                             <td><?php echo htmlspecialchars($user["username"]); ?></td>
                             <td><?php echo htmlspecialchars($user["email"]); ?></td>
                             <td><?php echo htmlspecialchars($user["age"]); ?></td>
                             <td><?php echo htmlspecialchars($user["phone"]); ?></td>
                             <td><?php echo htmlspecialchars($user["gender"]); ?></td>
                             <td><?php echo htmlspecialchars($user["created_at"]); ?></td>
-                            <td>
-                                <!-- Edit User  -->
-                                <form method="POST" style="display:inline-block;">
-                                    <input type="hidden" name="userId" value="<?php echo htmlspecialchars($user["id"]); ?>">
-                                    <input type="text" name="username" value="<?php echo htmlspecialchars($user["username"]); ?>" required>
-                                    <input type="email" name="email" value="<?php echo htmlspecialchars($user["email"]); ?>" required>
-                                    <button class="edit" type="submit" name="editUser">Edit</button>
-                                </form>
 
-                                <!-- Delete User  -->
-                                <form method="POST" style="display:inline-block;" onsubmit="return confirm('Are you sure you want to delete this user?');">
-                                    <input type="hidden" name="userId" value="<?php echo htmlspecialchars($user["id"]); ?>">
-                                    <button class="delete" type="submit" name="deleteUser">Delete</button>
-                                </form>
-                            </td>
+                            <?php if ($user["admin"]): ?>
+                                <td>
+                                   Restricted!
+                                </td>
+                            <?php else: ?>
+                                <td>
+                                    <!-- Edit User  -->
+                                    <form
+                                            method="POST"
+                                            style="display:inline-block;"
+                                            action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>"
+                                    >
+                                        <input type="hidden" name="userId" value="<?php echo htmlspecialchars($user["id"]); ?>">
+                                        <input type="text" name="username" value="<?php echo htmlspecialchars($user["username"]); ?>" required>
+                                        <input type="email" name="email" value="<?php echo htmlspecialchars($user["email"]); ?>" required>
+                                        <button class="edit" type="submit" name="editUser">Edit</button>
+                                    </form>
+
+                                    <!-- Delete User  -->
+                                    <form
+                                            method="POST"
+                                            style="display:inline-block;"
+                                            action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>"
+                                            onsubmit="return confirm('Are you sure you want to delete this user?');"
+                                    >
+                                        <input type="hidden" name="userId" value="<?php echo htmlspecialchars($user["id"]); ?>">
+                                        <button class="delete" type="submit" name="deleteUser">Delete</button>
+                                    </form>
+                                </td>
+                            <?php endif; ?>
+
                         </tr>
                     <?php endforeach; ?>
                 <?php else: ?>
@@ -221,6 +159,113 @@
 
 </div>
 
+
+<!--   Show Modals -->
+    <div id="registerModal" class="modal">
+        <div class="form-container">
+            <div class="modal-header">
+                <h4>Register New User</h4>
+                <span class="close">&times;</span>
+            </div>
+
+            <?php if ($successMessage): ?>
+                <p style="color: green;">
+                    <?php echo $successMessage; ?>
+                </p>
+            <?php endif; ?>
+
+            <form
+                    method="POST"
+                    action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>"
+            >
+
+                <!-- username-->
+                <input
+                        type="text"
+                        name="username"
+                        placeholder="username"
+                        value="<?php echo isset($_POST['username']) ? $_POST['username'] : "" ?>"
+                        required
+                >
+                <?php if ($errors['username']): ?>
+                    <span class="error">
+                        <?php echo $errors['username'] ?>
+                    </span>
+                <?php endif; ?>
+                <br>
+
+                <!-- email-->
+                <input
+                        type="email"
+                        name="email"
+                        placeholder="email"
+                        value="<?php echo isset($_POST['email']) ? $_POST['email'] : "" ?>"
+                        required
+                >
+                <?php if ($errors['email']): ?>
+                    <span class="error">
+                        <?php echo $errors['email'] ?>
+                    </span>
+                <?php endif; ?>
+                <br>
+
+                <!-- password-->
+                <input
+                        type="password"
+                        name="password"
+                        placeholder="password"
+                        value="<?php echo isset($_POST['password']) ? $_POST['password'] : "" ?>"
+                        required>
+                <?php if ($errors['password']): ?>
+                    <span class="error">
+                        <?php echo $errors['password'] ?>
+                    </span>
+                <?php endif; ?>
+                <br>
+
+
+                <input type="password" name="confPassword" placeholder="confirm password" required>
+                <?php if ($errors['confPassword']): ?><span class="error"><?php echo $errors['confPassword'] ?></span><?php endif; ?>
+                <br>
+
+
+                <input type="number" name="age" placeholder="age" value="<?php echo isset($_POST['age']) ? $_POST['age'] : "" ?>" required>
+                <?php if ($errors['age']): ?><span class="error"><?php echo $errors['age'] ?></span><?php endif; ?>
+                <br>
+
+
+                <input type="text" name="phone" placeholder="phone number" value="<?php echo isset($_POST['phone']) ? $_POST['phone'] : "" ?>">
+                <?php if ($errors['phone']): ?><span class="error"><?php echo $errors['phone'] ?></span><?php endif; ?>
+                <br>
+
+
+                <select name="admin">
+                    <option value="0" <?php echo isset($_POST['admin']) && $_POST['admin'] === "0" ? "selected" : ""?>>User</option>
+                    <option value="1" <?php echo isset($_POST['admin']) && $_POST['admin'] === "1" ? "selected" : ""?>>Admin</option>
+                </select>
+                <?php if ($errors['admin']): ?><span class="error"><?php echo $errors['admin'] ?></span><?php endif; ?>
+                <br>
+
+
+                <div>
+                    <input type="radio" name="gender" value="Male" <?php echo (isset($_POST['gender']) && $_POST['gender'] === 'Male') ? 'checked' : ''; ?>> Male
+                    <input type="radio" name="gender" value="Female" <?php echo (isset($_POST['gender']) && $_POST['gender'] === 'Female') ? 'checked' : ''; ?>> Female
+                    <input type="radio" name="gender" value="Other" <?php echo (isset($_POST['gender']) && $_POST['gender'] === 'Other') ? 'checked' : ''; ?>> Other
+                </div>
+                <?php if ($errors['gender']): ?><span class="error"><?php echo $errors['gender'] ?></span><?php endif; ?>
+                <br>
+
+                <label><input type="checkbox" name="terms" value="agree" <?php echo (isset($_POST['terms']) && $_POST['terms'] === 'agree') ? 'checked' : ''; ?>> I agree to the terms and conditions</label>
+                <?php if ($errors['terms']): ?><span class="error"><?php echo  $errors['terms']  ?></span><?php endif; ?>
+                <br>
+
+                <input type="submit" value="Register" name="registerNewUser">
+            </form>
+        </div>
+    </div>
+
+
 </div>
+<?php endif;?>
 
 <script src="../assets/js/modal.js"></script>

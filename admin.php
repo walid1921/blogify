@@ -10,34 +10,13 @@ if (!isLoggedIn()) {
     redirect("login.php");
 }
 
-if (!isAdmin()) {
-    redirect("todo.php");
-}
-
-
-
-// Handle form submissions for editing and deleting users
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    if (isset($_POST["editUser"])) {
-        $userId = $_POST["userId"];
-        $newUsername = $_POST["username"];
-        $newEmail = $_POST["email"];
-
-        editUser($pdo, $userId, $newUsername, $newEmail);
-        redirect("admin.php");
-
-    } elseif (isset($_POST["deleteUser"])) {
-        $userId = $_POST["userId"];
-        deleteUser($pdo, $userId);
-        redirect("admin.php");
-    }
-}
-
 
 include "./components/header.php";
 ?>
 
-<!-- Include User Table -->
+
+<?php include './components/profilePanel.php'; ?>
+
 <?php include './components/usersTable.php'; ?>
 
 <?php include "./components/footer.php"; ?>
