@@ -131,12 +131,8 @@ h6 {
 
 a {
   text-decoration: none;
-  color: var(--color-purple-1);
   font-weight: 500;
   transition: color 0.25s ease;
-}
-a:hover {
-  color: var(--color-blue-dark);
 }
 
 p {
@@ -435,7 +431,6 @@ p {
 }
 
 .form-container {
-  width: 600px;
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -446,6 +441,7 @@ p {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   background-color: var(--color-white);
   color: black;
+  width: 600px;
 }
 .form-container form {
   width: 100%;
@@ -457,7 +453,10 @@ p {
 .form-container form input[type=text],
 .form-container form input[type=email],
 .form-container form input[type=password],
-.form-container form input[type=number] {
+.form-container form input[type=number],
+.form-container form input[type=url],
+.form-container form input[type=date],
+.form-container form select {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
@@ -466,7 +465,10 @@ p {
 .form-container form input[type=text]:focus,
 .form-container form input[type=email]:focus,
 .form-container form input[type=password]:focus,
-.form-container form input[type=number]:focus {
+.form-container form input[type=number]:focus,
+.form-container form input[type=url]:focus,
+.form-container form input[type=date]:focus,
+.form-container form select:focus {
   outline: none;
   border-color: var(--color-purple-1);
 }
@@ -515,7 +517,6 @@ p {
 }
 
 .form-container.blur-bg {
-  width: 600px;
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -787,20 +788,19 @@ p {
   margin-top: 80px;
 }
 
+.blog-page {
+  max-width: 1200px;
+}
 .blog-page .filter-bar {
   width: 100%;
-  max-width: 1200px;
   margin-bottom: 60px;
   margin-top: 30px;
   display: flex;
-  justify-content: flex-start;
-}
-.blog-page .filter-bar .filters {
-  display: flex;
+  justify-content: space-between;
+  align-items: center;
   flex-wrap: wrap;
-  gap: 12px;
 }
-.blog-page .filter-bar .filters .filter-btn {
+.blog-page .filter-bar .filter-btn {
   background-color: rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
@@ -813,9 +813,22 @@ p {
   font-weight: 600;
   transition: all 0.3s ease-in-out;
 }
-.blog-page .filter-bar .filters .filter-btn.active, .blog-page .filter-bar .filters .filter-btn:hover {
+.blog-page .filter-bar .filter-btn.active, .blog-page .filter-bar .filter-btn:hover {
   background-color: var(--color-purple-1);
   color: var(--color-white);
+}
+.blog-page .filter-bar .filter-btn a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--color-white);
+  text-decoration: none;
+  font-weight: 600;
+}
+.blog-page .filter-bar .filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 .blog-page .blogs-wrapper {
   width: 100%;
@@ -930,70 +943,114 @@ p {
   background-color: var(--color-blue-dark);
 }
 
-.adminPage {
+.profilePage {
   width: 100%;
   max-width: 1200px;
-  margin: 150px auto;
+  margin: 150px auto 0 auto;
 }
-.adminPage h2 {
+.profilePage h2 {
   margin-bottom: var(--spacing-lg);
 }
-.adminPage .admin-header {
+.profilePage .account-info {
+  margin-bottom: 40px;
+}
+.profilePage .account-info span {
+  color: var(--color-purple-1);
+  font-weight: bold;
+}
+.profilePage .user-header {
   display: flex;
   align-items: start;
-  gap: 100px;
+  justify-content: space-between;
+  flex-wrap: wrap;
   margin-bottom: var(--spacing-lg);
 }
-.adminPage .admin-header .update-admin {
+.profilePage .user-header .update-user {
   display: flex;
   flex-direction: column;
   gap: 10px;
   align-items: flex-start;
 }
-.adminPage .admin-header .update-admin p {
+.profilePage .user-header .update-user .form-container {
+  width: 380px;
+}
+.profilePage .user-header .update-user p {
   font-size: 0.9rem;
   color: #7f7f7f;
 }
-.adminPage .admin-header .update-admin .form-container form .primary-button {
+.profilePage .user-header .update-user .form-container form .primary-button {
   margin: var(--spacing-md) 0;
   background-color: var(--color-purple-1);
   color: var(--color-white);
 }
-.adminPage .admin-header .update-admin .form-container form .primary-button:hover {
+.profilePage .user-header .update-user .form-container form .primary-button:hover {
   background-color: var(--color-blue-dark);
 }
-.adminPage .admin-header .right-column {
+.profilePage .user-header .right-column {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-.adminPage .admin-header .right-column .password-admin {
+.profilePage .user-header .right-column .form-container {
+  width: 380px;
+}
+.profilePage .user-header .right-column .password-user {
   display: flex;
   flex-direction: column;
   gap: 10px;
   align-items: flex-start;
 }
-.adminPage .admin-header .right-column .password-admin p {
+.profilePage .user-header .right-column .password-user p {
   font-size: 0.9rem;
   color: #7f7f7f;
 }
-.adminPage .admin-header .right-column .password-admin .form-container form .primary-button {
+.profilePage .user-header .right-column .password-user .form-container form .primary-button {
   margin: var(--spacing-md) 0;
   background-color: var(--color-purple-1);
   color: var(--color-white);
 }
-.adminPage .admin-header .right-column .password-admin .form-container form .primary-button:hover {
+.profilePage .user-header .right-column .password-user .form-container form .primary-button:hover {
   background-color: var(--color-blue-dark);
 }
-.adminPage .admin-header .right-column .delete-admin {
+.profilePage .user-header .right-column .delete-admin {
   display: flex;
   flex-direction: column;
   gap: 10px;
   align-items: flex-start;
 }
-.adminPage .admin-header .right-column .delete-admin p {
+.profilePage .user-header .right-column .delete-admin p {
   font-size: 0.9rem;
   color: #7f7f7f;
+}
+.profilePage .user-header .user-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 380px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: var(--color-white);
+}
+.profilePage .user-header .user-info .user-info-content {
+  margin-top: 3px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.profilePage .user-header .user-info .user-info-content span {
+  color: #7f7f7f;
+  font-size: 0.9rem;
+}
+.profilePage .user-header .user-info p {
+  font-size: 0.9rem;
+}
+
+.userTable {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto 150px auto;
 }
 
 .tableContainer {
@@ -1011,15 +1068,14 @@ p {
   margin-bottom: 20px;
   width: 100%;
 }
-.tableContainer .table-header h3 {
+.tableContainer .table-header p {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 10px;
-  background-color: rgba(55, 117, 185, 0.5);
+  background-color: var(--color-purple-1);
   color: var(--color-white);
-  border: 1px solid var(--color-purple-1);
-  padding: 0.5rem 1rem;
+  padding: 0.2rem 1rem;
   border-radius: 1rem;
   font-weight: lighter;
   font-size: 14px;
@@ -1166,19 +1222,21 @@ p {
 }
 
 .delete-button {
-  display: flex;
-  align-items: center;
-  gap: 10px;
   font-family: var(--body-font), serif;
-  font-size: 14px;
+  font-size: var(--btn-size);
   letter-spacing: 1.25px;
+  font-weight: bold;
   border-radius: var(--border-radius);
   border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: var(--spacing-md) 0;
   color: var(--color-white);
   padding: 8px 16px;
   cursor: pointer;
   transition: all 0.15s ease;
-  margin: var(--spacing-md) 0;
   background-color: var(--color-error);
 }
 .delete-button:hover {
@@ -1249,7 +1307,7 @@ p {
   color: var(--color-blue-dark);
 }
 
-.deleteAdminModal {
+.deleteUserModal {
   display: none;
   position: fixed;
   z-index: 1000;
@@ -1264,34 +1322,34 @@ p {
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
 }
-.deleteAdminModal .modal-content {
+.deleteUserModal .modal-content {
   background-color: white;
   padding: 20px;
   width: 600px;
   border-radius: 10px;
   position: relative;
 }
-.deleteAdminModal .modal-content p {
-  font-size: 0.9rem;
-  color: #7f7f7f;
-}
-.deleteAdminModal .modal-content .closeModal {
-  font-size: 24px;
-  cursor: pointer;
-  font-weight: lighter;
-  color: gray;
-}
-.deleteAdminModal .modal-content .closeModal:hover {
-  color: var(--color-blue-dark);
-}
-.deleteAdminModal .modal-content .modal-header {
+.deleteUserModal .modal-content .modal-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 20px;
   gap: 10px;
 }
-.deleteAdminModal .modal-content .delete-button {
+.deleteUserModal .modal-content p {
+  font-size: 0.9rem;
+  color: #7f7f7f;
+}
+.deleteUserModal .modal-content .close {
+  font-size: 24px;
+  cursor: pointer;
+  font-weight: lighter;
+  color: gray;
+}
+.deleteUserModal .modal-content .close:hover {
+  color: var(--color-blue-dark);
+}
+.deleteUserModal .modal-content .delete-button {
   margin-top: 30px;
 }
 

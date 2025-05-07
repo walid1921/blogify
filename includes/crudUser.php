@@ -7,7 +7,7 @@ require_once "session.php";
 
 
 //! Create new user
-function registerUser($pdo, $formData, &$errors, &$successMessage, $autoLogin = false) {
+function registerUser($pdo, $formData, &$errors, &$successMessage, $autoLogin = false, $isAdminPanel = false) {
 
     // 5. Sanitize and validate input
     $username = trim($formData["username"]);
@@ -18,6 +18,9 @@ function registerUser($pdo, $formData, &$errors, &$successMessage, $autoLogin = 
     $phone = filter_var(trim($formData["phone"]),  FILTER_SANITIZE_NUMBER_INT);
     $gender = trim($formData["gender"]);
     $terms = isset($formData["terms"]) ? 1 : 0;
+    $admin = isset($formData["admin"]) && (string)$formData["admin"] === "1" ? 1 : 0;
+
+
 
 
     // 6. Username Validation
@@ -53,12 +56,18 @@ function registerUser($pdo, $formData, &$errors, &$successMessage, $autoLogin = 
     // Phone Validation
     if (empty($phone) || !preg_match("/^[0-9]{10,15}$/", $phone)) {
         $errors['phone'] = "Invalid phone number";
+        // here
     }
 
     // Gender
     if (empty($gender)) {
         $errors['gender'] = "Gender is required";
     }
+
+    if(!$isAdminPanel && $admin){
+        $errors['admin'] = "You cannot create an admin account";
+    }
+
 
     // Terms
     if (!$terms) {
@@ -88,7 +97,7 @@ function registerUser($pdo, $formData, &$errors, &$successMessage, $autoLogin = 
 
     // Insert user
     try {
-        $stmt = $pdo->prepare("INSERT INTO users (username, email, password, age, phone, gender, terms) VALUES (:username, :email, :password, :age, :phone, :gender, :terms)");
+        $stmt = $pdo->prepare("INSERT INTO users (username, email, password, age, phone, gender, terms, admin) VALUES (:username, :email, :password, :age, :phone, :gender, :terms, :admin)");
         $stmt->execute([
             ':username' => $username,
             ':email' => $email,
@@ -97,6 +106,7 @@ function registerUser($pdo, $formData, &$errors, &$successMessage, $autoLogin = 
             ':phone' => $phone,
             ':gender' => $gender,
             ':terms' => $terms,
+            ':admin' => $admin
         ]);
 
         // 12. Check if the user was inserted
@@ -150,13 +160,27 @@ function deleteUser($pdo, $userId) {
 }
 
 //! Edit user
-function editUser($pdo, $userId, $newUsername, $newEmail, $newPassword) {
-    $stmt = $pdo->prepare("UPDATE users SET username = :username, email = :email, password = :password WHERE id = :id");
+function editUser($pdo, $userId, $newUsername, $newEmail) {
+    $stmt = $pdo->prepare("UPDATE users SET username = :username, email = :email WHERE id = :id");
     return $stmt->execute(
         [
             ':username' => $newUsername,
             ':email' => $newEmail,
-            ':password' => password_hash($newPassword, PASSWORD_DEFAULT), // Hash the new password
+            ':id' => $userId
+        ]
+    );
+}
+
+//! update password
+function updatePassword($pdo, $userId, $password, $confPassword) {
+    if ($password !== $confPassword) {
+        return false;
+    }
+
+    $stmt = $pdo->prepare("UPDATE users SET password = :password WHERE id = :id");
+    return $stmt->execute(
+        [
+            ':password' => password_hash($password, PASSWORD_DEFAULT),
             ':id' => $userId
         ]
     );

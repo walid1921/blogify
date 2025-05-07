@@ -143,13 +143,10 @@ h6 {
 
 a {
   text-decoration: none;
-  color: var(--color-purple-1);
+  //color: var(--color-purple-1);
   font-weight: 500;
   transition: color 0.25s ease;
 
-  &:hover {
-    color: var(--color-blue-dark);
-  }
 }
 
 p {
@@ -249,7 +246,6 @@ p {
 }
 
 @mixin form-container-base {
-  width: 600px;
   display: flex;
   flex-direction: column;
   justify-content: start;
