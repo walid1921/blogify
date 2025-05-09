@@ -17,6 +17,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const editUsernameInput = document.getElementById("editUsername");
     const editEmailInput = document.getElementById("editEmail");
 
+    const passwordForm = document.getElementById("passwordForm");
+    const confirmPasswordModal = document.getElementById("confirmPasswordModal");
+    const passwordBtn = document.getElementById("passwordBtn");
+    const closePasswordModal = document.querySelector(".closePasswordModal")
+
     // Register Modal Logic
     if (addUserButton && registerModal) {
         addUserButton.onclick = function () {
@@ -45,23 +50,29 @@ document.addEventListener("DOMContentLoaded", function () {
     if (deleteUserButton && deleteModal && userInfo && closeDeleteModal) {
         deleteUserButton.onclick = function () {
             deleteModal.style.display = "flex";
-            requestAnimationFrame(() => {
-                deleteModal.classList.add("show");
-            });
-            userInfo.classList.add("hide");
+            userInfo.style.display = "none";
+
         };
 
         closeDeleteModal.onclick = function () {
-            deleteModal.classList.remove("show");
-            userInfo.classList.remove("hide");
-
-            deleteModal.addEventListener("transitionend", function handler() {
-                deleteModal.style.display = "none";
-                deleteModal.removeEventListener("transitionend", handler);
-            });
+            deleteModal.style.display = "none";
+            userInfo.style.display = "flex";
         };
     }
 
+    // Confirm Password Modal Logic
+    if (passwordForm && confirmPasswordModal && passwordBtn && closePasswordModal) {
+        passwordBtn.onclick = function () {
+            confirmPasswordModal.style.display = "flex";
+            passwordForm.style.display = "none";
+
+        };
+
+        closePasswordModal.onclick = function () {
+            confirmPasswordModal.style.display = "none";
+            passwordForm.style.display = "flex";
+        };
+    }
 
     editButtons.forEach(button => {
         button.addEventListener("click", () => {
@@ -78,7 +89,6 @@ document.addEventListener("DOMContentLoaded", function () {
             editUserModal.style.display = "flex";
         });
     });
-
     if (closeEditUserModal) {
         closeEditUserModal.addEventListener("click", () => {
             editUserModal.style.display = "none";

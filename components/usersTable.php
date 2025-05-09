@@ -42,45 +42,15 @@
         }
 
         elseif (isset($_POST["editUser"])) {
-            $userId = isset($_POST["userId"]) ? (int)$_POST["userId"] : 0;
-            $newUsername = isset($_POST["username"]) ? trim($_POST["username"]) : '';
-            $newEmail = isset($_POST["email"]) ? trim($_POST["email"]) : '';
 
-            // Validation
-            if (empty($newUsername) || !preg_match("/^[a-zA-Z0-9_]{5,20}$/", $newUsername)) {
-                $errors['username'] = "Username must be 5-20 chars (letters, numbers, underscore)";
-            }
-            if (empty($newEmail) || !filter_var($newEmail, FILTER_VALIDATE_EMAIL)) {
-                $errors['email'] = "Invalid email format";
-            }
-
-            // Uniqueness check
-            if (empty($errors)) {
-                $stmt = $pdo->prepare("SELECT * FROM users WHERE (username = :username OR email = :email) AND id != :id");
-                $stmt->execute([
-                    'username' => $newUsername,
-                    'email' => $newEmail,
-                    'id' => $userId
-                ]);
-                $existingUser = $stmt->fetch(PDO::FETCH_ASSOC);
-
-                if ($existingUser) {
-                    if ($existingUser['username'] === $newUsername) {
-                        $errors['username'] = "Username already taken.";
-                    }
-                    if ($existingUser['email'] === $newEmail) {
-                        $errors['email'] = "Email already in use.";
-                    }
-                }
-            }
+            editUser($pdo, $_POST, $errors, $successMessage);
 
             if (empty($errors)) {
-                if (editUser($pdo, $userId, $newUsername, $newEmail)) {
-                    $successMessage = "User information updated successfully.";
-                } else {
-                    $successMessage = "Failed to update user information.";
-                }
+                $successMessage = "User information updated successfully.";
+            } else {
+                $successMessage = "Failed to update user information.";
             }
+
         }
 
         elseif (isset($_POST["deleteUser"])) {

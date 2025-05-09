@@ -160,19 +160,86 @@ function deleteUser($pdo, $userId) {
 }
 
 //! Edit user
-function editUser($pdo, $userId, $newUsername, $newEmail) {
-    $stmt = $pdo->prepare("UPDATE users SET username = :username, email = :email WHERE id = :id");
-    return $stmt->execute(
-        [
-            ':username' => $newUsername,
-            ':email' => $newEmail,
-            ':id' => $userId
-        ]
-    );
+
+function editUser($pdo, $input, &$errors, &$successMessage = "") {
+
+    $userId = isset($input["userId"]) ? (int)$input["userId"] : (isset($input["id"]) ? (int)$input["id"] : 0);
+    $newUsername = isset($input["username"]) ? trim($input["username"]) : '';
+    $newEmail = isset($input["email"]) ? trim($input["email"]) : '';
+
+    // Validation
+    if (empty($newUsername) || !preg_match("/^[a-zA-Z0-9_]{5,20}$/", $newUsername)) {
+        $errors['username'] = "Username must be 5-20 chars (letters, numbers, underscore)";
+    }
+
+    if (empty($newEmail) || !filter_var($newEmail, FILTER_VALIDATE_EMAIL)) {
+        $errors['email'] = "Invalid email format";
+    }
+
+    if (empty($errors)) {
+        $stmt = $pdo->prepare("SELECT * FROM users WHERE (username = :username OR email = :email) AND id != :id");
+        $stmt->execute([
+            'username' => $newUsername,
+            'email' => $newEmail,
+            'id' => $userId
+        ]);
+        $existingUser = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($existingUser) {
+            if ($existingUser['username'] === $newUsername) {
+                $errors['username'] = "Username already taken.";
+            }
+            if ($existingUser['email'] === $newEmail) {
+                $errors['email'] = "Email already in use.";
+            }
+        }
+    }
+
+    try {
+        if (empty($errors)) {
+            $stmt = $pdo->prepare("UPDATE users SET username = :username, email = :email WHERE id = :id");
+            $success = $stmt->execute([
+                ':username' => $newUsername,
+                ':email' => $newEmail,
+                ':id' => $userId
+            ]);
+
+            if ($success) {
+                $successMessage = "User information updated successfully.";
+                return true;
+            } else {
+                $errors['database'] = "Failed to update user.";
+                return false;
+            }
+        }
+    } catch (PDOException $e) {
+        $errors['database'] = "Database error: " . $e->getMessage();
+    }
+
+    return false;
 }
 
+
 //! update password
-function updatePassword($pdo, $userId, $password, $confPassword) {
+function updatePassword($pdo, $input, $userId, &$errors, &$successMessage = "") {
+
+    $password = isset($input["password"]) ? $input["password"] : '';
+    $confPassword = isset($input["confPassword"]) ? $input["confPassword"] : '';
+
+    if (
+        empty($password) || strlen($password) < 8 ||
+        !preg_match("/[A-Z]/", $password) ||
+        !preg_match("/[a-z]/", $password) ||
+        !preg_match("/[0-9]/", $password)
+    ) {
+        $errors['password'] = "Password must be at least 8 characters, include 1 uppercase, 1 lowercase, and 1 number.";
+    }
+
+    if ($password !== $confPassword) {
+        $errors['confPassword'] = "Passwords do not match";
+    }
+
+
     if ($password !== $confPassword) {
         return false;
     }

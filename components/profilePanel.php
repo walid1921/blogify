@@ -21,63 +21,33 @@ $currentUserId = $_SESSION['user_id'];
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if (isset($_POST["editProfileUser"])) {
-        $newUsername = isset($_POST["username"]) ? trim($_POST["username"]) : '';
-        $newEmail = isset($_POST["email"]) ? trim($_POST["email"]) : '';
 
-        // Add validation
-        if (empty($newUsername) || !preg_match("/^[a-zA-Z0-9_]{5,20}$/", $newUsername)) {
-            $errors['username'] = "Username must be 5-20 chars (letters, numbers, underscore)";
-        }
+        $_POST["userId"] = $currentUserId; // Inject the current user ID if not passed from form
 
+        editUser($pdo, $_POST, $errors, $successMessage);
 
-        if (empty($newEmail) || !filter_var($newEmail, FILTER_VALIDATE_EMAIL)) {
-            $errors['email'] = "Invalid email format";
-        }
-
-
-        if(empty($errors)) {
-            editUser($pdo, $currentUserId, $newUsername, $newEmail);
-              // Update session variables
-                $_SESSION["username"] = $newUsername;
-                $successMessage = "User information updated successfully.";
-                redirect("admin.php");
+        if (empty($errors)) {
+            $successMessage = "User information updated successfully.";
+            $_SESSION["username"] = trim($_POST["username"]);
+            redirect("admin.php");
         } else {
-                    $successMessage = "Failed to update user information";
+            $successMessage = "Failed to update user information.";
         }
-
-
-
-
-
     }
+
     elseif (isset($_POST["deleteProfileUser"])) {
         deleteUser($pdo, $currentUserId);
         redirect("logout.php");
     }
+
     elseif (isset($_POST["passwordProfileUser"])) {
-        $password = isset($_POST["password"]) ? $_POST["password"] : '';
-        $confPassword = isset($_POST["confPassword"]) ? $_POST["confPassword"] : '';
-
-        if (
-            empty($password) || strlen($password) < 8 ||
-            !preg_match("/[A-Z]/", $password) ||
-            !preg_match("/[a-z]/", $password) ||
-            !preg_match("/[0-9]/", $password)
-        ) {
-            $errors['password'] = "Password must be at least 8 characters, include 1 uppercase, 1 lowercase, and 1 number.";
-        }
-
-        if ($password !== $confPassword) {
-            $errors['confPassword'] = "Passwords do not match";
-        }
+        updatePassword($pdo, $_POST, $currentUserId, $errors, $successMessage);
 
         if (empty($errors)) {
-            if (updatePassword($pdo, $currentUserId, $password, $confPassword)) {
-                // Success - log out to apply changes
-                $successMessage = "Password updated successfully. Please log in again.";
-            } else {
-                $errors['database'] = "Failed to update user information";
-            }
+            $successMessage = "Password updated successfully. Please log in again.";
+            redirect("admin.php");
+        } else {
+            $errors['database'] = "Failed to update user information";
         }
     }
 }
@@ -90,16 +60,14 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
 
 <div class="profilePage">
+
+    <?php if ($successMessage): ?>
+        <div class="toast"><?php echo $successMessage; ?></div>
+    <?php endif; ?>
+
     <div>
         <h2>Account</h2>
         <p class="account-info"><span>Hi, <?php echo $currentUser ?>!</span> Update your account information here.</p>
-
-        <?php if ($successMessage): ?>
-            <div class="toast"><?php echo $successMessage; ?></div>
-        <?php endif; ?>
-
-
-
 
         <div class="user-header">
             <div class="update-user">
@@ -116,11 +84,11 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
                 </div>
             </div>
 
-            <div class="right-column">
+            <div id="passwordForm">
                 <div class="password-user">
                     <div class="form-container">
                         <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                            <input type="password" name="password" placeholder="New password"  required>
+                            <input type="password" name="password" placeholder="New password" required>
                             <?php if (!empty($errors['password'])): ?>
                                 <span class="error"><?php echo $errors['password']; ?></span>
                             <?php endif; ?><br>
@@ -130,27 +98,28 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
                                 <span class="error"><?php echo $errors['confPassword']; ?></span>
                             <?php endif; ?><br>
 
-                            <button class="primary-button" type="submit" name="passwordProfileUser">Save</button>
+                            <button class="primary-button" type="button" id="passwordBtn">Save</button>
                         </form>
                     </div>
 
                 </div>
             </div>
-<!--            <div id="confirmPassword" class="passwordConfirm" role="dialog" aria-modal="true" aria-labelledby="passwordModalTitle">-->
-<!--                <div class="user-info-content">-->
-<!--                    <div>-->
-<!--                        <h6 id="passwordModalTitle">Confirm to update your password</h6>-->
-<!---->
-<!--                        <form method="POST" action="--><?php //echo htmlspecialchars($_SERVER["PHP_SELF"]); ?><!--">-->
-<!--                            <button class="delete-button" type="submit" name="deleteProfileUser">Confirm</button>-->
-<!--                            <button class="closeDeleteModal" type="button">Cancel</button>-->
-<!--                        </form>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <br>-->
-<!--            </div>-->
 
-            <div id="userInfo" class="user-info">
+            <div id="confirmPasswordModal" role="dialog" aria-modal="true" aria-labelledby="passwordModalTitle">
+                <div class="user-info-content">
+                    <div>
+                        <h6 id="passwordModalTitle">Confirm to update your password</h6>
+
+                        <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                            <button class="savePasswordBtn" type="submit" name="passwordProfileUser">Confirm</button>
+                            <button class="closePasswordModal" type="button">Cancel</button>
+                        </form>
+                    </div>
+                </div>
+                <br>
+            </div>
+
+            <div id="userInfo">
                 <div class="user-info-content">
                     <div>
                         <span>Username: <?php echo htmlspecialchars($user['username']); ?></span>
@@ -171,7 +140,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
                 <br>
                 <button class="delete-button" type="submit" id="deleteUserBtn">Delete account <img src="/assets/images/bin.png" alt="bin image"></button>
             </div>
-            <div id="deleteModal" class="deleteModalConfirm" role="dialog" aria-modal="true" aria-labelledby="deleteModalTitle">
+            <div id="deleteModal" role="dialog" aria-modal="true" aria-labelledby="deleteModalTitle">
                 <div class="user-info-content">
                     <div>
                         <h6 id="deleteModalTitle">Are you sure you want to delete your account?</h6>
@@ -202,3 +171,6 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 <!--        </div>-->
 <!--    </div>-->
 </div>
+
+
+<script src="../assets/js/modal.js"></script>

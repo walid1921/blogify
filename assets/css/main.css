@@ -986,77 +986,44 @@ p {
 .profilePage .user-header .update-user .form-container form .primary-button:hover {
   background-color: var(--color-blue-dark);
 }
-.profilePage .user-header .right-column {
+.profilePage .user-header #passwordForm {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-.profilePage .user-header .right-column .form-container {
+.profilePage .user-header #passwordForm .form-container {
   width: 380px;
 }
-.profilePage .user-header .right-column .password-user {
+.profilePage .user-header #passwordForm .password-user {
   display: flex;
   flex-direction: column;
   gap: 10px;
   align-items: flex-start;
 }
-.profilePage .user-header .right-column .password-user p {
+.profilePage .user-header #passwordForm .password-user p {
   font-size: 0.9rem;
   color: #7f7f7f;
 }
-.profilePage .user-header .right-column .password-user .form-container form .primary-button {
+.profilePage .user-header #passwordForm .password-user .form-container form .primary-button {
   margin: var(--spacing-md) 0;
   background-color: var(--color-purple-1);
   color: var(--color-white);
 }
-.profilePage .user-header .right-column .password-user .form-container form .primary-button:hover {
+.profilePage .user-header #passwordForm .password-user .form-container form .primary-button:hover {
   background-color: var(--color-blue-dark);
 }
-.profilePage .user-header .right-column .delete-admin {
+.profilePage .user-header #passwordForm .delete-admin {
   display: flex;
   flex-direction: column;
   gap: 10px;
   align-items: flex-start;
 }
-.profilePage .user-header .right-column .delete-admin p {
+.profilePage .user-header #passwordForm .delete-admin p {
   font-size: 0.9rem;
   color: #7f7f7f;
 }
-.profilePage .user-header .user-info {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 380px;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: var(--border-radius);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  background-color: var(--color-white);
-  transition: opacity 0.3s ease;
-}
-.profilePage .user-header .user-info .user-info-content {
-  margin-top: 3px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.profilePage .user-header .user-info .user-info-content span {
-  color: #7f7f7f;
-  font-size: 0.9rem;
-}
-.profilePage .user-header .user-info p {
-  font-size: 0.9rem;
-}
-.profilePage .user-header .user-info.hide {
-  opacity: 0;
+.profilePage .user-header #confirmPasswordModal {
   display: none;
-  visibility: hidden;
-}
-.profilePage .user-header .deleteModalConfirm {
-  display: none;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
   width: 380px;
   height: 265px;
   padding: 20px;
@@ -1066,28 +1033,28 @@ p {
   background-color: var(--color-white);
   z-index: 10;
 }
-.profilePage .user-header .deleteModalConfirm .user-info-content {
+.profilePage .user-header #confirmPasswordModal .user-info-content {
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-.profilePage .user-header .deleteModalConfirm .user-info-content h6 {
+.profilePage .user-header #confirmPasswordModal .user-info-content h6 {
   color: #7f7f7f;
   text-align: center;
 }
-.profilePage .user-header .deleteModalConfirm .user-info-content form {
+.profilePage .user-header #confirmPasswordModal .user-info-content form {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 20px;
   margin-top: 20px;
 }
-.profilePage .user-header .deleteModalConfirm p {
+.profilePage .user-header #confirmPasswordModal p {
   font-size: 0.9rem;
 }
-.profilePage .user-header .deleteModalConfirm .closeDeleteModal {
+.profilePage .user-header #confirmPasswordModal .closeDeleteModal {
   font-family: var(--body-font), serif;
   font-size: var(--btn-size);
   letter-spacing: 1.25px;
@@ -1100,14 +1067,83 @@ p {
   transition: all 0.15s ease;
   background-color: transparent;
 }
-.profilePage .user-header .deleteModalConfirm .closeDeleteModal:hover {
+.profilePage .user-header #confirmPasswordModal .closeDeleteModal:hover {
   background-color: var(--color-blue-dark);
   color: var(--color-white);
 }
-.profilePage .user-header .deleteModalConfirm.show {
+.profilePage .user-header #userInfo {
   display: flex;
-  visibility: visible;
-  opacity: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 380px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: var(--color-white);
+  transition: opacity 0.3s ease;
+}
+.profilePage .user-header #userInfo .user-info-content {
+  margin-top: 3px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.profilePage .user-header #userInfo .user-info-content span {
+  color: #7f7f7f;
+  font-size: 0.9rem;
+}
+.profilePage .user-header #userInfo p {
+  font-size: 0.9rem;
+}
+.profilePage .user-header #deleteModal {
+  display: none;
+  width: 380px;
+  height: 265px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: var(--color-white);
+  z-index: 10;
+}
+.profilePage .user-header #deleteModal .user-info-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.profilePage .user-header #deleteModal .user-info-content h6 {
+  color: #7f7f7f;
+  text-align: center;
+}
+.profilePage .user-header #deleteModal .user-info-content form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+.profilePage .user-header #deleteModal p {
+  font-size: 0.9rem;
+}
+.profilePage .user-header #deleteModal .closeDeleteModal {
+  font-family: var(--body-font), serif;
+  font-size: var(--btn-size);
+  letter-spacing: 1.25px;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--color-grey);
+  margin: var(--spacing-md) 0;
+  color: var(--color-black);
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  background-color: transparent;
+}
+.profilePage .user-header #deleteModal .closeDeleteModal:hover {
+  background-color: var(--color-blue-dark);
+  color: var(--color-white);
 }
 
 .userTable {
