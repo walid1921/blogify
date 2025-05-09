@@ -1032,6 +1032,7 @@ p {
   border-radius: var(--border-radius);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   background-color: var(--color-white);
+  transition: opacity 0.3s ease;
 }
 .profilePage .user-header .user-info .user-info-content {
   margin-top: 3px;
@@ -1046,15 +1047,79 @@ p {
 .profilePage .user-header .user-info p {
   font-size: 0.9rem;
 }
+.profilePage .user-header .user-info.hide {
+  opacity: 0;
+  display: none;
+  visibility: hidden;
+}
+.profilePage .user-header .deleteModalConfirm {
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  width: 380px;
+  height: 265px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: var(--color-white);
+  z-index: 10;
+}
+.profilePage .user-header .deleteModalConfirm .user-info-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.profilePage .user-header .deleteModalConfirm .user-info-content h6 {
+  color: #7f7f7f;
+  text-align: center;
+}
+.profilePage .user-header .deleteModalConfirm .user-info-content form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+.profilePage .user-header .deleteModalConfirm p {
+  font-size: 0.9rem;
+}
+.profilePage .user-header .deleteModalConfirm .closeDeleteModal {
+  font-family: var(--body-font), serif;
+  font-size: var(--btn-size);
+  letter-spacing: 1.25px;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--color-grey);
+  margin: var(--spacing-md) 0;
+  color: var(--color-black);
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  background-color: transparent;
+}
+.profilePage .user-header .deleteModalConfirm .closeDeleteModal:hover {
+  background-color: var(--color-blue-dark);
+  color: var(--color-white);
+}
+.profilePage .user-header .deleteModalConfirm.show {
+  display: flex;
+  visibility: visible;
+  opacity: 1;
+}
 
 .userTable {
   width: 100%;
   max-width: 1200px;
-  margin: 0 auto 150px auto;
+  margin: 150px auto 0 auto;
+}
+.userTable h2 {
+  margin-bottom: var(--spacing-lg);
 }
 
 .tableContainer {
-  margin-top: 100px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -1150,7 +1215,6 @@ p {
   font-family: var(--body-font), serif;
   font-size: var(--btn-size);
   letter-spacing: 1.25px;
-  font-weight: bold;
   border-radius: var(--border-radius);
   border: none;
   color: var(--color-white);
@@ -1167,7 +1231,6 @@ p {
   font-family: var(--body-font), serif;
   font-size: var(--btn-size);
   letter-spacing: 1.25px;
-  font-weight: bold;
   border-radius: var(--border-radius);
   border: none;
   color: var(--color-purple-2);
@@ -1225,7 +1288,6 @@ p {
   font-family: var(--body-font), serif;
   font-size: var(--btn-size);
   letter-spacing: 1.25px;
-  font-weight: bold;
   border-radius: var(--border-radius);
   border: none;
   display: flex;
@@ -1351,6 +1413,39 @@ p {
 }
 .deleteUserModal .modal-content .delete-button {
   margin-top: 30px;
+}
+
+.editModal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.editModal .form-container .modal-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+.editModal .closeEditUserModal {
+  font-size: 24px;
+  cursor: pointer;
+  font-weight: lighter;
+  color: gray;
+}
+.editModal .closeEditUserModal:hover {
+  color: var(--color-blue-dark);
 }
 
 .waiting-section {

@@ -15,9 +15,7 @@ $successMessage = "";
 $currentUser = $_SESSION["username"];
 $currentUserId = $_SESSION['user_id'];
 
-$stmt = $pdo->prepare("SELECT id, username, email, age, phone, gender FROM users WHERE id = :id");
-$stmt->execute(['id' => $currentUserId]);
-$user = $stmt->fetch(PDO::FETCH_ASSOC);
+
 
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -36,21 +34,25 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $errors['email'] = "Invalid email format";
         }
 
-        // Only proceed if no errors
-        if (empty($errors)) {
-            if (editUser($pdo, $currentUserId, $newUsername, $newEmail)) {
-                // Success - log out to apply changes
-                redirect("logout.php");
-            } else {
-                $errors['database'] = "Failed to update user information";
-            }
+
+        if(empty($errors)) {
+            editUser($pdo, $currentUserId, $newUsername, $newEmail);
+              // Update session variables
+                $_SESSION["username"] = $newUsername;
+                $successMessage = "User information updated successfully.";
+                redirect("admin.php");
+        } else {
+                    $successMessage = "Failed to update user information";
         }
+
+
+
+
 
     }
     elseif (isset($_POST["deleteProfileUser"])) {
         deleteUser($pdo, $currentUserId);
         redirect("logout.php");
-
     }
     elseif (isset($_POST["passwordProfileUser"])) {
         $password = isset($_POST["password"]) ? $_POST["password"] : '';
@@ -72,14 +74,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if (empty($errors)) {
             if (updatePassword($pdo, $currentUserId, $password, $confPassword)) {
                 // Success - log out to apply changes
-                redirect("logout.php");
+                $successMessage = "Password updated successfully. Please log in again.";
             } else {
                 $errors['database'] = "Failed to update user information";
             }
         }
     }
-
 }
+
+$stmt = $pdo->prepare("SELECT id, username, email, age, phone, gender FROM users WHERE id = :id");
+$stmt->execute(['id' => $currentUserId]);
+$user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
 ?>
@@ -87,7 +92,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <div class="profilePage">
     <div>
         <h2>Account</h2>
-        <p class="account-info"><span>Hi, <?php echo $currentUser ?>!</span> Update your account information here. Once you update your credentials you will be logged out.</p>
+        <p class="account-info"><span>Hi, <?php echo $currentUser ?>!</span> Update your account information here.</p>
+
+        <?php if ($successMessage): ?>
+            <div class="toast"><?php echo $successMessage; ?></div>
+        <?php endif; ?>
 
 
 
@@ -95,10 +104,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <div class="user-header">
             <div class="update-user">
                 <div class="form-container">
-                    <?php if ($successMessage): ?>
-                        <p style="color: green;"><?php echo $successMessage; ?></p>
-                    <?php endif; ?>
-
                     <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                         <input type="text" name="username" placeholder="username" value="<?php echo htmlspecialchars($user['username']); ?>" required>
                         <?php if (!empty($errors['username'])): ?><span class="error"><?php echo $errors['username'] ?></span><?php endif; ?><br>
@@ -114,13 +119,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <div class="right-column">
                 <div class="password-user">
                     <div class="form-container">
-                        <?php if ($successMessage): ?>
-                            <p style="color: green;"><?php echo $successMessage; ?></p>
-                        <?php endif; ?>
-
                         <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                            <input type="password" name="password" placeholder="New password"
-                                   value="<?php echo htmlspecialchars(isset($_POST['password']) ? $_POST['password'] : ''); ?>" required>
+                            <input type="password" name="password" placeholder="New password"  required>
                             <?php if (!empty($errors['password'])): ?>
                                 <span class="error"><?php echo $errors['password']; ?></span>
                             <?php endif; ?><br>
@@ -130,14 +130,27 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                 <span class="error"><?php echo $errors['confPassword']; ?></span>
                             <?php endif; ?><br>
 
-                            <button class="primary-button" type="submit" name="passwordProfileUser">Confirm</button>
+                            <button class="primary-button" type="submit" name="passwordProfileUser">Save</button>
                         </form>
                     </div>
 
                 </div>
             </div>
+<!--            <div id="confirmPassword" class="passwordConfirm" role="dialog" aria-modal="true" aria-labelledby="passwordModalTitle">-->
+<!--                <div class="user-info-content">-->
+<!--                    <div>-->
+<!--                        <h6 id="passwordModalTitle">Confirm to update your password</h6>-->
+<!---->
+<!--                        <form method="POST" action="--><?php //echo htmlspecialchars($_SERVER["PHP_SELF"]); ?><!--">-->
+<!--                            <button class="delete-button" type="submit" name="deleteProfileUser">Confirm</button>-->
+<!--                            <button class="closeDeleteModal" type="button">Cancel</button>-->
+<!--                        </form>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <br>-->
+<!--            </div>-->
 
-            <div class="user-info">
+            <div id="userInfo" class="user-info">
                 <div class="user-info-content">
                     <div>
                         <span>Username: <?php echo htmlspecialchars($user['username']); ?></span>
@@ -157,22 +170,35 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 </div>
                 <br>
                 <button class="delete-button" type="submit" id="deleteUserBtn">Delete account <img src="/assets/images/bin.png" alt="bin image"></button>
-
             </div>
+            <div id="deleteModal" class="deleteModalConfirm" role="dialog" aria-modal="true" aria-labelledby="deleteModalTitle">
+                <div class="user-info-content">
+                    <div>
+                        <h6 id="deleteModalTitle">Are you sure you want to delete your account?</h6>
+
+                        <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                            <button class="delete-button" type="submit" name="deleteProfileUser">Confirm</button>
+                            <button class="closeDeleteModal" type="button">Cancel</button>
+                        </form>
+                    </div>
+                </div>
+                <br>
+            </div>
+
         </div>
     </div>
 
-<!--  show delete modal -->
-    <div id="deleteModal" class="deleteUserModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4>Delete Account</h4>
-                <span class="close">&times;</span>
-            </div>
-            <p>Are you sure you want to delete your account? This action is not reversible.</p>
-            <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                <button class="delete-button" type="submit" name="deleteProfileUser">Yes, delete my account</button>
-            </form>
-        </div>
-    </div>
+<!--  show delete modal-->
+<!--    <div id="deleteModal" class="deleteUserModal">-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-header">-->
+<!--                <h4>Delete Account</h4>-->
+<!--                <span class="close">&times;</span>-->
+<!--            </div>-->
+<!--            <p>Are you sure you want to delete your account? This action is not reversible.</p>-->
+<!--            <form method="POST" action="--><?php //echo htmlspecialchars($_SERVER["PHP_SELF"]); ?><!--">-->
+<!--                <button class="delete-button" type="submit" name="deleteProfileUser">Yes, delete my account</button>-->
+<!--            </form>-->
+<!--        </div>-->
+<!--    </div>-->
 </div>

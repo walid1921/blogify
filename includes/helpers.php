@@ -30,8 +30,10 @@ function checkServer($conn, $result) { // to check if the server is working
         die("Query failed: " . $conn->error);
     }
     return true;
-}
 
+
+
+}
 // error_log("This is an error message", 3, "/path/to/logfile.log"); 
 // This sends the error message to a log file instead of displaying it on the screen. 
 // 3 indicates appending to the log file, 

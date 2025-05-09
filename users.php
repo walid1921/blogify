@@ -15,6 +15,6 @@ include "./components/header.php";
 ?>
 
 
-<?php include './components/profilePanel.php'; ?>
+<?php include './components/usersTable.php'; ?>
 
 <?php include "./components/footer.php"; ?>

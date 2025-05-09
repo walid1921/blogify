@@ -12,6 +12,8 @@
             <li><a class="<?php echo activeLink('todo.php') ?>" href="todo.php">Tasks</a></li>
             <li><a class="<?php echo activeLink('blog.php') ?>" href="blog.php">Blogs</a></li>
             <li><a class="<?php echo activeLink('admin.php') ?>" href="admin.php">Profile</a></li>
+            <li><a class="<?php echo activeLink('users.php') ?>" href="users.php">Users</a></li>
+
         <?php else : ?>
             <li><a class="<?php echo activeLink('index.php') ?>" href="index.php">Home</a></li>
             <li><a class="<?php echo activeLink('blog.php') ?>" href="blog.php">Blogs</a></li>
@@ -44,6 +46,7 @@
             <li><a class="<?php echo activeLink('todo.php') ?>" href="todo.php">Tasks</a></li>
             <li><a class="<?php echo activeLink('blog.php') ?>" href="blog.php">Blogs</a></li>
             <li><a class="<?php echo activeLink('admin.php') ?>" href="admin.php">Profile</a></li>
+            <li><a class="<?php echo activeLink('users.php') ?>" href="users.php">Users</a></li>
         <?php else : ?>
             <li><a class="<?php echo activeLink('index.php') ?>" href="index.php">Home</a></li>
             <li><a class="<?php echo activeLink('blog.php') ?>" href="blog.php">Blogs</a></li>

@@ -142,7 +142,7 @@ function registerUser($pdo, $formData, &$errors, &$successMessage, $autoLogin = 
                 }
 
             } else {
-                redirect("admin.php");
+                redirect("users.php");
             }
         } else {
             $successMessage = "Registration failed (nothing inserted)";

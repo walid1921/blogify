@@ -8,12 +8,11 @@
         redirect("login.php");
     }
 
-    $currentUser = $_SESSION["user"];
-    $currentUserId = $_SESSION['user_id'];
-
     $search = "";
     $errors = [];
     $successMessage = "";
+    $currentUser = $_SESSION["username"];
+    $currentUserId = $_SESSION['user_id'];
 
 
     if ($_SERVER["REQUEST_METHOD"] === "GET") {
@@ -34,145 +33,193 @@
         if (isset($_POST["registerNewUser"])) {
             registerUser($pdo, $_POST, $errors, $successMessage, false, true);
 
-        } elseif (isset($_POST["editUser"])) {
-            $userId = $_POST["userId"];
-            $newUsername = $_POST["username"];
-            $newEmail = $_POST["email"];
-            editUser($pdo, $userId, $newUsername, $newEmail);
-            redirect("admin.php");
-
-        } elseif (isset($_POST["deleteUser"])) {
-            $userId = $_POST["userId"];
-            deleteUser($pdo, $userId);
-            redirect("admin.php");
+            if (empty($errors)) {
+                $successMessage = "User registered successfully.";
+            } else {
+                $successMessage = "Registration failed.";
+            }
 
         }
+
+        elseif (isset($_POST["editUser"])) {
+            $userId = isset($_POST["userId"]) ? (int)$_POST["userId"] : 0;
+            $newUsername = isset($_POST["username"]) ? trim($_POST["username"]) : '';
+            $newEmail = isset($_POST["email"]) ? trim($_POST["email"]) : '';
+
+            // Validation
+            if (empty($newUsername) || !preg_match("/^[a-zA-Z0-9_]{5,20}$/", $newUsername)) {
+                $errors['username'] = "Username must be 5-20 chars (letters, numbers, underscore)";
+            }
+            if (empty($newEmail) || !filter_var($newEmail, FILTER_VALIDATE_EMAIL)) {
+                $errors['email'] = "Invalid email format";
+            }
+
+            // Uniqueness check
+            if (empty($errors)) {
+                $stmt = $pdo->prepare("SELECT * FROM users WHERE (username = :username OR email = :email) AND id != :id");
+                $stmt->execute([
+                    'username' => $newUsername,
+                    'email' => $newEmail,
+                    'id' => $userId
+                ]);
+                $existingUser = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                if ($existingUser) {
+                    if ($existingUser['username'] === $newUsername) {
+                        $errors['username'] = "Username already taken.";
+                    }
+                    if ($existingUser['email'] === $newEmail) {
+                        $errors['email'] = "Email already in use.";
+                    }
+                }
+            }
+
+            if (empty($errors)) {
+                if (editUser($pdo, $userId, $newUsername, $newEmail)) {
+                    $successMessage = "User information updated successfully.";
+                } else {
+                    $successMessage = "Failed to update user information.";
+                }
+            }
+        }
+
+        elseif (isset($_POST["deleteUser"])) {
+            $userId = isset($_POST["userId"]) ? (int)$_POST["userId"] : 0;
+            deleteUser($pdo, $userId);
+            $successMessage = "User deleted successfully.";
+
+        }
+
+        $stmt = $pdo->query("SELECT * FROM users ORDER BY created_at DESC");
+        $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
 ?>
 
 
 <?php if(isAdmin()): ?>
-    <div class="userTable">
-    <div class="tableContainer">
-        <h2>Other users</h2>
-        <div class="table-header">
-            <p><span><?php echo !empty($users) ? count($users) : 0 ?> active users</span></p>
 
-            <div class="search">
-                <form method="GET" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                    <input type="text" name="search" placeholder="Search by username or email" value="<?php echo htmlspecialchars($search); ?>">
-                    <button type="submit">
-                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0,0,256,256">
-                            <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-size="none" style="mix-blend-mode: normal"><g transform="scale(8,8)"><path d="M19,3c-5.51172,0 -10,4.48828 -10,10c0,2.39453 0.83984,4.58984 2.25,6.3125l-7.96875,7.96875l1.4375,1.4375l7.96875,-7.96875c1.72266,1.41016 3.91797,2.25 6.3125,2.25c5.51172,0 10,-4.48828 10,-10c0,-5.51172 -4.48828,-10 -10,-10zM19,5c4.42969,0 8,3.57031 8,8c0,4.42969 -3.57031,8 -8,8c-4.42969,0 -8,-3.57031 -8,-8c0,-4.42969 3.57031,-8 8,-8z"></path></g></g>
+    <div class="userTable">
+
+        <?php if ($successMessage): ?>
+            <div class="toast"><?php echo $successMessage; ?></div>
+        <?php endif; ?>
+
+        <h2>Users</h2>
+
+
+        <div class="tableContainer">
+            <div class="table-header">
+                <p><span><?php echo !empty($users) ? count($users) : 0 ?> active users</span></p>
+
+                <div class="search">
+                    <form method="GET" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                        <input type="text" name="search" placeholder="Search by username or email" value="<?php echo htmlspecialchars($search); ?>">
+                        <button type="submit">
+                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0,0,256,256">
+                                <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-size="none" style="mix-blend-mode: normal"><g transform="scale(8,8)"><path d="M19,3c-5.51172,0 -10,4.48828 -10,10c0,2.39453 0.83984,4.58984 2.25,6.3125l-7.96875,7.96875l1.4375,1.4375l7.96875,-7.96875c1.72266,1.41016 3.91797,2.25 6.3125,2.25c5.51172,0 10,-4.48828 10,-10c0,-5.51172 -4.48828,-10 -10,-10zM19,5c4.42969,0 8,3.57031 8,8c0,4.42969 -3.57031,8 -8,8c-4.42969,0 -8,-3.57031 -8,-8c0,-4.42969 3.57031,-8 8,-8z"></path></g></g>
+                            </svg>
+                        </button>
+                    </form>
+
+                    <button id="addUserBtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 448 512">
+                            <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none"  font-size="none" style="mix-blend-mode: normal">
+                            <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 144L48 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l144 0 0 144c0 17.7 14.3 32 32 32s32-14.3 32-32l0-144 144 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-144 0 0-144z"
+                            />
                         </svg>
                     </button>
-                </form>
-
-                <button id="addUserBtn">
-                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 448 512">
-                        <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none"  font-size="none" style="mix-blend-mode: normal">
-                        <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 144L48 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l144 0 0 144c0 17.7 14.3 32 32 32s32-14.3 32-32l0-144 144 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-144 0 0-144z"
-                        />
-                    </svg>
-                </button>
+                </div>
             </div>
-        </div>
 
-        <table class="user-table">
-            <thead>
-                <tr>
-                    <th>Role</th>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Age</th>
-                    <th>Phone</th>
-                    <th>Gender</th>
-                    <th>Registration Date</th>
-                    <th>Update User</th>
-                </tr>
-            </thead>
+            <table class="user-table">
+                <thead>
+                    <tr>
+                        <th>Role</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Age</th>
+                        <th>Phone</th>
+                        <th>Gender</th>
+                        <th>Registration Date</th>
+                        <th>Update User</th>
+                    </tr>
+                </thead>
 
-            <tbody>
-                <?php if (!empty($users) && count($users) > 0): ?>
-                    <?php foreach ($users as $user): ?>
-                        <tr>
-                            <td>
-                                <?php
-                                    if ($user["id"] === $currentUserId) {
-                                        echo "<span class='admin'>you</span>";
-                                    } elseif ($user["admin"]) {
-                                        echo "<span class='admin'>admin</span>";
-                                    } else {
-                                        echo "<span class='user'>user</span>";
-                                    }
-                                ?>
-                            </td>
-                            <td><?php echo htmlspecialchars($user["username"]); ?></td>
-                            <td><?php echo htmlspecialchars($user["email"]); ?></td>
-                            <td><?php echo htmlspecialchars($user["age"]); ?></td>
-                            <td><?php echo htmlspecialchars($user["phone"]); ?></td>
-                            <td><?php echo htmlspecialchars($user["gender"]); ?></td>
-                            <td><?php echo htmlspecialchars($user["created_at"]); ?></td>
-
-                            <?php if ($user["admin"]): ?>
+                <tbody>
+                    <?php if (!empty($users) && count($users) > 0): ?>
+                        <?php foreach ($users as $user): ?>
+                            <tr>
                                 <td>
-                                   Restricted!
+                                    <?php
+                                        if ($user["id"] === $currentUserId) {
+                                            echo "<span class='admin'>you</span>";
+                                        } elseif ($user["admin"]) {
+                                            echo "<span class='admin'>admin</span>";
+                                        } else {
+                                            echo "<span class='user'>user</span>";
+                                        }
+                                    ?>
                                 </td>
-                            <?php else: ?>
-                                <td>
-                                    <!-- Edit User  -->
-                                    <form
-                                            method="POST"
-                                            style="display:inline-block;"
-                                            action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>"
-                                    >
-                                        <input type="hidden" name="userId" value="<?php echo htmlspecialchars($user["id"]); ?>">
-                                        <input type="text" name="username" value="<?php echo htmlspecialchars($user["username"]); ?>" required>
-                                        <input type="email" name="email" value="<?php echo htmlspecialchars($user["email"]); ?>" required>
-                                        <button class="edit" type="submit" name="editUser">Edit</button>
-                                    </form>
+                                <td><?php echo htmlspecialchars($user["username"]); ?></td>
+                                <td><?php echo htmlspecialchars($user["email"]); ?></td>
+                                <td><?php echo htmlspecialchars($user["age"]); ?></td>
+                                <td><?php echo htmlspecialchars($user["phone"]); ?></td>
+                                <td><?php echo htmlspecialchars($user["gender"]); ?></td>
+                                <td><?php echo htmlspecialchars($user["created_at"]); ?></td>
 
-                                    <!-- Delete User  -->
-                                    <form
-                                            method="POST"
-                                            style="display:inline-block;"
-                                            action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>"
-                                            onsubmit="return confirm('Are you sure you want to delete this user?');"
-                                    >
-                                        <input type="hidden" name="userId" value="<?php echo htmlspecialchars($user["id"]); ?>">
-                                        <button class="delete" type="submit" name="deleteUser">Delete</button>
-                                    </form>
-                                </td>
-                            <?php endif; ?>
+                                <?php if ($user["admin"]): ?>
+                                    <td>
+                                       Restricted!
+                                    </td>
+                                <?php else: ?>
+                                    <td>
+                                        <button
+                                                class="editUserBtn edit"
+                                                type="button"
+                                                data-user-id="<?php echo $user['id']; ?>"
+                                                data-username="<?php echo htmlspecialchars($user['username']); ?>"
+                                                data-email="<?php echo htmlspecialchars($user['email']); ?>"
+                                        >Edit</button>
 
-                        </tr>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                <tr>
-                    <td colspan="8">No users found.</td>
-                </tr>
-            <?php endif; ?>
-            </tbody>
 
-        </table>
+                                        <!-- Delete User  -->
+                                        <form
+                                                method="POST"
+                                                style="display:inline-block;"
+                                                action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>"
+                                                onsubmit="return confirm('Are you sure you want to delete this user?');"
+                                        >
+                                            <input type="hidden" name="userId" value="<?php echo htmlspecialchars($user["id"]); ?>">
+                                            <button class="delete" type="submit" name="deleteUser">Delete</button>
+                                        </form>
+                                    </td>
+                                <?php endif; ?>
+
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                    <tr>
+                        <td colspan="8">No users found.</td>
+                    </tr>
+                <?php endif; ?>
+                </tbody>
+
+            </table>
 
 </div>
 
 
-<!--   Show Modals -->
+
+
+
+<!--   Register Modal -->
     <div id="registerModal" class="modal">
         <div class="form-container">
             <div class="modal-header">
                 <h4>Register New User</h4>
                 <span class="close">&times;</span>
             </div>
-
-            <?php if ($successMessage): ?>
-                <p style="color: green;">
-                    <?php echo $successMessage; ?>
-                </p>
-            <?php endif; ?>
 
             <form
                     method="POST"
@@ -260,6 +307,35 @@
                 <br>
 
                 <input type="submit" value="Register" name="registerNewUser">
+            </form>
+        </div>
+    </div>
+
+<!--   Edit Modal -->
+    <div id="editUserModal" class="editModal">
+        <div class="form-container">
+            <div class="modal-header">
+                <h4>Update username</h4>
+                <span class="closeEditUserModal">&times;</span>
+
+            </div>
+
+            <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                <input type="hidden" name="userId" id="editUserId">
+
+                <input type="text" name="username" id="editUsername" placeholder="Username" required>
+                <?php if (!empty($errors['username'])): ?>
+                    <span class="error"><?php echo $errors['username']; ?></span>
+                <?php endif; ?>
+                <br>
+
+                <input type="email" name="email" id="editEmail" placeholder="Email" required>
+                <?php if (!empty($errors['email'])): ?>
+                    <span class="error"><?php echo $errors['email']; ?></span>
+                <?php endif; ?>
+                <br>
+
+                <input type="submit" value="Save changes" name="editUser">
             </form>
         </div>
     </div>
