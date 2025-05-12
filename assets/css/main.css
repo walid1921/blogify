@@ -400,7 +400,7 @@ p {
   color: var(--color-purple-1);
 }
 .hero .btn-container Button:nth-of-type(2) {
-  color: var(--color-purple-);
+  color: var(--color-purple-1);
 }
 .hero .hero-phone-container {
   height: 564px;
@@ -567,6 +567,160 @@ p {
   font-size: 12px;
   display: block;
   margin-bottom: 10px;
+}
+
+.todoApp {
+  text-align: center;
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 50px;
+  /* Notification Container */
+  /* Success Notification */
+  /* Error Notification */
+  /* Fade In and Out Animation */
+}
+.todoApp .notification-container {
+  position: fixed;
+  top: 20px;
+  right: 0px;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 600px;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.todoApp .notification {
+  padding: 15px;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  animation: fadeInOut 4s forwards;
+}
+.todoApp .notification.success {
+  background-color: #28a745;
+}
+.todoApp .notification.error {
+  background-color: #dc3545;
+}
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+.todoApp form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.todoApp form input[type=text] {
+  width: 400px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius);
+  margin-right: 10px;
+}
+.todoApp form input[type=text]:focus {
+  outline: none;
+  border-color: var(--color-purple-1);
+}
+.todoApp form button {
+  color: var(--color-white);
+  background-color: var(--color-purple-1);
+  border: none;
+  padding: 10px 10px;
+  cursor: pointer;
+  border-radius: var(--border-radius);
+  transition: all 0.3s ease-in-out;
+}
+.todoApp form button:hover {
+  background-color: #0056b3;
+}
+.todoApp ul {
+  list-style-type: none;
+  padding: 0;
+  width: 600px;
+  max-height: 500px;
+  overflow-y: auto;
+  border: 1px solid #eaeaea;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+.todoApp ul::-webkit-scrollbar {
+  width: 5px;
+}
+.todoApp ul::-webkit-scrollbar-thumb {
+  background-color: #8d9aa3;
+  border-radius: 10px;
+}
+.todoApp ul::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+.todoApp ul li {
+  background-color: #ffffff;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #eaeaea;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.todoApp ul li span.completed {
+  background-color: #d4edda;
+  text-decoration: line-through;
+  color: #6c757d;
+  padding: 10px;
+}
+.todoApp ul li form {
+  display: inline-block;
+}
+.todoApp ul button.complete {
+  background: var(--color-success);
+  color: white;
+  transition: all 0.3s ease-in-out;
+}
+.todoApp ul button.complete:hover {
+  background: #218838;
+}
+.todoApp ul button.delete {
+  background-color: var(--color-error);
+  color: white;
+  margin-left: 10px;
+  transition: all 0.3s ease-in-out;
+}
+.todoApp ul button.delete:hover {
+  background-color: #c82333;
+}
+.todoApp ul button.undo {
+  background-color: var(--color-edit);
+  color: white;
+  margin-left: 10px;
+  transition: all 0.3s ease-in-out;
+}
+.todoApp ul button.undo:hover {
+  background-color: #e0a800;
 }
 
 .graphic-section {
@@ -805,7 +959,7 @@ p {
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   border: 1px solid var(--color-purple-1);
-  color: var(--color-white);
+  color: var(--color-blue-dark);
   padding: 8px 18px;
   border-radius: var(--border-radius);
   cursor: pointer;
@@ -1004,6 +1158,30 @@ p {
   font-size: 0.9rem;
   color: #7f7f7f;
 }
+.profilePage .user-header #passwordForm .password-user .form-container form .confirmationStep {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.profilePage .user-header #passwordForm .password-user .form-container form .confirmationStep .cancelConfirm {
+  font-family: var(--body-font), serif;
+  font-size: var(--btn-size);
+  letter-spacing: 1.25px;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--color-grey);
+  margin: var(--spacing-md) 0;
+  color: var(--color-black);
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  background-color: transparent;
+}
+.profilePage .user-header #passwordForm .password-user .form-container form .confirmationStep .cancelConfirm:hover {
+  background-color: var(--color-blue-dark);
+  color: var(--color-white);
+}
 .profilePage .user-header #passwordForm .password-user .form-container form .primary-button {
   margin: var(--spacing-md) 0;
   background-color: var(--color-purple-1);
@@ -1022,54 +1200,12 @@ p {
   font-size: 0.9rem;
   color: #7f7f7f;
 }
-.profilePage .user-header #confirmPasswordModal {
+.profilePage .user-header #passwordBtn {
+  display: inline-block;
+}
+.profilePage .user-header #passwordConfirm,
+.profilePage .user-header #cancelConfirm {
   display: none;
-  width: 380px;
-  height: 265px;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: var(--border-radius);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  background-color: var(--color-white);
-  z-index: 10;
-}
-.profilePage .user-header #confirmPasswordModal .user-info-content {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.profilePage .user-header #confirmPasswordModal .user-info-content h6 {
-  color: #7f7f7f;
-  text-align: center;
-}
-.profilePage .user-header #confirmPasswordModal .user-info-content form {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  margin-top: 20px;
-}
-.profilePage .user-header #confirmPasswordModal p {
-  font-size: 0.9rem;
-}
-.profilePage .user-header #confirmPasswordModal .closeDeleteModal {
-  font-family: var(--body-font), serif;
-  font-size: var(--btn-size);
-  letter-spacing: 1.25px;
-  border-radius: var(--border-radius);
-  border: 1px solid var(--color-grey);
-  margin: var(--spacing-md) 0;
-  color: var(--color-black);
-  padding: 8px 16px;
-  cursor: pointer;
-  transition: all 0.15s ease;
-  background-color: transparent;
-}
-.profilePage .user-header #confirmPasswordModal .closeDeleteModal:hover {
-  background-color: var(--color-blue-dark);
-  color: var(--color-white);
 }
 .profilePage .user-header #userInfo {
   display: flex;
@@ -1117,6 +1253,9 @@ p {
 .profilePage .user-header #deleteModal .user-info-content h6 {
   color: #7f7f7f;
   text-align: center;
+}
+.profilePage .user-header #deleteModal .user-info-content h6 span {
+  color: var(--color-error);
 }
 .profilePage .user-header #deleteModal .user-info-content form {
   display: flex;

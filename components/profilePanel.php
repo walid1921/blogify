@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if (empty($errors)) {
             $successMessage = "User information updated successfully.";
             $_SESSION["username"] = trim($_POST["username"]);
-            redirect("admin.php");
+//            redirect("admin.php");
         } else {
             $successMessage = "Failed to update user information.";
         }
@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         if (empty($errors)) {
             $successMessage = "Password updated successfully. Please log in again.";
-            redirect("admin.php");
+
         } else {
             $errors['database'] = "Failed to update user information";
         }
@@ -98,25 +98,19 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
                                 <span class="error"><?php echo $errors['confPassword']; ?></span>
                             <?php endif; ?><br>
 
+                            <!-- This is a button that *reveals* the confirm step -->
                             <button class="primary-button" type="button" id="passwordBtn">Save</button>
+
+                            <!-- This is the real submit button that gets revealed -->
+
+                            <div class="confirmationStep">
+                                <button class="delete-button" id="passwordConfirm" style="display: none;" type="submit" name="passwordProfileUser">Confirm</button>
+                                <button id="cancelConfirm" class="cancelConfirm" style="display: none;" type="button">Cancel</button>
+                            </div>
                         </form>
                     </div>
 
                 </div>
-            </div>
-
-            <div id="confirmPasswordModal" role="dialog" aria-modal="true" aria-labelledby="passwordModalTitle">
-                <div class="user-info-content">
-                    <div>
-                        <h6 id="passwordModalTitle">Confirm to update your password</h6>
-
-                        <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                            <button class="savePasswordBtn" type="submit" name="passwordProfileUser">Confirm</button>
-                            <button class="closePasswordModal" type="button">Cancel</button>
-                        </form>
-                    </div>
-                </div>
-                <br>
             </div>
 
             <div id="userInfo">
@@ -138,12 +132,12 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
                     </div>
                 </div>
                 <br>
-                <button class="delete-button" type="submit" id="deleteUserBtn">Delete account <img src="/assets/images/bin.png" alt="bin image"></button>
+                <button class="delete-button" id="deleteUserBtn">Delete account <img src="/assets/images/bin.png" alt="bin image"></button>
             </div>
             <div id="deleteModal" role="dialog" aria-modal="true" aria-labelledby="deleteModalTitle">
                 <div class="user-info-content">
                     <div>
-                        <h6 id="deleteModalTitle">Are you sure you want to delete your account?</h6>
+                        <h6 id="deleteModalTitle">Are you sure you want to delete your account <span>permanently</span>?</h6>
 
                         <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                             <button class="delete-button" type="submit" name="deleteProfileUser">Confirm</button>

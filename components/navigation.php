@@ -7,6 +7,7 @@
     <ul class="menu">
         <?php if (isLoggedIn() && !isAdmin()) : ?>
             <li><a class="<?php echo activeLink('todo.php') ?>" href="todo.php">Tasks</a></li>
+            <li><a class="<?php echo activeLink('blog.php') ?>" href="blog.php">Blogs</a></li>
             <li><a class="<?php echo activeLink('admin.php') ?>" href="admin.php">Profile</a></li>
         <?php elseif (isLoggedIn() && isAdmin()) : ?>
             <li><a class="<?php echo activeLink('todo.php') ?>" href="todo.php">Tasks</a></li>
@@ -41,6 +42,7 @@
     <ul class="menu">
         <?php if (isLoggedIn() && !isAdmin()) : ?>
             <li><a class="<?php echo activeLink('todo.php') ?>" href="todo.php">Tasks</a></li>
+            <li><a class="<?php echo activeLink('blog.php') ?>" href="blog.php">Blogs</a></li>
             <li><a class="<?php echo activeLink('admin.php') ?>" href="admin.php">Profile</a></li>
         <?php elseif (isLoggedIn() && isAdmin()) : ?>
             <li><a class="<?php echo activeLink('todo.php') ?>" href="todo.php">Tasks</a></li>
