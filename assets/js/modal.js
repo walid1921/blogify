@@ -17,10 +17,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const editUsernameInput = document.getElementById("editUsername");
     const editEmailInput = document.getElementById("editEmail");
 
-    const passwordForm = document.getElementById("passwordForm");
-    const confirmPasswordModal = document.getElementById("confirmPasswordModal");
+
     const passwordBtn = document.getElementById("passwordBtn");
-    const closePasswordModal = document.querySelector(".closePasswordModal")
+    const passwordConfirm = document.getElementById("passwordConfirm");
+    const cancelConfirm = document.getElementById("cancelConfirm");
 
     // Register Modal Logic
     if (addUserButton && registerModal) {
@@ -61,17 +61,18 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Confirm Password Modal Logic
-    if (passwordForm && confirmPasswordModal && passwordBtn && closePasswordModal) {
-        passwordBtn.onclick = function () {
-            confirmPasswordModal.style.display = "flex";
-            passwordForm.style.display = "none";
+    if (passwordBtn && passwordConfirm && cancelConfirm) {
+        passwordBtn.addEventListener("click", function () {
+            passwordBtn.style.display = "none";
+            passwordConfirm.style.display = "inline-block";
+            cancelConfirm.style.display = "inline-block";
+        });
 
-        };
-
-        closePasswordModal.onclick = function () {
-            confirmPasswordModal.style.display = "none";
-            passwordForm.style.display = "flex";
-        };
+        cancelConfirm.addEventListener("click", function () {
+            passwordBtn.style.display = "inline-block";
+            passwordConfirm.style.display = "none";
+            cancelConfirm.style.display = "none";
+        });
     }
 
     editButtons.forEach(button => {

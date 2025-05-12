@@ -226,6 +226,8 @@ function updatePassword($pdo, $input, $userId, &$errors, &$successMessage = "") 
     $password = isset($input["password"]) ? $input["password"] : '';
     $confPassword = isset($input["confPassword"]) ? $input["confPassword"] : '';
 
+
+
     if (
         empty($password) || strlen($password) < 8 ||
         !preg_match("/[A-Z]/", $password) ||
@@ -233,10 +235,13 @@ function updatePassword($pdo, $input, $userId, &$errors, &$successMessage = "") 
         !preg_match("/[0-9]/", $password)
     ) {
         $errors['password'] = "Password must be at least 8 characters, include 1 uppercase, 1 lowercase, and 1 number.";
+        return false;
     }
+
 
     if ($password !== $confPassword) {
         $errors['confPassword'] = "Passwords do not match";
+        return false;
     }
 
 
@@ -251,4 +256,5 @@ function updatePassword($pdo, $input, $userId, &$errors, &$successMessage = "") 
             ':id' => $userId
         ]
     );
+
 }

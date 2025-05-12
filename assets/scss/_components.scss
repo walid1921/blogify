@@ -230,7 +230,7 @@
     color: var(--color-purple-1);
 
     Button:nth-of-type(2) {
-      color: var(--color-purple-);
+      color: var(--color-purple-1);
     }
 
   }
@@ -404,6 +404,193 @@
   font-size: 12px;
   display: block;
   margin-bottom: 10px;
+}
+
+
+//! TO DOD PAGE
+.todoApp {
+  text-align:center;
+  margin-top:100px;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 50px;
+
+  /* Notification Container */
+  .notification-container {
+    position: fixed;
+    top: 20px;
+    right: 0px;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 600px;
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .notification {
+    padding: 15px;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    animation: fadeInOut 4s forwards;
+  }
+
+  /* Success Notification */
+  .notification.success {
+    background-color: #28a745;
+  }
+
+  /* Error Notification */
+  .notification.error {
+    background-color: #dc3545;
+  }
+
+  /* Fade In and Out Animation */
+  @keyframes fadeInOut {
+    0% {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    10% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+  }
+
+
+  form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+    input[type="text"] {
+      width: 400px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: var(--border-radius);
+      margin-right: 10px;
+
+
+      &:focus {
+        outline: none;
+        border-color: var(--color-purple-1);
+      }
+    }
+
+
+    button {
+      color: var(--color-white);
+      background-color: var(--color-purple-1);
+      border: none;
+      padding: 10px 10px;
+      cursor: pointer;
+      border-radius: var(--border-radius);
+      @include hover-transition;
+
+      &:hover {
+        background-color: #0056b3;
+      }
+    }
+  }
+
+
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+    width: 600px;
+    max-height: 500px;
+    overflow-y: auto;
+    border: 1px solid #eaeaea;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #8d9aa3;
+      border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: #f1f1f1;
+    }
+
+    li {
+      background-color: #ffffff;
+      padding: 15px;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #eaeaea;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      span.completed {
+        background-color: #d4edda;
+        text-decoration: line-through;
+        color: #6c757d;
+        padding: 10px;
+      }
+
+      form {
+        display: inline-block;
+      }
+
+    }
+
+
+    button.complete {
+      background: var(--color-success);
+      color: white;
+      @include hover-transition;
+
+      &:hover {
+        background: #218838;
+      }
+
+    }
+
+    button.delete {
+      background-color: var(--color-error);
+      color: white;
+      margin-left: 10px;
+      @include hover-transition;
+
+      &:hover {
+        background-color: #c82333;
+      }
+    }
+
+    button.undo {
+      background-color: var(--color-edit);
+      color: white;
+      margin-left: 10px;
+      @include hover-transition;
+
+      &:hover {
+        background-color: #e0a800;
+      }
+    }
+  }
 }
 
 
@@ -721,7 +908,7 @@
       -webkit-backdrop-filter: blur(6px);
 
       border: 1px solid var(--color-purple-1);
-      color: var(--color-white);
+      color: var(--color-blue-dark);
       padding: 8px 18px;
       border-radius: var(--border-radius);
       cursor: pointer;
@@ -976,6 +1163,37 @@
 
         .form-container{
           form {
+            .confirmationStep {
+              display: flex;
+              gap: 20px;
+              align-items: center;
+              justify-content: center;
+              width: 100%;
+
+              .cancelConfirm {
+                font-family: var(--body-font), serif;
+                font-size: var(--btn-size);
+                letter-spacing: 1.25px;
+                border-radius: var(--border-radius);
+                border: 1px solid var(--color-grey);
+                margin: var(--spacing-md) 0;
+                color: var(--color-black);
+                padding: 8px 16px;
+                cursor: pointer;
+                transition: all 0.15s ease;
+                background-color: transparent;
+
+                &:hover {
+                  background-color: var(--color-blue-dark);
+                  color: var(--color-white);
+
+
+                }
+              }
+
+            }
+
+
             .primary-button {
               margin: var(--spacing-md) 0;
               background-color: var(--color-purple-1);
@@ -986,6 +1204,8 @@
 
               }
             }
+
+
           }
         }
       }
@@ -1002,70 +1222,15 @@
         }
       }
     }
-    #confirmPasswordModal {
-    display: none;
-
-    width: 380px;
-    height: 265px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: var(--border-radius);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background-color: var(--color-white);
-
-
-
-    z-index: 10;
-
-    .user-info-content{
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-
-      h6 {
-        color: #7f7f7f;
-        text-align: center;
-
-      }
-
-      form {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 20px;
-        margin-top: 20px;
-
-      }
+    #passwordBtn {
+      display: inline-block;
     }
 
-    p{
-      font-size: 0.9rem;
+    #passwordConfirm,
+    #cancelConfirm {
+      display: none;
     }
 
-    .closeDeleteModal {
-      font-family: var(--body-font), serif;
-      font-size: var(--btn-size);
-      letter-spacing: 1.25px;
-      border-radius: var(--border-radius);
-      border: 1px solid var(--color-grey);
-      margin: var(--spacing-md) 0;
-      color: var(--color-black);
-      padding: 8px 16px;
-      cursor: pointer;
-      transition: all 0.15s ease;
-      background-color: transparent;
-
-      &:hover {
-        background-color: var(--color-blue-dark);
-        color: var(--color-white);
-
-
-      }
-    }
-
-  }
 
     #userInfo {
       display: flex;
@@ -1123,6 +1288,10 @@
         h6 {
           color: #7f7f7f;
           text-align: center;
+
+          span {
+            color: var(--color-error);
+          }
 
         }
 
