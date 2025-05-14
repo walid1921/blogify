@@ -20,35 +20,27 @@ $currentUserId = $_SESSION['user_id'];
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
+    //! Update My Profile
     if (isset($_POST["editProfileUser"])) {
-
         $_POST["userId"] = $currentUserId; // Inject the current user ID if not passed from form
-
-        editUser($pdo, $_POST, $errors, $successMessage);
-
-        if (empty($errors)) {
-            $successMessage = "User information updated successfully.";
-            $_SESSION["username"] = trim($_POST["username"]);
-//            redirect("admin.php");
-        } else {
-            $successMessage = "Failed to update user information.";
-        }
+        editUser($pdo, $_POST, $errors);
+        redirect("admin.php");
     }
 
+    //! Delete My Account
     elseif (isset($_POST["deleteProfileUser"])) {
-        deleteUser($pdo, $currentUserId);
-        redirect("logout.php");
+        $password = isset($_POST["password"]) ? $_POST["password"] : "";
+
+        if (deleteUser($pdo, $currentUserId, $password)) {
+            redirect("logout.php"); // Clears session after successful deletion
+        } else {
+            redirect("admin.php"); // Show message and error type via session
+        }
     }
 
+    //! Update My password
     elseif (isset($_POST["passwordProfileUser"])) {
-        updatePassword($pdo, $_POST, $currentUserId, $errors, $successMessage);
-
-        if (empty($errors)) {
-            $successMessage = "Password updated successfully. Please log in again.";
-
-        } else {
-            $errors['database'] = "Failed to update user information";
-        }
+        updatePassword($pdo, $_POST, $currentUserId, $errors);
     }
 }
 
@@ -61,8 +53,14 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 <div class="profilePage">
 
-    <?php if ($successMessage): ?>
-        <div class="toast"><?php echo $successMessage; ?></div>
+    <?php if(isset($_SESSION["message"])): ?>
+        <div class="notification-container">
+            <div class="notification <?php echo $_SESSION["msg_type"]?>">
+                <!-- Success message will go here -->
+                <?php echo  $_SESSION["message"];?>
+                <?php unset($_SESSION["message"]);?>
+            </div>
+        </div>
     <?php endif; ?>
 
     <div>
@@ -102,7 +100,6 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
                             <button class="primary-button" type="button" id="passwordBtn">Save</button>
 
                             <!-- This is the real submit button that gets revealed -->
-
                             <div class="confirmationStep">
                                 <button class="delete-button" id="passwordConfirm" style="display: none;" type="submit" name="passwordProfileUser">Confirm</button>
                                 <button id="cancelConfirm" class="cancelConfirm" style="display: none;" type="button">Cancel</button>
@@ -113,6 +110,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
                 </div>
             </div>
 
+            <!-- User info + Delete btn -->
             <div id="userInfo">
                 <div class="user-info-content">
                     <div>
@@ -134,36 +132,40 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
                 <br>
                 <button class="delete-button" id="deleteUserBtn">Delete account <img src="/assets/images/bin.png" alt="bin image"></button>
             </div>
-            <div id="deleteModal" role="dialog" aria-modal="true" aria-labelledby="deleteModalTitle">
-                <div class="user-info-content">
-                    <div>
-                        <h6 id="deleteModalTitle">Are you sure you want to delete your account <span>permanently</span>?</h6>
 
-                        <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                            <button class="delete-button" type="submit" name="deleteProfileUser">Confirm</button>
-                            <button class="closeDeleteModal" type="button">Cancel</button>
-                        </form>
+            <!-- Delete Confirmation Step 1 -->
+            <div id="deleteModal">
+                <div class="user-info-content">
+                    <h6 id="deleteModalTitle">Are you sure you want to delete your account <span>permanently</span>?</h6>
+
+                    <div class="user-info-buttons">
+                        <button class="delete-button" id="confirmDeleteBtn">Yes, continue</button>
+                        <button class="cancelConfirmDelete cancelConfirm">Cancel</button>
                     </div>
+
                 </div>
-                <br>
+            </div>
+
+            <!-- Delete Confirmation Step 2 (Password) -->
+            <div id="confirmDeleteModal" class="modal deleteUserModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>Confirm Deletion</h4>
+                        <span class="closePasswordModal close">&times;</span>
+                    </div>
+                    <p>to confirm deletion of your account, please enter your current password</p>
+                    <form class="confPasswordForm" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                        <input type="password" name="password" placeholder="Enter current password" required>
+                        <?php if (!empty($errors['deletePassword'])): ?>
+                            <span class="error"><?php echo $errors['deletePassword']; ?></span>
+                        <?php endif; ?>
+                        <button class="delete-button" type="submit" name="deleteProfileUser">Confirm Deletion</button>
+                    </form>
+                </div>
             </div>
 
         </div>
     </div>
-
-<!--  show delete modal-->
-<!--    <div id="deleteModal" class="deleteUserModal">-->
-<!--        <div class="modal-content">-->
-<!--            <div class="modal-header">-->
-<!--                <h4>Delete Account</h4>-->
-<!--                <span class="close">&times;</span>-->
-<!--            </div>-->
-<!--            <p>Are you sure you want to delete your account? This action is not reversible.</p>-->
-<!--            <form method="POST" action="--><?php //echo htmlspecialchars($_SERVER["PHP_SELF"]); ?><!--">-->
-<!--                <button class="delete-button" type="submit" name="deleteProfileUser">Yes, delete my account</button>-->
-<!--            </form>-->
-<!--        </div>-->
-<!--    </div>-->
 </div>
 
 

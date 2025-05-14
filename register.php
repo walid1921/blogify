@@ -11,12 +11,11 @@ if (isLoggedIn()) {
 }
 
 $errors = [];
-$successMessage = "";
 
 
 // Handle submission
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    registerUser($pdo, $_POST, $errors, $successMessage, true);
+    registerUser($pdo, $_POST, $errors, true);
 }
 
 
@@ -29,12 +28,7 @@ include "./components/header.php";
         <div class="hero">
             <div class="form-container">
 
-                <?php if ($successMessage): ?>
-                    <p style="color: green;"><?php echo $successMessage; ?></p>
-                <?php endif; ?>
-
                 <h2>Create your Account</h2>
-
 
                 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
 

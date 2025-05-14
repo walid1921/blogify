@@ -7,7 +7,7 @@ require_once "session.php";
 
 
 //! Create new user
-function registerUser($pdo, $formData, &$errors, &$successMessage, $autoLogin = false, $isAdminPanel = false) {
+function registerUser($pdo, $formData, &$errors, $autoLogin = false, $isAdminPanel = false) {
 
     // 5. Sanitize and validate input
     $username = trim($formData["username"]);
@@ -77,6 +77,8 @@ function registerUser($pdo, $formData, &$errors, &$successMessage, $autoLogin = 
 
     // 9. Check if there are any errors
     if (!empty($errors)) {
+        $_SESSION["message"] = "Please correct the form errors.";
+        $_SESSION["msg_type"] = "error";
         return;
     }
 
@@ -89,6 +91,8 @@ function registerUser($pdo, $formData, &$errors, &$successMessage, $autoLogin = 
     $result = $stmtCheck->fetch(PDO::FETCH_ASSOC);
     if ($result) {
         $errors['username'] = "Username or email already exists";
+        $_SESSION["message"] = "Username or email already exists.";
+        $_SESSION["msg_type"] = "error";
         return;
     }
 
@@ -135,47 +139,84 @@ function registerUser($pdo, $formData, &$errors, &$successMessage, $autoLogin = 
                     $_SESSION["username"] = $user["username"];
                     $_SESSION["admin"] = $user["admin"] === 1; // This is how we know the user is an admin
                     $_SESSION['user_id'] = $user['id'];
-
+                    $_SESSION["message"] = "Registration successful. Welcome!";
+                    $_SESSION["msg_type"] = "success";
                     redirect("todo.php");
                 } else {
-                    $errors['database'] = "User created but could not log in automatically";
+                    $errors['database'] = "User created but could not log in automatically.";
+                    $_SESSION["message"] = $errors['database'];
+                    $_SESSION["msg_type"] = "error";
                 }
 
             } else {
+                $_SESSION["message"] = "User registered successfully.";
+                $_SESSION["msg_type"] = "success";
                 redirect("users.php");
             }
         } else {
-            $successMessage = "Registration failed (nothing inserted)";
+            $_SESSION["message"] = "Registration failed: Nothing inserted.";
+            $_SESSION["msg_type"] = "error";
         }
     } catch (PDOException $e) {
         $errors['database'] = "Registration failed: " . $e->getMessage();
+        $_SESSION["message"] = $errors['database'];
+        $_SESSION["msg_type"] = "error";
     }
 }
 
 
 //! Delete user
-function deleteUser($pdo, $userId) {
-    return $pdo->prepare("DELETE FROM users WHERE id = :id")->execute([':id' => $userId]);
+function deleteUser($pdo, $userId, $password = null) {
 
+    // If user is admin, skip password verification
+    if (!isAdmin()) {
+        // Fetch hashed password
+        $stmt = $pdo->prepare("SELECT password FROM users WHERE id = :id");
+        $stmt->execute(['id' => $userId]);
+        $userRow = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // Verify password
+        if (!$userRow || !password_verify($password, $userRow['password'])) {
+            $_SESSION["message"] = "Incorrect password. Account was not deleted.";
+            $_SESSION["msg_type"] = "error";
+            return false;
+        }
+    }
+
+    try {
+        // Delete user
+        $stmt = $pdo->prepare("DELETE FROM users WHERE id = :id");
+        $stmt->execute(['id' => $userId]);
+        $_SESSION["message"] = "Account deleted successfully.";
+        $_SESSION["msg_type"] = "success";
+        return true;
+
+    } catch (PDOException $e) {
+        $_SESSION["message"] = "An error occurred while deleting your account.";
+        $_SESSION["msg_type"] = "error";
+        return false;
+    }
 }
 
-//! Edit user
 
-function editUser($pdo, $input, &$errors, &$successMessage = "") {
+//! Edit user
+function editUser($pdo, $input, &$errors) {
 
     $userId = isset($input["userId"]) ? (int)$input["userId"] : (isset($input["id"]) ? (int)$input["id"] : 0);
     $newUsername = isset($input["username"]) ? trim($input["username"]) : '';
     $newEmail = isset($input["email"]) ? trim($input["email"]) : '';
 
-    // Validation
+    // Validate username
     if (empty($newUsername) || !preg_match("/^[a-zA-Z0-9_]{5,20}$/", $newUsername)) {
         $errors['username'] = "Username must be 5-20 chars (letters, numbers, underscore)";
     }
 
+    // Validate email
     if (empty($newEmail) || !filter_var($newEmail, FILTER_VALIDATE_EMAIL)) {
         $errors['email'] = "Invalid email format";
     }
 
+    // Check for existing username/email
     if (empty($errors)) {
         $stmt = $pdo->prepare("SELECT * FROM users WHERE (username = :username OR email = :email) AND id != :id");
         $stmt->execute([
@@ -195,25 +236,32 @@ function editUser($pdo, $input, &$errors, &$successMessage = "") {
         }
     }
 
-    try {
-        if (empty($errors)) {
+    if (!empty($errors)) {
+        $_SESSION["message"] = "An error occurred while updating your information";
+        $_SESSION["msg_type"] = "error";
+        return false;
+    }
+
+    // Update user information if no errors
+    if (empty($errors)) {
+        try {
             $stmt = $pdo->prepare("UPDATE users SET username = :username, email = :email WHERE id = :id");
-            $success = $stmt->execute([
+            $stmt->execute([
                 ':username' => $newUsername,
                 ':email' => $newEmail,
                 ':id' => $userId
             ]);
 
-            if ($success) {
-                $successMessage = "User information updated successfully.";
-                return true;
-            } else {
-                $errors['database'] = "Failed to update user.";
-                return false;
-            }
+            $_SESSION["message"] = "User information updated successfully";
+            $_SESSION["msg_type"] = "success";
+            $_SESSION["username"] = $newUsername;
+            return true;
+
+        } catch (PDOException $e) {
+            $errors['database'] = "Database error: " . $e->getMessage();
+            $_SESSION["message"] = "An error occurred while updating your information";
+            $_SESSION["msg_type"] = "error";
         }
-    } catch (PDOException $e) {
-        $errors['database'] = "Database error: " . $e->getMessage();
     }
 
     return false;
@@ -221,40 +269,64 @@ function editUser($pdo, $input, &$errors, &$successMessage = "") {
 
 
 //! update password
-function updatePassword($pdo, $input, $userId, &$errors, &$successMessage = "") {
-
+function updatePassword($pdo, $input, $userId, &$errors) {
     $password = isset($input["password"]) ? $input["password"] : '';
     $confPassword = isset($input["confPassword"]) ? $input["confPassword"] : '';
 
-
-
+    // Validate password strength
     if (
-        empty($password) || strlen($password) < 8 ||
+        empty($password) ||
+        strlen($password) < 8 ||
         !preg_match("/[A-Z]/", $password) ||
         !preg_match("/[a-z]/", $password) ||
         !preg_match("/[0-9]/", $password)
     ) {
-        $errors['password'] = "Password must be at least 8 characters, include 1 uppercase, 1 lowercase, and 1 number.";
-        return false;
+        $errors['password'] = "Password must be at least 8 characters and include 1 uppercase letter, 1 lowercase letter, and 1 number.";
     }
 
-
+    // Validate password confirmation
     if ($password !== $confPassword) {
-        $errors['confPassword'] = "Passwords do not match";
+        $errors['confPassword'] = "Passwords do not match.";
+    }
+
+    if (!empty($errors)) {
         return false;
     }
 
+    try {
+        // Fetch current user
+        $stmt = $pdo->prepare("SELECT password FROM users WHERE id = :id");
+        $stmt->execute([':id' => $userId]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($password !== $confPassword) {
-        return false;
-    }
+        if (!$user) {
+            $errors['database'] = "User not found.";
+            return false;
+        }
 
-    $stmt = $pdo->prepare("UPDATE users SET password = :password WHERE id = :id");
-    return $stmt->execute(
-        [
-            ':password' => password_hash($password, PASSWORD_DEFAULT),
+        // Prevent reusing old password
+        if (password_verify($password, $user['password'])) {
+            $errors['password'] = "New password cannot be the same as the current password.";
+            return false;
+        }
+
+        // Update password
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $update = $pdo->prepare("UPDATE users SET password = :password WHERE id = :id");
+        $update->execute([
+            ':password' => $hashedPassword,
             ':id' => $userId
-        ]
-    );
+        ]);
 
+        $_SESSION["message"] = "Password updated successfully. Please log in again.";
+        $_SESSION["msg_type"] = "success";
+        return true;
+
+    } catch (PDOException $e) {
+        $errors['database'] = "Database error: " . $e->getMessage();
+        $_SESSION["message"] = "An error occurred while updating your password.";
+        $_SESSION["msg_type"] = "error";
+    }
+
+    return false;
 }

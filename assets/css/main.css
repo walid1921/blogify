@@ -209,6 +209,60 @@ p {
   letter-spacing: 0.25px;
 }
 
+/* Notification Container */
+.notification-container {
+  position: fixed;
+  top: 100px;
+  right: 0;
+  transform: translateX(-10%);
+  max-width: 600px;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.notification {
+  padding: 10px 15px;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  text-align: center;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  animation: fadeInOut 4s forwards;
+}
+
+/* Success Notification */
+.notification.success {
+  background-color: #31a783;
+  color: var(--color-white);
+}
+
+/* Error Notification */
+.notification.error {
+  background-color: #dc3545;
+  color: var(--color-white);
+}
+
+/* Fade In and Out Animation */
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  10% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+}
 .navbar {
   display: flex;
   position: fixed;
@@ -577,56 +631,6 @@ p {
   align-items: center;
   flex-direction: column;
   gap: 50px;
-  /* Notification Container */
-  /* Success Notification */
-  /* Error Notification */
-  /* Fade In and Out Animation */
-}
-.todoApp .notification-container {
-  position: fixed;
-  top: 20px;
-  right: 0px;
-  transform: translateX(-50%);
-  width: 100%;
-  max-width: 600px;
-  z-index: 999;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.todoApp .notification {
-  padding: 15px;
-  border-radius: 5px;
-  font-size: 1.2rem;
-  font-weight: bold;
-  text-align: center;
-  color: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  opacity: 0;
-  animation: fadeInOut 4s forwards;
-}
-.todoApp .notification.success {
-  background-color: #28a745;
-}
-.todoApp .notification.error {
-  background-color: #dc3545;
-}
-@keyframes fadeInOut {
-  0% {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  10% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
 }
 .todoApp form {
   display: flex;
@@ -1257,17 +1261,14 @@ p {
 .profilePage .user-header #deleteModal .user-info-content h6 span {
   color: var(--color-error);
 }
-.profilePage .user-header #deleteModal .user-info-content form {
+.profilePage .user-header #deleteModal .user-info-content .user-info-buttons {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 20px;
   margin-top: 20px;
 }
-.profilePage .user-header #deleteModal p {
-  font-size: 0.9rem;
-}
-.profilePage .user-header #deleteModal .closeDeleteModal {
+.profilePage .user-header #deleteModal .user-info-content .user-info-buttons .cancelConfirmDelete {
   font-family: var(--body-font), serif;
   font-size: var(--btn-size);
   letter-spacing: 1.25px;
@@ -1280,7 +1281,7 @@ p {
   transition: all 0.15s ease;
   background-color: transparent;
 }
-.profilePage .user-header #deleteModal .closeDeleteModal:hover {
+.profilePage .user-header #deleteModal .user-info-content .user-info-buttons .cancelConfirmDelete:hover {
   background-color: var(--color-blue-dark);
   color: var(--color-white);
 }
@@ -1484,33 +1485,6 @@ p {
   margin-right: 10px;
 }
 
-.toast {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: var(--color-success);
-  color: var(--color-white);
-  padding: 15px 20px;
-  border-radius: var(--border-radius);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-  font-size: 16px;
-  animation: fadeIn 0.5s;
-}
-.toast.error {
-  background: var(--color-error);
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 .modal {
   display: none;
   position: fixed;
@@ -1577,13 +1551,30 @@ p {
   font-size: 0.9rem;
   color: #7f7f7f;
 }
-.deleteUserModal .modal-content .close {
+.deleteUserModal .modal-content form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 25px;
+}
+.deleteUserModal .modal-content form input[type=password] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius);
+}
+.deleteUserModal .modal-content form input[type=password]:focus {
+  outline: none;
+  border-color: var(--color-purple-1);
+}
+.deleteUserModal .modal-content .cancelConfirmDelete {
   font-size: 24px;
   cursor: pointer;
   font-weight: lighter;
   color: gray;
 }
-.deleteUserModal .modal-content .close:hover {
+.deleteUserModal .modal-content .cancelConfirmDelete:hover {
   color: var(--color-blue-dark);
 }
 .deleteUserModal .modal-content .delete-button {
