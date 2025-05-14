@@ -77,7 +77,7 @@ function registerUser($pdo, $formData, &$errors, $autoLogin = false, $isAdminPan
 
     // 9. Check if there are any errors
     if (!empty($errors)) {
-        $_SESSION["message"] = "Please correct the form errors.";
+        $_SESSION["message"] = "Please correct the form errors";
         $_SESSION["msg_type"] = "error";
         return;
     }
@@ -139,22 +139,22 @@ function registerUser($pdo, $formData, &$errors, $autoLogin = false, $isAdminPan
                     $_SESSION["username"] = $user["username"];
                     $_SESSION["admin"] = $user["admin"] === 1; // This is how we know the user is an admin
                     $_SESSION['user_id'] = $user['id'];
-                    $_SESSION["message"] = "Registration successful. Welcome!";
+                    $_SESSION["message"] = "Welcome to Blogify!";
                     $_SESSION["msg_type"] = "success";
                     redirect("todo.php");
                 } else {
-                    $errors['database'] = "User created but could not log in automatically.";
+                    $errors['database'] = "User created but could not log in automatically";
                     $_SESSION["message"] = $errors['database'];
                     $_SESSION["msg_type"] = "error";
                 }
 
             } else {
-                $_SESSION["message"] = "User registered successfully.";
+                $_SESSION["message"] = "User registered successfully";
                 $_SESSION["msg_type"] = "success";
                 redirect("users.php");
             }
         } else {
-            $_SESSION["message"] = "Registration failed: Nothing inserted.";
+            $_SESSION["message"] = "Registration failed: Nothing inserted";
             $_SESSION["msg_type"] = "error";
         }
     } catch (PDOException $e) {
@@ -177,7 +177,7 @@ function deleteUser($pdo, $userId, $password = null) {
 
         // Verify password
         if (!$userRow || !password_verify($password, $userRow['password'])) {
-            $_SESSION["message"] = "Incorrect password. Account was not deleted.";
+            $_SESSION["message"] = "Incorrect password. Try again";
             $_SESSION["msg_type"] = "error";
             return false;
         }
@@ -187,12 +187,12 @@ function deleteUser($pdo, $userId, $password = null) {
         // Delete user
         $stmt = $pdo->prepare("DELETE FROM users WHERE id = :id");
         $stmt->execute(['id' => $userId]);
-        $_SESSION["message"] = "Account deleted successfully.";
+        $_SESSION["message"] = "Account deleted successfully";
         $_SESSION["msg_type"] = "success";
         return true;
 
     } catch (PDOException $e) {
-        $_SESSION["message"] = "An error occurred while deleting your account.";
+        $_SESSION["message"] = "An error occurred while deleting your account";
         $_SESSION["msg_type"] = "error";
         return false;
     }
@@ -318,13 +318,13 @@ function updatePassword($pdo, $input, $userId, &$errors) {
             ':id' => $userId
         ]);
 
-        $_SESSION["message"] = "Password updated successfully. Please log in again.";
+        $_SESSION["message"] = "Password updated successfully. Please log in again";
         $_SESSION["msg_type"] = "success";
         return true;
 
     } catch (PDOException $e) {
         $errors['database'] = "Database error: " . $e->getMessage();
-        $_SESSION["message"] = "An error occurred while updating your password.";
+        $_SESSION["message"] = "An error occurred while updating your password";
         $_SESSION["msg_type"] = "error";
     }
 
