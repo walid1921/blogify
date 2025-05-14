@@ -1505,36 +1505,6 @@
 
 
 
-
-//.toast {
-//  position: fixed;
-//  top: 20px;
-//  right: 20px;
-//  background: var(--color-success);
-//  color: var(--color-white);
-//  padding: 15px 20px;
-//  border-radius: var(--border-radius);
-//  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-//  z-index: 1000;
-//  font-size: 16px;
-//  animation: fadeIn 0.5s;
-//
-//  &.error {
-//    background: var(--color-error);
-//  }
-//}
-//@keyframes fadeIn {
-//  from {
-//    opacity: 0;
-//    transform: translateY(-20px);
-//  }
-//  to {
-//    opacity: 1;
-//    transform: translateY(0);
-//  }
-//}
-
-
 //! Modal styling
 .modal {
   display: none;
