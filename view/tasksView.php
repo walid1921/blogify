@@ -16,7 +16,7 @@
 
     <div style="text-align:center; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;">
             <h1 style="text-align:center; margin-bottom:10px;">
-                Hi <?php echo htmlspecialchars($currentUser) ?>!
+                Hi <?php echo htmlspecialchars($currentUser) ?>
             </h1>
         <p> Every task you complete brings you closer to your goals 🚀</p>
     </div>

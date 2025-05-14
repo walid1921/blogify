@@ -10,7 +10,6 @@
 
     $search = "";
     $errors = [];
-    $successMessage = "";
     $currentUser = $_SESSION["username"];
     $currentUserId = $_SESSION['user_id'];
 
@@ -30,34 +29,20 @@
     }
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
+        //! Register New User
         if (isset($_POST["registerNewUser"])) {
-            registerUser($pdo, $_POST, $errors, $successMessage, false, true);
-
-            if (empty($errors)) {
-                $successMessage = "User registered successfully.";
-            } else {
-                $successMessage = "Registration failed.";
-            }
-
+            registerUser($pdo, $_POST, $errors, false, true);
         }
 
+        //! Update User
         elseif (isset($_POST["editUser"])) {
-
-            editUser($pdo, $_POST, $errors, $successMessage);
-
-            if (empty($errors)) {
-                $successMessage = "User information updated successfully.";
-            } else {
-                $successMessage = "Failed to update user information.";
-            }
-
+            editUser($pdo, $_POST, $errors);
         }
 
+        //! Delete User
         elseif (isset($_POST["deleteUser"])) {
             $userId = isset($_POST["userId"]) ? (int)$_POST["userId"] : 0;
             deleteUser($pdo, $userId);
-            $successMessage = "User deleted successfully.";
-
         }
 
         $stmt = $pdo->query("SELECT * FROM users ORDER BY created_at DESC");
@@ -71,12 +56,17 @@
 
     <div class="userTable">
 
-        <?php if ($successMessage): ?>
-            <div class="toast"><?php echo $successMessage; ?></div>
+        <?php if(isset($_SESSION["message"])): ?>
+            <div class="notification-container">
+                <div class="notification <?php echo $_SESSION["msg_type"]?>">
+                    <!-- Success message will go here -->
+                    <?php echo  $_SESSION["message"];?>
+                    <?php unset($_SESSION["message"]);?>
+                </div>
+            </div>
         <?php endif; ?>
 
         <h2>Users</h2>
-
 
         <div class="tableContainer">
             <div class="table-header">

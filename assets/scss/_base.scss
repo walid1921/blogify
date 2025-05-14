@@ -257,3 +257,60 @@ p {
   background-color: var(--color-white);
   color: black;
 }
+
+
+//! TOAST NOTIFICATIONS
+/* Notification Container */
+.notification-container {
+  position: fixed;
+  top: 100px;
+  right: 0;
+  transform: translateX(-10%);
+  max-width: 600px;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.notification {
+  padding: 10px 15px;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  text-align: center;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  animation: fadeInOut 4s forwards;
+}
+
+/* Success Notification */
+.notification.success {
+  background-color: #31a783;
+  color: var(--color-white)
+}
+
+/* Error Notification */
+.notification.error {
+  background-color: #dc3545;
+  color: var(--color-white)
+}
+
+/* Fade In and Out Animation */
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  10% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+}
