@@ -2221,3 +2221,116 @@ body {
     transform: rotate(-45deg) translate(3px, -10px);
   }
 }
+
+
+.action-buttons {
+  display: inline-flex;
+  width: 150px; // Fixed container width
+  height: 40px;
+  background-color: #43a0ff;
+  padding: 0.25rem;
+  border-radius: 50px;
+  position: relative; // Needed for absolute positioning
+  overflow: hidden; // Keeps everything contained
+
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    padding: 0 0.8rem;
+    font-size: 12px;
+    border: none;
+    border-radius: 50px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+
+    span {
+      transition: all 0.3s ease-in-out;
+      display: inline-block;
+    }
+  }
+
+  .edit-btn {
+    position: absolute;
+    left: 0.25rem;
+    width: calc(75% - 0.5rem);
+    transition: all 0.3s ease-in-out;
+
+    .edit-text {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .edit-icon {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: translateX(-15px);
+    }
+  }
+
+  .delete-btn {
+    position: absolute;
+    right: 0.25rem;
+    width: 33px;
+    justify-content: flex-end;
+    transition: all 0.3s ease-in-out;
+
+    .delete-icon {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .delete-text {
+      position: absolute;
+      opacity: 0;
+      transform: translateX(15px);
+      white-space: nowrap;
+    }
+  }
+
+  // Hover effects
+   &:has(.delete-btn:hover) {
+    .edit-btn {
+      width: 33px;
+      justify-content: center;
+      padding: 0;
+
+      .edit-text {
+        opacity: 0;
+        transform: translateX(15px);
+      }
+
+      .edit-icon {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .delete-btn {
+      width: calc(75% - 0.5rem);
+      justify-content: center;
+
+      .delete-icon {
+        opacity: 0;
+        transform: translateX(-15px);
+      }
+
+      .delete-text {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+  }
+}

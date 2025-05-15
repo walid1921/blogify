@@ -66,6 +66,8 @@
             </div>
         <?php endif; ?>
 
+
+
         <h2>Users</h2>
 
         <div class="tableContainer">
@@ -134,25 +136,39 @@
                                     </td>
                                 <?php else: ?>
                                     <td>
-                                        <button
-                                                class="editUserBtn edit"
-                                                type="button"
-                                                data-user-id="<?php echo $user['id']; ?>"
-                                                data-username="<?php echo htmlspecialchars($user['username']); ?>"
-                                                data-email="<?php echo htmlspecialchars($user['email']); ?>"
-                                        >Edit</button>
+<!--                                        <button-->
+<!--                                                class="editUserBtn edit"-->
+<!--                                                type="button"-->
+<!--                                                data-user-id="--><?php //echo $user['id']; ?><!--"-->
+<!--                                                data-username="--><?php //echo htmlspecialchars($user['username']); ?><!--"-->
+<!--                                                data-email="--><?php //echo htmlspecialchars($user['email']); ?><!--"-->
+<!--                                        >Edit</button>-->
+<!---->
+<!---->
+<!--                                        <!-- Delete User  -->
+<!--                                        <form-->
+<!--                                                method="POST"-->
+<!--                                                style="display:inline-block;"-->
+<!--                                                action="--><?php //echo htmlspecialchars($_SERVER["PHP_SELF"]); ?><!--"-->
+<!--                                                onsubmit="return confirm('Are you sure you want to delete this user?');"-->
+<!--                                        >-->
+<!--                                            <input type="hidden" name="userId" value="--><?php //echo htmlspecialchars($user["id"]); ?><!--">-->
+<!--                                            <button class="delete" type="submit" name="deleteUser">Delete</button>-->
+<!--                                        </form>-->
 
 
-                                        <!-- Delete User  -->
-                                        <form
-                                                method="POST"
-                                                style="display:inline-block;"
-                                                action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>"
-                                                onsubmit="return confirm('Are you sure you want to delete this user?');"
-                                        >
-                                            <input type="hidden" name="userId" value="<?php echo htmlspecialchars($user["id"]); ?>">
-                                            <button class="delete" type="submit" name="deleteUser">Delete</button>
-                                        </form>
+                                        <div class="action-buttons">
+                                            <button class="edit-btn">
+                                                <span class="edit-text">Edit less</span>
+                                                <span class="edit-icon">✎</span>
+                                            </button>
+
+                                            <button class="delete-btn">
+                                                <span class="delete-icon">x</span>
+                                                <span class="delete-text">Delete less</span>
+                                            </button>
+                                        </div>
+
                                     </td>
                                 <?php endif; ?>
 
