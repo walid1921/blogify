@@ -1992,7 +1992,6 @@ body {
   display: inline-flex;
   width: 150px;
   height: 40px;
-  background-color: #43a0ff;
   padding: 0.25rem;
   border-radius: 50px;
   position: relative;
@@ -2008,7 +2007,6 @@ body {
   border: none;
   border-radius: 50px;
   background-color: #007bff;
-  color: white;
   cursor: pointer;
   position: relative;
   overflow: hidden;
@@ -2023,8 +2021,10 @@ body {
   left: 0.25rem;
   width: calc(75% - 0.5rem);
   transition: all 0.3s ease-in-out;
+  background-color: var(--color-edit);
 }
 .action-buttons .edit-btn .edit-text {
+  color: var(--color-white);
   opacity: 1;
   transform: translateX(0);
 }
@@ -2033,7 +2033,7 @@ body {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  color: white;
+  color: var(--color-white);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2046,12 +2046,15 @@ body {
   width: 33px;
   justify-content: flex-end;
   transition: all 0.3s ease-in-out;
+  background-color: var(--color-error);
 }
 .action-buttons .delete-btn .delete-icon {
   opacity: 1;
   transform: translateX(0);
+  color: var(--color-white);
 }
 .action-buttons .delete-btn .delete-text {
+  color: var(--color-white);
   position: absolute;
   opacity: 0;
   transform: translateX(15px);

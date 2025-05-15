@@ -159,13 +159,13 @@
 
                                         <div class="action-buttons">
                                             <button class="edit-btn">
-                                                <span class="edit-text">Edit less</span>
+                                                <span class="edit-text">Edit</span>
                                                 <span class="edit-icon">✎</span>
                                             </button>
 
                                             <button class="delete-btn">
                                                 <span class="delete-icon">x</span>
-                                                <span class="delete-text">Delete less</span>
+                                                <span class="delete-text">Delete</span>
                                             </button>
                                         </div>
 
