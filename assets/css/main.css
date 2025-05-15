@@ -214,7 +214,7 @@ p {
   position: fixed;
   top: 100px;
   right: 0;
-  transform: translateX(-10%);
+  transform: translateX(-20%);
   max-width: 600px;
   z-index: 999;
   display: flex;
@@ -1987,6 +1987,100 @@ body {
   to {
     transform: rotate(-45deg) translate(3px, -10px);
   }
+}
+.action-buttons {
+  display: inline-flex;
+  width: 150px;
+  height: 40px;
+  background-color: #43a0ff;
+  padding: 0.25rem;
+  border-radius: 50px;
+  position: relative;
+  overflow: hidden;
+}
+.action-buttons button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  padding: 0 0.8rem;
+  font-size: 12px;
+  border: none;
+  border-radius: 50px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+}
+.action-buttons button span {
+  transition: all 0.3s ease-in-out;
+  display: inline-block;
+}
+.action-buttons .edit-btn {
+  position: absolute;
+  left: 0.25rem;
+  width: calc(75% - 0.5rem);
+  transition: all 0.3s ease-in-out;
+}
+.action-buttons .edit-btn .edit-text {
+  opacity: 1;
+  transform: translateX(0);
+}
+.action-buttons .edit-btn .edit-icon {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateX(-15px);
+}
+.action-buttons .delete-btn {
+  position: absolute;
+  right: 0.25rem;
+  width: 33px;
+  justify-content: flex-end;
+  transition: all 0.3s ease-in-out;
+}
+.action-buttons .delete-btn .delete-icon {
+  opacity: 1;
+  transform: translateX(0);
+}
+.action-buttons .delete-btn .delete-text {
+  position: absolute;
+  opacity: 0;
+  transform: translateX(15px);
+  white-space: nowrap;
+}
+.action-buttons:has(.delete-btn:hover) .edit-btn {
+  width: 33px;
+  justify-content: center;
+  padding: 0;
+}
+.action-buttons:has(.delete-btn:hover) .edit-btn .edit-text {
+  opacity: 0;
+  transform: translateX(15px);
+}
+.action-buttons:has(.delete-btn:hover) .edit-btn .edit-icon {
+  opacity: 1;
+  transform: translateX(0);
+}
+.action-buttons:has(.delete-btn:hover) .delete-btn {
+  width: calc(75% - 0.5rem);
+  justify-content: center;
+}
+.action-buttons:has(.delete-btn:hover) .delete-btn .delete-icon {
+  opacity: 0;
+  transform: translateX(-15px);
+}
+.action-buttons:has(.delete-btn:hover) .delete-btn .delete-text {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 /*# sourceMappingURL=main.css.map */
