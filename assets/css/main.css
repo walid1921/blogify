@@ -1343,9 +1343,16 @@ p {
   color: var(--color-white);
   background-color: var(--color-purple-1);
   border: none;
-  padding: 5px 10px;
+  padding: 6px;
   cursor: pointer;
   border-radius: var(--border-radius);
+}
+.tableContainer .search button img {
+  display: block;
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  pointer-events: none;
 }
 
 .user-table {
@@ -1385,6 +1392,9 @@ p {
 }
 .user-table td {
   background-color: #f9f9f9;
+}
+.user-table .restricted {
+  color: var(--color-error);
 }
 
 .primary-button {
@@ -1483,6 +1493,129 @@ p {
 .delete-button img {
   height: 16px;
   margin-right: 10px;
+}
+
+.action-buttons {
+  display: inline-flex;
+  align-items: center;
+  width: 150px;
+  height: 25px;
+  border-radius: 50px;
+  position: relative;
+  overflow: hidden;
+}
+.action-buttons button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 25px;
+  padding: 0 0.8rem;
+  font-size: 12px;
+  border: none;
+  border-radius: 50px;
+  background-color: #007bff;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+}
+.action-buttons button span {
+  transition: all 0.3s ease-in-out;
+  display: inline-block;
+}
+.action-buttons .edit-btn {
+  position: absolute;
+  left: 0.25rem;
+  width: calc(75% - 0.5rem);
+  transition: all 0.3s ease-in-out;
+  background-color: var(--color-edit);
+}
+.action-buttons .edit-btn .edit-text {
+  color: var(--color-white);
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, visibility 0.3s;
+  visibility: visible;
+}
+.action-buttons .edit-btn .edit-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  color: var(--color-white);
+  opacity: 0;
+  transform: translateX(-15px);
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+.action-buttons .edit-btn .edit-icon img {
+  display: block;
+  width: 15px;
+  height: 15px;
+  object-fit: contain;
+  pointer-events: none;
+}
+.action-buttons .delete-btn {
+  position: absolute;
+  right: 0.25rem;
+  width: 25px;
+  justify-content: flex-end;
+  transition: all 0.3s ease-in-out;
+  background-color: var(--color-error);
+}
+.action-buttons .delete-btn .delete-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  transform: translateX(0);
+  color: var(--color-white);
+  width: 100%;
+  transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+}
+.action-buttons .delete-btn .delete-icon img {
+  display: block;
+  width: 12px;
+  height: 12px;
+  object-fit: contain;
+  pointer-events: none;
+}
+.action-buttons .delete-btn .delete-text {
+  color: var(--color-white);
+  position: absolute;
+  opacity: 0;
+  transform: translateX(15px);
+  white-space: nowrap;
+  visibility: hidden;
+  transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out, visibility 0.2s;
+}
+.action-buttons:has(.delete-btn:hover) .edit-btn {
+  width: 25px;
+  justify-content: center;
+  padding: 0;
+}
+.action-buttons:has(.delete-btn:hover) .edit-btn .edit-text {
+  opacity: 0;
+  transform: translateX(15px);
+  visibility: hidden;
+}
+.action-buttons:has(.delete-btn:hover) .edit-btn .edit-icon {
+  opacity: 1;
+  transform: translateX(0);
+}
+.action-buttons:has(.delete-btn:hover) .delete-btn {
+  width: calc(75% - 0.4rem);
+  justify-content: center;
+}
+.action-buttons:has(.delete-btn:hover) .delete-btn .delete-icon {
+  opacity: 0;
+  transform: translateX(-15px);
+}
+.action-buttons:has(.delete-btn:hover) .delete-btn .delete-text {
+  opacity: 1;
+  transform: translateX(0);
+  visibility: visible;
 }
 
 .modal {
@@ -1612,6 +1745,68 @@ p {
 }
 .editModal .closeEditUserModal:hover {
   color: var(--color-blue-dark);
+}
+
+.deleteOneUserModal {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.deleteOneUserModal .modal-content {
+  background-color: white;
+  padding: 20px;
+  width: 600px;
+  border-radius: 10px;
+  position: relative;
+}
+.deleteOneUserModal .modal-content .modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+.deleteOneUserModal .modal-content p {
+  font-size: 0.9rem;
+  color: #7f7f7f;
+}
+.deleteOneUserModal .modal-content .permanently {
+  color: var(--color-error);
+}
+.deleteOneUserModal .modal-content .deleteOneUserModal-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+.deleteOneUserModal .modal-content .deleteOneUserModal-buttons .cancelConfirmDeleteUser {
+  font-family: var(--body-font), serif;
+  font-size: var(--btn-size);
+  letter-spacing: 1.25px;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--color-grey);
+  margin: var(--spacing-md) 0;
+  color: var(--color-black);
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  background-color: transparent;
+}
+.deleteOneUserModal .modal-content .deleteOneUserModal-buttons .cancelConfirmDeleteUser:hover {
+  background-color: var(--color-blue-dark);
+  color: var(--color-white);
 }
 
 .waiting-section {
@@ -1987,103 +2182,6 @@ body {
   to {
     transform: rotate(-45deg) translate(3px, -10px);
   }
-}
-.action-buttons {
-  display: inline-flex;
-  width: 150px;
-  height: 40px;
-  padding: 0.25rem;
-  border-radius: 50px;
-  position: relative;
-  overflow: hidden;
-}
-.action-buttons button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 30px;
-  padding: 0 0.8rem;
-  font-size: 12px;
-  border: none;
-  border-radius: 50px;
-  background-color: #007bff;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  transition: all 0.3s ease-in-out;
-}
-.action-buttons button span {
-  transition: all 0.3s ease-in-out;
-  display: inline-block;
-}
-.action-buttons .edit-btn {
-  position: absolute;
-  left: 0.25rem;
-  width: calc(75% - 0.5rem);
-  transition: all 0.3s ease-in-out;
-  background-color: var(--color-edit);
-}
-.action-buttons .edit-btn .edit-text {
-  color: var(--color-white);
-  opacity: 1;
-  transform: translateX(0);
-}
-.action-buttons .edit-btn .edit-icon {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  color: var(--color-white);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transform: translateX(-15px);
-}
-.action-buttons .delete-btn {
-  position: absolute;
-  right: 0.25rem;
-  width: 33px;
-  justify-content: flex-end;
-  transition: all 0.3s ease-in-out;
-  background-color: var(--color-error);
-}
-.action-buttons .delete-btn .delete-icon {
-  opacity: 1;
-  transform: translateX(0);
-  color: var(--color-white);
-}
-.action-buttons .delete-btn .delete-text {
-  color: var(--color-white);
-  position: absolute;
-  opacity: 0;
-  transform: translateX(15px);
-  white-space: nowrap;
-}
-.action-buttons:has(.delete-btn:hover) .edit-btn {
-  width: 33px;
-  justify-content: center;
-  padding: 0;
-}
-.action-buttons:has(.delete-btn:hover) .edit-btn .edit-text {
-  opacity: 0;
-  transform: translateX(15px);
-}
-.action-buttons:has(.delete-btn:hover) .edit-btn .edit-icon {
-  opacity: 1;
-  transform: translateX(0);
-}
-.action-buttons:has(.delete-btn:hover) .delete-btn {
-  width: calc(75% - 0.5rem);
-  justify-content: center;
-}
-.action-buttons:has(.delete-btn:hover) .delete-btn .delete-icon {
-  opacity: 0;
-  transform: translateX(-15px);
-}
-.action-buttons:has(.delete-btn:hover) .delete-btn .delete-text {
-  opacity: 1;
-  transform: translateX(0);
 }
 
 /*# sourceMappingURL=main.css.map */

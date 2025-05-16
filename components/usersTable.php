@@ -37,12 +37,14 @@
         //! Update User
         elseif (isset($_POST["editUser"])) {
             editUser($pdo, $_POST, $errors);
+            redirect($_SERVER['PHP_SELF']);
         }
 
         //! Delete User
         elseif (isset($_POST["deleteUser"])) {
             $userId = isset($_POST["userId"]) ? (int)$_POST["userId"] : 0;
             deleteUser($pdo, $userId);
+            redirect($_SERVER['PHP_SELF']);
         }
 
         $stmt = $pdo->query("SELECT * FROM users ORDER BY created_at DESC");
@@ -78,18 +80,12 @@
                     <form method="GET" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                         <input type="text" name="search" placeholder="Search by username or email" value="<?php echo htmlspecialchars($search); ?>">
                         <button type="submit">
-                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0,0,256,256">
-                                <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-size="none" style="mix-blend-mode: normal"><g transform="scale(8,8)"><path d="M19,3c-5.51172,0 -10,4.48828 -10,10c0,2.39453 0.83984,4.58984 2.25,6.3125l-7.96875,7.96875l1.4375,1.4375l7.96875,-7.96875c1.72266,1.41016 3.91797,2.25 6.3125,2.25c5.51172,0 10,-4.48828 10,-10c0,-5.51172 -4.48828,-10 -10,-10zM19,5c4.42969,0 8,3.57031 8,8c0,4.42969 -3.57031,8 -8,8c-4.42969,0 -8,-3.57031 -8,-8c0,-4.42969 3.57031,-8 8,-8z"></path></g></g>
-                            </svg>
+                            <img src="/assets/images/search.png" alt="search icon">
                         </button>
                     </form>
 
                     <button id="addUserBtn">
-                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 448 512">
-                            <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none"  font-size="none" style="mix-blend-mode: normal">
-                            <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 144L48 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l144 0 0 144c0 17.7 14.3 32 32 32s32-14.3 32-32l0-144 144 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-144 0 0-144z"
-                            />
-                        </svg>
+                        <img src="/assets/images/add.png" alt="add icon">
                     </button>
                 </div>
             </div>
@@ -132,43 +128,29 @@
 
                                 <?php if ($user["admin"]): ?>
                                     <td>
-                                       Restricted!
+                                       <span class="restricted">Restricted!</span>
                                     </td>
                                 <?php else: ?>
                                     <td>
-<!--                                        <button-->
-<!--                                                class="editUserBtn edit"-->
-<!--                                                type="button"-->
-<!--                                                data-user-id="--><?php //echo $user['id']; ?><!--"-->
-<!--                                                data-username="--><?php //echo htmlspecialchars($user['username']); ?><!--"-->
-<!--                                                data-email="--><?php //echo htmlspecialchars($user['email']); ?><!--"-->
-<!--                                        >Edit</button>-->
-<!---->
-<!---->
-<!--                                        <!-- Delete User  -->
-<!--                                        <form-->
-<!--                                                method="POST"-->
-<!--                                                style="display:inline-block;"-->
-<!--                                                action="--><?php //echo htmlspecialchars($_SERVER["PHP_SELF"]); ?><!--"-->
-<!--                                                onsubmit="return confirm('Are you sure you want to delete this user?');"-->
-<!--                                        >-->
-<!--                                            <input type="hidden" name="userId" value="--><?php //echo htmlspecialchars($user["id"]); ?><!--">-->
-<!--                                            <button class="delete" type="submit" name="deleteUser">Delete</button>-->
-<!--                                        </form>-->
-
-
-                                        <div class="action-buttons">
-                                            <button class="edit-btn">
+                                        <div class="action-buttons" >
+                                            <button class="edit-btn"
+                                                    type="button"
+                                                    data-user-id="<?php echo $user['id']; ?>"
+                                                    data-username="<?php echo htmlspecialchars($user['username']); ?>"
+                                                    data-email="<?php echo htmlspecialchars($user['email']); ?>"
+                                            >
                                                 <span class="edit-text">Edit</span>
-                                                <span class="edit-icon">✎</span>
+                                                <span class="edit-icon"><img src="/assets/images/edit.png" alt="bin image"></span>
                                             </button>
 
-                                            <button class="delete-btn">
-                                                <span class="delete-icon">x</span>
+                                            <button class="delete-btn"
+                                                    type="button"
+                                                    data-user-id="<?php echo $user['id']; ?>">
+                                                <span class="delete-icon"><img src="/assets/images/bin.png" alt="bin image"></span>
                                                 <span class="delete-text">Delete</span>
                                             </button>
-                                        </div>
 
+                                        </div>
                                     </td>
                                 <?php endif; ?>
 
@@ -315,6 +297,28 @@
             </form>
         </div>
     </div>
+
+<!--   Delete One user Modal -->
+        <div id="deleteOneUserModal" class="modal deleteOneUserModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Confirm Deletion</h4>
+                    <span class="cancelDeletion close">&times;</span>
+                </div>
+                <p>Are you sure you want to delete this account <span class="permanently">permanently</span>?</p>
+
+                <div class="deleteOneUserModal-buttons">
+                    <form method="POST"  action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                        <input type="hidden" name="userId" id="deleteUserId">
+                        <button class="delete-button" type="submit" name="deleteUser">Delete</button>
+                    </form>
+
+                    <button class="cancelConfirmDeleteUser cancelDeletion">Cancel</button>
+                </div>
+
+
+            </div>
+        </div>
 
 
 </div>

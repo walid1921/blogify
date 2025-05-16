@@ -19,13 +19,18 @@ document.addEventListener("DOMContentLoaded", function () {
     const passwordConfirm = document.getElementById("passwordConfirm");
     const cancelPasswordConfirm = document.getElementById("cancelConfirm");
 
-    const editButtons = document.querySelectorAll(".editUserBtn");
+    const editButtons = document.querySelectorAll(".edit-btn");
     const editUserModal = document.getElementById("editUserModal");
     const closeEditUserModal = document.querySelector(".closeEditUserModal");
 
     const editUserIdInput = document.getElementById("editUserId");
     const editUsernameInput = document.getElementById("editUsername");
     const editEmailInput = document.getElementById("editEmail");
+
+    const deleteUsers = document.querySelectorAll(".delete-btn");
+    const deleteOneUserModal = document.getElementById("deleteOneUserModal");
+    const cancelDeletion = document.querySelectorAll(".cancelDeletion");
+    const deleteUserIdInput = document.getElementById("deleteUserId");
 
     // === Register Modal ===
     if (addUserButton && registerModal) {
@@ -50,6 +55,19 @@ document.addEventListener("DOMContentLoaded", function () {
             editEmailInput.value = email;
 
             editUserModal.style.display = "flex";
+        });
+    });
+
+    // === Delete one user Modal ===
+    if (deleteUsers && deleteOneUserModal) {
+        deleteUsers.onclick = () => deleteOneUserModal.style.display = "flex";
+        cancelDeletion.forEach(button => button.onclick = () => deleteOneUserModal.style.display = "none");
+    }
+
+    deleteUsers.forEach(button => {
+        button.addEventListener("click", () => {
+            deleteUserIdInput.value = button.getAttribute("data-user-id");
+            deleteOneUserModal.style.display = "flex";
         });
     });
 
@@ -105,9 +123,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // === Global Modal Close When Clicking Outside ===
     window.onclick = function (event) {
-        if (event.target === registerModal) registerModal.style.display = "none";
+        // if (event.target === registerModal) registerModal.style.display = "none";   // I comment it because it bothers me when by mistake I click outside the modal
         if (event.target === deleteModal) deleteModal.style.display = "none";
         if (event.target === passwordModal) passwordModal.style.display = "none";
         if (event.target === editUserModal) editUserModal.style.display = "none";
+        if (event.target === deleteOneUserModal) deleteOneUserModal.style.display = "none";
     };
 });
