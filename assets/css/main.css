@@ -1051,6 +1051,8 @@ p {
 .blog-page .blog .content {
   padding: 20px;
   display: flex;
+  justify-content: space-between;
+  height: 100%;
   flex-direction: column;
   gap: 12px;
 }
@@ -1572,7 +1574,7 @@ p {
   transform: translateX(0);
   color: var(--color-white);
   width: 100%;
-  transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 .action-buttons .delete-btn .delete-icon img {
   display: block;
@@ -1588,7 +1590,7 @@ p {
   transform: translateX(15px);
   white-space: nowrap;
   visibility: hidden;
-  transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out, visibility 0.2s;
+  transition: opacity 0.1s ease-in-out, transform 0.1s ease-in-out, visibility 0.1s;
 }
 .action-buttons:has(.delete-btn:hover) .edit-btn {
   width: 25px;

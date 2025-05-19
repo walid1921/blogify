@@ -70,7 +70,7 @@ class TaskController {
 
 
 
-        // Pass data to the view
+        // Pass Tasks data to the view
         require __DIR__ . '/../view/tasksView.php';
     }
 }
