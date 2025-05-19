@@ -26,7 +26,7 @@ class Task {
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
-        //!
+        //! fetch a task by id
         public function getTaskById($id) {
             $query = "SELECT * FROM $this->table WHERE id = :id";
             $stmt = $this->pdo->prepare($query);
@@ -66,9 +66,4 @@ class Task {
             $stmt = $this->pdo->prepare($query);
             return $stmt->execute([':id' => $id]);
         }
-
-
-
-
-
 }
