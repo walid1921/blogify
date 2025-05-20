@@ -19,8 +19,8 @@ include "./components/header.php";
                     </p>
                     <div class="btn-container">
                         <?php if(isLoggedIn()) : ?>
-                               <a class="primary-button with-icon" href="todo.php">App <img src="/assets/images/arrow-right-light.svg" alt=""></a>
-                               <a class="secondary-button with-icon" href="admin.php">Profile <img src="/assets/images/arrow-right-purple.svg" alt=""></a>
+                               <a class="primary-button with-icon" href="blog.php">Blogs <img src="/assets/images/arrow-right-light.svg" alt=""></a>
+                               <a class="secondary-button with-icon" href="todo.php">My ideas <img src="/assets/images/arrow-right-purple.svg" alt=""></a>
                         <?php else:  ?>
                                 <a class="primary-button with-icon" href="login.php">Start now <img src="/assets/images/arrow-right-light.svg" alt=""></a>
                                 <a class="secondary-button with-icon" href="blog.php">Blogs <img src="/assets/images/arrow-right-purple.svg" alt=""></a>

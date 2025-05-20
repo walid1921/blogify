@@ -80,12 +80,12 @@
                     <form method="GET" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                         <input type="text" name="search" placeholder="Search by username or email" value="<?php echo htmlspecialchars($search); ?>">
                         <button type="submit">
-                            <img src="/assets/images/search.png" alt="search icon">
+                            <i class="fa-solid fa-magnifying-glass fa-xl"></i>
                         </button>
                     </form>
 
                     <button id="addUserBtn">
-                        <img src="/assets/images/add.png" alt="add icon">
+                        <i class="fa-solid fa-plus fa-xl"></i>
                     </button>
                 </div>
             </div>
@@ -140,13 +140,13 @@
                                                     data-email="<?php echo htmlspecialchars($user['email']); ?>"
                                             >
                                                 <span class="edit-text">Edit</span>
-                                                <span class="edit-icon"><img src="/assets/images/edit.png" alt="bin image"></span>
+                                                <span class="edit-icon"><i class="fa-solid fa-pen fa-sm"></i></span>
                                             </button>
 
                                             <button class="delete-btn"
                                                     type="button"
                                                     data-user-id="<?php echo $user['id']; ?>">
-                                                <span class="delete-icon"><img src="/assets/images/bin.png" alt="bin image"></span>
+                                                <span class="delete-icon"><i class="fa-solid fa-trash fa-sm"></i></span>
                                                 <span class="delete-text">Delete</span>
                                             </button>
 

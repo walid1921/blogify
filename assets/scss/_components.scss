@@ -62,6 +62,8 @@
       background-color: var(--color-purple-1);
       color: var(--color-white);
       border: none;
+      gap: 6px;
+
 
       &:hover {
         background-color: var(--color-blue-dark);
@@ -78,6 +80,37 @@
         color: var(--color-white);
       }
     }
+
+    .user-btn {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      background-color: transparent;
+      color: var(--color-purple-1);
+      border: 1px solid var(--color-purple-1);
+
+      i {
+        font-size: 18px;
+        transition: all 0.3s ease;
+        margin: 0;
+      }
+
+      &:hover {
+        background-color: var(--color-purple-1);
+        color: var(--color-white);
+
+        i {
+          animation: fa-bounce 1s;
+        }
+      }
+    }
+
+
 
 
   }
@@ -256,7 +289,7 @@
 
   display: flex;
   justify-content: center;
-  padding: var(--spacing-xl) 0;
+  padding: 100px 0 300px 0;
 
   h2 {
     width: 50%;
@@ -270,6 +303,66 @@
     &:hover {
       background-color: var(--color-blue-dark);
 
+    }
+  }
+}
+
+//! Designed SECTION
+.designed-section {
+  color: var(--color-white-light);
+  padding: calc(var(--spacing-xl) * 1) 0;
+
+  display: flex;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+
+  &::before {
+    content: "";
+    width: 100%;
+    height: 1100px;
+    background-color: var(--color-blue-dark);
+    position: absolute;
+    top: -160px;
+    left: 0;
+    z-index: -1;
+    transform: skewY(-10deg);
+  }
+
+  .primary-button {
+    color: var(--color-blue-dark);
+    background-color: var(--color-blue-light);
+    margin: var(--spacing-md) 0 0 0;
+
+    &:hover {
+      background-color: var(--color-white);
+    }
+  }
+
+  .secondary-button {
+    color: var(--color-blue-light);
+
+  }
+
+  .card-container {
+    display: flex;
+    margin: var(--spacing-lg) 0;
+
+    .card {
+      width: 50%;
+    }
+  }
+
+  .col-right {
+    #terminal {
+      max-width: 470px;
+      border-radius: var(--border-radius);
+      margin-top: var(--spacing-md);
+    }
+
+    #api-code {
+      max-width: 470px;
+      border-radius: var(--border-radius);
     }
   }
 }
@@ -595,69 +688,10 @@
 }
 
 
-//! Designed SECTION
-.designed-section {
-  color: var(--color-white-light);
-  padding: calc(var(--spacing-xl) * 3) 0;
-
-  display: flex;
-  justify-content: center;
-  position: relative;
-  z-index: 1;
-
-  &::before {
-    content: "";
-    width: 100%;
-    height: 1100px;
-    background-color: var(--color-blue-dark);
-    position: absolute;
-    top: -32px;
-    left: 0;
-    z-index: -1;
-    transform: skewY(-10deg);
-  }
-
-  .primary-button {
-    color: var(--color-blue-dark);
-    background-color: var(--color-blue-light);
-    margin: var(--spacing-md) 0 0 0;
-
-    &:hover {
-      background-color: var(--color-white);
-    }
-  }
-
-  .secondary-button {
-    color: var(--color-blue-light);
-
-  }
-
-  .card-container {
-    display: flex;
-    margin: var(--spacing-lg) 0;
-
-    .card {
-      width: 50%;
-    }
-  }
-
-  .col-right {
-    #terminal {
-      max-width: 470px;
-      border-radius: var(--border-radius);
-      margin-top: var(--spacing-md);
-    }
-
-    #api-code {
-      max-width: 470px;
-      border-radius: var(--border-radius);
-    }
-  }
-}
-
 
 //! Why Blogify SECTION
 .why-blogify-section {
+  margin-top: 150px;
   display: flex;
   justify-content: center;
   padding: calc(var(--spacing-xl) * 3) 0;
@@ -1346,17 +1380,10 @@
       color: var(--color-white);
       background-color: var(--color-purple-1);
       border: none;
-      padding: 6px;
       cursor: pointer;
-      border-radius: var(--border-radius);
+      border-radius: var(--border-full);
+      padding: 10px 16px;
 
-      img {
-        display: block;
-        width: 20px;
-        height: 20px;
-        object-fit: contain;
-        pointer-events: none;
-      }
     }
   }
 }
@@ -1458,12 +1485,17 @@
   justify-content: center;
   align-items: center;
 
-  &:hover img {
-    transform: translateX(4px);
+  img,
+  i {
     transition: transform 0.25s ease;
+  }
 
+  &:hover img,
+  &:hover i {
+    transform: translateX(4px);
   }
 }
+
 .edit,
 .delete {
   padding: 5px 10px;
@@ -1510,11 +1542,6 @@
     background-color: var(--color-blue-dark);
 
   }
-
-  img {
-    height: 16px;
-    margin-right: 10px;
-  }
 }
 .action-buttons {
   display: inline-flex;
@@ -1530,7 +1557,6 @@
     align-items: center;
     justify-content: center;
     height: 25px;
-    padding: 0 0.8rem;
     font-size: 12px;
     border: none;
     border-radius: 50px;
@@ -1566,28 +1592,20 @@
       align-items: center;
       justify-content: center;
       position: absolute;
-      width: 20px;
-      height: 20px;
       color: var(--color-white);
       opacity: 0;
       transform: translateX(-15px);
       transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
-
-      img {
-        display: block;
-        width: 15px;
-        height: 15px;
-        object-fit: contain;
-        pointer-events: none;
-      }
     }
   }
 
   .delete-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: absolute;
     right: 0.25rem;
     width: 25px;
-    justify-content: flex-end;
     transition: all 0.3s ease-in-out;
     background-color: var(--color-error);
 
@@ -1600,14 +1618,6 @@
       color: var(--color-white);
       width: 100%;
       transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
-
-      img {
-        display: block;
-        width: 12px;
-        height: 12px;
-        object-fit: contain;
-        pointer-events: none;
-      }
     }
 
     .delete-text {
