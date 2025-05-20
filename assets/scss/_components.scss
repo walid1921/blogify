@@ -1935,6 +1935,20 @@
 }
 
 
+//! Empty page
+.emptyModal {
+  margin-top: 200px;
+
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 40px
+  }
+}
+
+
 //! Footer
 .footer {
   width: 100%;

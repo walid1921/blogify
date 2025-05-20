@@ -1843,6 +1843,17 @@ p {
   color: var(--color-purple-1);
 }
 
+.emptyModal {
+  margin-top: 200px;
+}
+.emptyModal .form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+}
+
 .footer {
   width: 100%;
   display: flex;
