@@ -37,6 +37,7 @@
   --line: 1px solid var(--color-grey-light-2);
   --box-shadow: 0px 2px 40px rgba(0, 0, 0, 0.15);
   --border-radius: 20px;
+  --border-full: 50px;
 }
 
 #gradient-canvas {
@@ -316,6 +317,7 @@ p {
   background-color: var(--color-purple-1);
   color: var(--color-white);
   border: none;
+  gap: 6px;
 }
 .navbar .nav-right .primary-button.nav-btn:hover {
   background-color: var(--color-blue-dark);
@@ -328,6 +330,31 @@ p {
 .navbar .nav-right .secondary-button.nav-btn:hover {
   background-color: var(--color-purple-1);
   color: var(--color-white);
+}
+.navbar .nav-right .user-btn {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  background-color: transparent;
+  color: var(--color-purple-1);
+  border: 1px solid var(--color-purple-1);
+}
+.navbar .nav-right .user-btn i {
+  font-size: 18px;
+  transition: all 0.3s ease;
+  margin: 0;
+}
+.navbar .nav-right .user-btn:hover {
+  background-color: var(--color-purple-1);
+  color: var(--color-white);
+}
+.navbar .nav-right .user-btn:hover i {
+  animation: fa-bounce 1s;
 }
 .navbar .hamburger {
   height: 30px;
@@ -470,7 +497,7 @@ p {
   width: 100%;
   display: flex;
   justify-content: center;
-  padding: var(--spacing-xl) 0;
+  padding: 100px 0 300px 0;
 }
 .about-blogify h2 {
   width: 50%;
@@ -482,6 +509,53 @@ p {
 }
 .about-blogify .primary-button:hover {
   background-color: var(--color-blue-dark);
+}
+
+.designed-section {
+  color: var(--color-white-light);
+  padding: calc(var(--spacing-xl) * 1) 0;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+.designed-section::before {
+  content: "";
+  width: 100%;
+  height: 1100px;
+  background-color: var(--color-blue-dark);
+  position: absolute;
+  top: -160px;
+  left: 0;
+  z-index: -1;
+  transform: skewY(-10deg);
+}
+.designed-section .primary-button {
+  color: var(--color-blue-dark);
+  background-color: var(--color-blue-light);
+  margin: var(--spacing-md) 0 0 0;
+}
+.designed-section .primary-button:hover {
+  background-color: var(--color-white);
+}
+.designed-section .secondary-button {
+  color: var(--color-blue-light);
+}
+.designed-section .card-container {
+  display: flex;
+  margin: var(--spacing-lg) 0;
+}
+.designed-section .card-container .card {
+  width: 50%;
+}
+.designed-section .col-right #terminal {
+  max-width: 470px;
+  border-radius: var(--border-radius);
+  margin-top: var(--spacing-md);
+}
+.designed-section .col-right #api-code {
+  max-width: 470px;
+  border-radius: var(--border-radius);
 }
 
 .form-container {
@@ -762,54 +836,8 @@ p {
   border-radius: var(--border-radius);
 }
 
-.designed-section {
-  color: var(--color-white-light);
-  padding: calc(var(--spacing-xl) * 3) 0;
-  display: flex;
-  justify-content: center;
-  position: relative;
-  z-index: 1;
-}
-.designed-section::before {
-  content: "";
-  width: 100%;
-  height: 1100px;
-  background-color: var(--color-blue-dark);
-  position: absolute;
-  top: -32px;
-  left: 0;
-  z-index: -1;
-  transform: skewY(-10deg);
-}
-.designed-section .primary-button {
-  color: var(--color-blue-dark);
-  background-color: var(--color-blue-light);
-  margin: var(--spacing-md) 0 0 0;
-}
-.designed-section .primary-button:hover {
-  background-color: var(--color-white);
-}
-.designed-section .secondary-button {
-  color: var(--color-blue-light);
-}
-.designed-section .card-container {
-  display: flex;
-  margin: var(--spacing-lg) 0;
-}
-.designed-section .card-container .card {
-  width: 50%;
-}
-.designed-section .col-right #terminal {
-  max-width: 470px;
-  border-radius: var(--border-radius);
-  margin-top: var(--spacing-md);
-}
-.designed-section .col-right #api-code {
-  max-width: 470px;
-  border-radius: var(--border-radius);
-}
-
 .why-blogify-section {
+  margin-top: 150px;
   display: flex;
   justify-content: center;
   padding: calc(var(--spacing-xl) * 3) 0;
@@ -1345,16 +1373,9 @@ p {
   color: var(--color-white);
   background-color: var(--color-purple-1);
   border: none;
-  padding: 6px;
   cursor: pointer;
-  border-radius: var(--border-radius);
-}
-.tableContainer .search button img {
-  display: block;
-  width: 20px;
-  height: 20px;
-  object-fit: contain;
-  pointer-events: none;
+  border-radius: var(--border-full);
+  padding: 10px 16px;
 }
 
 .user-table {
@@ -1442,9 +1463,12 @@ p {
   justify-content: center;
   align-items: center;
 }
-.with-icon:hover img {
-  transform: translateX(4px);
+.with-icon img,
+.with-icon i {
   transition: transform 0.25s ease;
+}
+.with-icon:hover img, .with-icon:hover i {
+  transform: translateX(4px);
 }
 
 .edit,
@@ -1492,10 +1516,6 @@ p {
 .delete-button:hover {
   background-color: var(--color-blue-dark);
 }
-.delete-button img {
-  height: 16px;
-  margin-right: 10px;
-}
 
 .action-buttons {
   display: inline-flex;
@@ -1511,7 +1531,6 @@ p {
   align-items: center;
   justify-content: center;
   height: 25px;
-  padding: 0 0.8rem;
   font-size: 12px;
   border: none;
   border-radius: 50px;
@@ -1544,25 +1563,18 @@ p {
   align-items: center;
   justify-content: center;
   position: absolute;
-  width: 20px;
-  height: 20px;
   color: var(--color-white);
   opacity: 0;
   transform: translateX(-15px);
   transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
-.action-buttons .edit-btn .edit-icon img {
-  display: block;
-  width: 15px;
-  height: 15px;
-  object-fit: contain;
-  pointer-events: none;
-}
 .action-buttons .delete-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: absolute;
   right: 0.25rem;
   width: 25px;
-  justify-content: flex-end;
   transition: all 0.3s ease-in-out;
   background-color: var(--color-error);
 }
@@ -1575,13 +1587,6 @@ p {
   color: var(--color-white);
   width: 100%;
   transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
-}
-.action-buttons .delete-btn .delete-icon img {
-  display: block;
-  width: 12px;
-  height: 12px;
-  object-fit: contain;
-  pointer-events: none;
 }
 .action-buttons .delete-btn .delete-text {
   color: var(--color-white);

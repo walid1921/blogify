@@ -32,6 +32,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const cancelDeletion = document.querySelectorAll(".cancelDeletion");
     const deleteUserIdInput = document.getElementById("deleteUserId");
 
+    const userBtn = document.querySelectorAll('.user-btn i');
+
     // === Register Modal ===
     if (addUserButton && registerModal) {
         addUserButton.onclick = () => registerModal.style.display = "flex";
@@ -129,4 +131,15 @@ document.addEventListener("DOMContentLoaded", function () {
         if (event.target === editUserModal) editUserModal.style.display = "none";
         if (event.target === deleteOneUserModal) deleteOneUserModal.style.display = "none";
     };
+
+
+    userBtn.forEach(btn => {
+        const icon = btn.querySelector('i');
+        btn.addEventListener('mouseenter', () => {
+            icon.classList.add('fa-bounce');
+        });
+        btn.addEventListener('mouseleave', () => {
+            icon.classList.remove('fa-bounce');
+        });
+    });
 });

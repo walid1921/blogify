@@ -130,7 +130,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
                     </div>
                 </div>
                 <br>
-                <button class="delete-button" id="deleteUserBtn">Delete account <img src="/assets/images/bin.png" alt="bin image"></button>
+                <button class="delete-button" id="deleteUserBtn">Delete account <i class="fa-solid fa-trash"></i></button>
             </div>
 
             <!-- Delete Confirmation Step 1 -->
