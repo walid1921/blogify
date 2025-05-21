@@ -12,10 +12,5 @@ if (!isLoggedIn()) {
 
 
 include "./components/header.php";
-?>
-
-
-<?php
-include './components/usersTable.php'; ?>
-
-<?php include "./components/footer.php"; ?>
+include './components/usersTable.php';
+include "./components/footer.php";

@@ -3,6 +3,10 @@ require_once "includes/session.php";
 require_once "includes/database.php";
 require_once "includes/helpers.php";
 include "./components/header.php";
+
+if (!isLoggedIn()) {
+    redirect("login.php");
+}
 ?>
 
 <div>

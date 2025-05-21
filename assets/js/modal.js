@@ -34,6 +34,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const userBtn = document.querySelectorAll('.user-btn i');
 
+
+    const publishBtn = document.querySelector('.status-btn');
+    const publishInput = document.querySelector('input[name="is_published"]');
+
+
+    // === Publish Button ===
+    if (publishBtn && publishInput) {
+        publishBtn.addEventListener('click', function (e) {
+            // Toggle class and label instantly (UI feedback)
+            const isPublished = publishInput.value === '1';
+
+            // Flip value for form submission
+            publishInput.value = isPublished ? '0' : '1';
+
+            // Update publishBtn text and style
+            publishBtn.textContent = isPublished ? 'Pending' : 'Published';
+            publishBtn.classList.toggle('published', !isPublished);
+            publishBtn.classList.toggle('pending', isPublished);
+        });
+    }
+
     // === Register Modal ===
     if (addUserButton && registerModal) {
         addUserButton.onclick = () => registerModal.style.display = "flex";

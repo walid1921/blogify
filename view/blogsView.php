@@ -1,23 +1,43 @@
 <div class="container">
     <canvas id="gradient-canvas"></canvas>
 
+    <?php if(isset($_SESSION["message"])): ?>
+        <div class="notification-container">
+            <div class="notification <?php echo $_SESSION["msg_type"]?>">
+                <!-- Success message will go here -->
+                <?php echo  $_SESSION["message"];?>
+                <?php unset($_SESSION["message"]);?>
+            </div>
+        </div>
+    <?php endif; ?>
+
     <div class="blog-page">
         <?php if (!empty($blogs)): ?>
 
             <div class="filter-bar">
-                <div class="filters">
-                    <button class="filter-btn active"><?php echo $totalBlogs; ?> Blogs</button>
-                    <?php foreach ($categories as $category): ?>
-                        <button class="filter-btn"><?php echo htmlspecialchars($category['name']); ?></button>
-                    <?php endforeach; ?>
-                </div>
 
-                <button class="filter-btn with-icon">
-                    <a href="blogs_manager.php">
-                        Blogs manager
-                        <img src="/assets/images/arrow-right-light.svg" alt="">
-                    </a>
-                </button>
+                    <div class="filters">
+                        <button class="filter-btn active">Filter</button>
+
+                        <?php foreach ($categories as $category): ?>
+                            <button class="filter-btn"><?php echo htmlspecialchars($category['name']); ?></button>
+                        <?php endforeach; ?>
+                    </div>
+
+                <?php if(isLoggedIn() && !isAdmin()):?>
+                    <button class="filter-btn with-icon">
+                        <a href="blogs_manager.php">
+                            Blogs manager
+                            <img src="/assets/images/arrow-right-light.svg" alt="">
+                        </a>
+                    </button>
+                <?php endif;?>
+
+            </div>
+
+            <div class="counts">
+                <span class="published"><?php echo $totalBlogs; ?> Published Blogs</span>
+                <span class="pending"><?php echo $pendingBlogs; ?> Pending Blogs</span>
             </div>
 
             <div class="blogs-wrapper">
@@ -27,6 +47,7 @@
                             <div class="content">
                                 <h2><?php echo htmlspecialchars($blog['title']); ?></h2>
 
+
                                 <div class="tags">
                                     <?php if (!empty($blog['category_names'])): ?>
                                         <?php foreach (explode(', ', $blog['category_names']) as $cat): ?>
@@ -35,7 +56,6 @@
                                     <?php else: ?>
                                         <span class="tag">Uncategorized</span>
                                     <?php endif; ?>
-
                                 </div>
 
                                 <div class="author">
@@ -43,11 +63,36 @@
                                     <span class="created-date"><?php echo date('d M Y', strtotime($blog['created_at'])); ?></span>
                                 </div>
 
-                                <p><?php echo $blog['preview']; ?></p>
+                                <p><?php echo $blog['content']; ?></p>
 
-                                <button class="primary-button with-icon">
-                                    Read Blog
-                                </button>
+
+                                <?php if(isLoggedIn() && !isAdmin()):?>
+                                    <div class="blog-footer">
+                                        <button class="primary-button">
+                                            Read Blog
+                                        </button>
+                                        <form method="POST" action="/blog.php?action=updateBlog" class="publish-form">
+                                            <input type="hidden" name="blog_id" value="<?php echo $blog['id']; ?>">
+                                            <input type="hidden" name="is_published" value="<?php echo $blog['is_published'] ? '0' : '1'; ?>">
+                                            <button type="submit"
+                                                    class="status-btn  <?php echo $blog['is_published'] ? 'published' : 'pending'; ?>"
+                                                    data-current="<?php echo $blog['is_published'] ? 'published' : 'pending'; ?>">
+                                                <?php echo $blog['is_published'] ? 'Published' : 'Pending'; ?>
+                                            </button>
+                                        </form>
+
+
+
+
+                                    </div>
+                                <?php elseif(!isLoggedIn() || isAdmin()):?>
+                                    <button class="primary-button with-icon">
+                                        Read Blog
+                                    </button>
+                                <?php endif;?>
+
+
+
                             </div>
                         </div>
                     <?php endforeach; ?>
