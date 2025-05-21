@@ -18,10 +18,24 @@
         $search = isset($_GET['search']) ? trim($_GET['search']) : "";
 
         if (!empty($search)) {
-            $stmt = $pdo->prepare("SELECT * FROM users WHERE username LIKE :search OR email LIKE :search");
+            $stmt = $pdo->prepare("
+                                    SELECT u.id, u.username, u.email, u.age, u.phone, u.gender, u.created_at, u.admin, COUNT(b.id) AS blogs_num FROM users u 
+                                    LEFT JOIN blogs b ON u.id = b.author_id AND b.is_published = 1
+                                    WHERE u.username LIKE :search OR u.email LIKE :search
+                                    GROUP BY u.id
+                                    ORDER BY blogs_num DESC;
+                                  ");
+
             $stmt->execute(['search' => "%$search%"]);
         } else {
-            $stmt = $pdo->query("SELECT * FROM users ORDER BY created_at DESC "); // we used query instead of prepare because we don't need to bind any parameters
+            $stmt = $pdo->query("
+                                SELECT u.id, u.username, u.email, u.age, u.phone, u.gender, u.created_at, u.admin, COUNT(b.id) AS blogs_num  
+                                FROM users u LEFT JOIN blogs b ON u.id = b.author_id  
+                                WHERE b.is_published = 1
+                                GROUP BY u.id
+                                ORDER BY blogs_num DESC;
+                                ");
+            // we used query instead of prepare because we don't need to bind any parameters
         }
 
         $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -47,8 +61,15 @@
             redirect($_SERVER['PHP_SELF']);
         }
 
-        $stmt = $pdo->query("SELECT * FROM users ORDER BY created_at DESC");
+        $stmt = $pdo->query("
+                            SELECT u.id, u.username, u.email, u.age, u.phone, u.gender, u.created_at, u.admin, COUNT(b.id) AS blogs_num  
+                                FROM users u LEFT JOIN blogs b ON u.id = b.author_id  
+                                WHERE b.is_published = 1
+                                GROUP BY u.id
+                                ORDER BY blogs_num DESC;
+                           ");
         $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
     }
 
 ?>
@@ -100,6 +121,7 @@
                         <th>Phone</th>
                         <th>Gender</th>
                         <th>Registration Date</th>
+                        <th>Published Blogs</th>
                         <th>Update User</th>
                     </tr>
                 </thead>
@@ -125,6 +147,7 @@
                                 <td><?php echo htmlspecialchars($user["phone"]); ?></td>
                                 <td><?php echo htmlspecialchars($user["gender"]); ?></td>
                                 <td><?php echo htmlspecialchars($user["created_at"]); ?></td>
+                                <td><?php echo htmlspecialchars($user["blogs_num"]); ?></td>
 
                                 <?php if ($user["admin"]): ?>
                                     <td>
@@ -319,8 +342,6 @@
 
             </div>
         </div>
-
-
 </div>
 <?php endif;?>
 

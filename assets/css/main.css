@@ -506,9 +506,13 @@ p {
 .about-blogify .primary-button {
   margin: var(--spacing-md) 0;
   background-color: var(--color-purple-1);
+  display: inline-flex;
 }
 .about-blogify .primary-button:hover {
   background-color: var(--color-blue-dark);
+}
+.about-blogify .two-col .col-right span {
+  color: var(--color-purple-1);
 }
 
 .designed-section {
@@ -980,7 +984,7 @@ p {
 .blog-page .filter-bar {
   width: 100%;
   margin-bottom: 60px;
-  margin-top: 30px;
+  margin-top: 90px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -1011,10 +1015,33 @@ p {
   text-decoration: none;
   font-weight: 600;
 }
-.blog-page .filter-bar .filters {
+.blog-page .counts {
   display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+.blog-page .counts span {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--color-purple-1);
+  color: var(--color-blue-dark);
+  padding: 8px 18px;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.blog-page .counts .published {
+  background-color: rgba(40, 167, 69, 0.6);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.blog-page .counts .pending {
+  background-color: rgba(255, 193, 7, 0.6);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 .blog-page .blogs-wrapper {
   width: 100%;
@@ -1118,6 +1145,13 @@ p {
   padding: 4px 12px;
   border-radius: 50px;
   border: 1px solid var(--color-purple-1);
+}
+.blog-page .blog .content .blog-footer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
 }
 .blog-page .blog .content p {
   font-size: 0.9rem;
@@ -1623,6 +1657,31 @@ p {
   opacity: 1;
   transform: translateX(0);
   visibility: visible;
+}
+
+.status-btn {
+  font-family: var(--body-font), serif;
+  font-size: var(--btn-size);
+  letter-spacing: 1.25px;
+  border-radius: var(--border-radius);
+  border: none;
+  color: var(--color-white);
+  background-color: var(--color-blue-dark);
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.status-btn.published {
+  background-color: #28a745;
+}
+.status-btn.published:hover {
+  background-color: #218838;
+}
+.status-btn.pending {
+  background-color: var(--color-edit);
+}
+.status-btn.pending:hover {
+  background-color: #5a6268;
 }
 
 .modal {

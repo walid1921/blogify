@@ -284,9 +284,7 @@
 //! About Blogify SECTION
 .about-blogify {
   background-color: var(--color-white-light);
-
   width: 100%;
-
   display: flex;
   justify-content: center;
   padding: 100px 0 300px 0;
@@ -299,10 +297,19 @@
   .primary-button {
     margin: var(--spacing-md) 0;
     background-color: var(--color-purple-1);
+    display: inline-flex;
 
     &:hover {
       background-color: var(--color-blue-dark);
 
+    }
+  }
+
+  .two-col{
+    .col-right {
+      span {
+        color: var(--color-purple-1)
+      }
     }
   }
 }
@@ -874,7 +881,7 @@
   .filter-bar {
     width: 100%;
     margin-bottom: 60px;
-    margin-top: 30px;
+    margin-top: 90px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -898,6 +905,7 @@
         background-color: var(--color-purple-1);
         color: var(--color-white);
       }
+
       a {
         display: flex;
         align-items: center;
@@ -908,13 +916,42 @@
       }
     }
 
-    .filters {
+
+  }
+
+  .counts {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 30px;
+
+
+
+    span {
       display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
+      align-items: center;
+      gap: 10px;
 
+      border: 1px solid var(--color-purple-1);
+      color: var(--color-blue-dark);
+      padding: 8px 18px;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
 
+    .published {
 
+      background-color: rgba(40, 167, 69, 0.6);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+
+    .pending {
+      background-color: rgba(255, 193, 7, 0.6);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
     }
   }
 
@@ -1034,6 +1071,15 @@
           border-radius: 50px;
           border: 1px solid var(--color-purple-1);
         }
+      }
+
+      .blog-footer {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+
       }
 
       p {
@@ -1495,7 +1541,6 @@
     transform: translateX(4px);
   }
 }
-
 .edit,
 .delete {
   padding: 5px 10px;
@@ -1667,6 +1712,39 @@
     }
   }
 }
+
+.status-btn {
+  font-family: var(--body-font), serif;
+  font-size: var(--btn-size);
+  letter-spacing: 1.25px;
+  border-radius: var(--border-radius);
+  border: none;
+  color: var(--color-white);
+  background-color: var(--color-blue-dark);
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+
+  &.published {
+    background-color: #28a745; // Green
+
+    &:hover {
+      background-color: #218838; // Darker green on hover
+    }
+  }
+
+  &.pending {
+    background-color: var(--color-edit);
+
+    &:hover {
+      background-color: #5a6268; // Darker gray on hover
+    }
+  }
+}
+
+
+
+
 
 
 

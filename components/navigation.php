@@ -6,10 +6,10 @@
     
     <ul class="menu">
         <?php if (isLoggedIn() && !isAdmin()) : ?>
-            <li><a class="<?php echo activeLink('todo.php') ?>" href="todo.php">My ideas</a></li>
+            <li><a class="<?php echo activeLink('todo.php') ?>" href="todo.php">Planner</a></li>
             <li><a class="<?php echo activeLink('blog.php') ?>" href="blog.php">Blogs</a></li>
         <?php elseif (isLoggedIn() && isAdmin()) : ?>
-            <li><a class="<?php echo activeLink('todo.php') ?>" href="todo.php">My ideas</a></li>
+            <li><a class="<?php echo activeLink('todo.php') ?>" href="todo.php">Planner</a></li>
             <li><a class="<?php echo activeLink('blog.php') ?>" href="blog.php">Blogs</a></li>
             <li><a class="<?php echo activeLink('users.php') ?>" href="users.php">Users</a></li>
         <?php else : ?>
@@ -39,10 +39,10 @@
 <nav class="mobileNav">
     <ul class="menu">
         <?php if (isLoggedIn() && !isAdmin()) : ?>
-            <li><a class="<?php echo activeLink('todo.php') ?>" href="todo.php">My ideas</a></li>
+            <li><a class="<?php echo activeLink('todo.php') ?>" href="todo.php">Planner</a></li>
             <li><a class="<?php echo activeLink('blog.php') ?>" href="blog.php">Blogs</a></li>
         <?php elseif (isLoggedIn() && isAdmin()) : ?>
-            <li><a class="<?php echo activeLink('todo.php') ?>" href="todo.php">My ideas</a></li>
+            <li><a class="<?php echo activeLink('todo.php') ?>" href="todo.php">Planner</a></li>
             <li><a class="<?php echo activeLink('blog.php') ?>" href="blog.php">Blogs</a></li>
             <li><a class="<?php echo activeLink('users.php') ?>" href="users.php">Users</a></li>
         <?php else : ?>

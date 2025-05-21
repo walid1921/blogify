@@ -20,7 +20,7 @@ include "./components/header.php";
                     <div class="btn-container">
                         <?php if(isLoggedIn()) : ?>
                                <a class="primary-button with-icon" href="blog.php">Blogs <img src="/assets/images/arrow-right-light.svg" alt=""></a>
-                               <a class="secondary-button with-icon" href="todo.php">My ideas <img src="/assets/images/arrow-right-purple.svg" alt=""></a>
+                               <a class="secondary-button with-icon" href="todo.php">Planner <img src="/assets/images/arrow-right-purple.svg" alt=""></a>
                         <?php else:  ?>
                                 <a class="primary-button with-icon" href="login.php">Start now <img src="/assets/images/arrow-right-light.svg" alt=""></a>
                                 <a class="secondary-button with-icon" href="blog.php">Blogs <img src="/assets/images/arrow-right-purple.svg" alt=""></a>
@@ -44,13 +44,10 @@ include "./components/header.php";
                         <p>Whether you're starting a personal journal, launching a professional blog, or building a community hub, Blogify offers everything you need — from beautiful themes to easy content management and audience engagement tools.</p>
                     </div>
                     <div class="col-right">
-                        <p>We also provide features to <a href="#">optimize SEO</a>, <a href="#">schedule posts</a>, <a href="#">collaborate with co-authors</a>, <a href="#">analyze reader insights</a>, <a href="#">monetize your content</a>, and so much more.</p>
+                        <p>We also provide features to <span>optimize SEO</span>, <span>schedule posts</span>, <span>collaborate with co-authors</span>, <span>analyze reader insights</span>, <span>monetize your content</span>, and so much more.</p>
                     </div>
                 </div>
-                <button class="primary-button with-icon">
-                    Start Blogging
-                    <img src="assets/images/arrow-right-light.svg" alt="">
-                </button>
+                <a class="primary-button with-icon" href="login.php">Start Blogging <img src="/assets/images/arrow-right-light.svg" alt=""></a>
             </div>
         </div>
 
@@ -58,34 +55,34 @@ include "./components/header.php";
         <div class="designed-section">
             <div class="section-container two-col">
                 <div class="col-left">
-                    <p class="subtitle-2">Designed For Engineers</p>
-                    <h2>The world’s best and most intuitive APIs</h2>
-                    <p>We abstract the hard stuff away so your teams don't can focus on building good technology, instead of
-                        spending time and money reinventing the wheel.</p>
-                    <button class="primary-button with-icon">Start now <img src="assets/images/arrow-right-dark.svg" alt=""></button>
+                    <p class="subtitle-2">Made for Writers & Readers</p>
+                    <h2>Your Thoughts, Beautifully Shared</h2>
+                    <p>Blogify gives you a simple yet powerful space to write, publish, and connect with your audience. Whether you’re sharing ideas, tutorials, or stories — we help you focus on what matters: your voice.</p>
+                    <a class="primary-button with-icon" href="login.php">Start Writing <img src="/assets/images/arrow-right-dark.svg" alt=""></a>
+
                     <div class="card-container">
                         <div class="card">
                             <img src="assets/images/tools-icon.png" class="icon" alt="">
-                            <h3>Tools for all stacks</h3>
-                            <p class="p2">We offer front end and back end libraries in some of the most widely used technologies, old
-                                and new.</p>
-                            <button class="secondary-button with-icon">See libraries
-                                <img src="assets/images/arrow-right-blue.svg" alt="">
-                            </button>
+                            <h3>Effortless Publishing</h3>
+                            <p class="p2">Create and publish posts in minutes with our distraction-free editor and clean interface — no clutter, no fuss.</p>
+                            <a class="secondary-button with-icon" href="login.php">Write a Post <img src="assets/images/arrow-right-blue.svg" alt=""></a>
                         </div>
-                        <div class="card"><img src="assets/images/cube-icon.png" class="icon" alt="">
-                            <h3>Custom Integrations</h3>
-                            <p class="p2">Use integrations for systems like Shopify, WooCommerce, NetSuite, and more.</p>
-                            <button class="secondary-button with-icon">Explore partners <img src="assets/images/arrow-right-blue.svg" alt=""></button>
+                        <div class="card">
+                            <img src="assets/images/cube-icon.png" class="icon" alt="">
+                            <h3>Discover & Connect</h3>
+                            <p class="p2">Explore blogs across categories, follow your favorite writers, and build a community around your content.</p>
+                            <a class="secondary-button with-icon" href="blog.php">Browse Blogs <img src="assets/images/arrow-right-blue.svg" alt=""></a>
                         </div>
                     </div>
                 </div>
-                <div class="col-right"><img id="api-code" src="assets/images/api-code.png" alt="">
-                    <img id="terminal"  src="assets/images/terminal-code.png" alt=""></div>
 
-
+                <div class="col-right">
+                    <img id="api-code" src="assets/images/api-code.png" alt="">
+                    <img id="terminal" src="assets/images/terminal-code.png" alt="">
+                </div>
             </div>
         </div>
+
 
         <!-- ! Why Blogify SECTION -->
         <div class="why-blogify-section">
@@ -167,7 +164,7 @@ include "./components/header.php";
                     <p class="subtitle">Community</p>
                     <h2>Join the Blogify community</h2>
                     <p>Join our community of bloggers, writers, and content creators. Share your experiences, get tips, and connect with like-minded individuals.</p>
-                    <button class="primary-button with-icon">Join now<img src="assets/images/arrow-right-light.svg" alt=""></button>
+                    <a class="primary-button with-icon" href="login.php">Join now <img src="/assets/images/arrow-right-light.svg" alt=""></a>
                 </div>
                 <div class="col-right">
                     <div class="blogify-card">
@@ -198,7 +195,7 @@ include "./components/header.php";
                 <div class="col-left">
                     <h2>What are you waiting for?</h2>
                     <p>Discover the power of <a href="#">Blogify</a>, or sign up now and start sharing your stories with the world! Whether you're a beginner or a pro, we're here to support your blogging journey.</p>
-                    <button class="primary-button with-icon">Start Blogging <img src="assets/images/arrow-right-light.svg" alt=""></button>
+                    <a class="primary-button with-icon" href="login.php">Start Blogging <img src="/assets/images/arrow-right-light.svg" alt=""></a>
                 </div>
                 <div class="col-right">
                     <div class="card-container">
