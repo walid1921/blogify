@@ -22,8 +22,7 @@ class BlogController {
         //! Normal User
         } elseif (isLoggedIn() && !isAdmin()) {
             $blogs = $blogModel->getBlogsWithCategoriesByAuthor($_SESSION['user_id']); // only user's blogs
-            $totalBlogs = $blogModel->getNumberOfPublishedBlogsByAuthor($_SESSION['user_id']);
-            $pendingBlogs = $blogModel->getNumberOfPendingBlogsByAuthor($_SESSION['user_id']);
+            $totalBlogs = $blogModel->getBlogStatusCountsByAuthor($_SESSION['user_id']);
 
         //! Guest User
         } else {

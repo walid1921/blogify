@@ -1,1 +1,88 @@
 [2025-05-22 06:17:44] Error: [2] Undefined variable $pendingBlogs in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 40
+[2025-05-22 07:20:22] Error: [2] Undefined array key "username" in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 68
+[2025-05-22 07:20:22] Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 68
+[2025-05-22 07:20:22] Error: [2] Undefined array key "username" in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 68
+[2025-05-22 07:20:22] Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 68
+[2025-05-22 07:20:22] Error: [2] Undefined array key "username" in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 68
+[2025-05-22 07:20:22] Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 68
+[2025-05-22 07:20:22] Error: [2] Undefined array key "username" in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 68
+[2025-05-22 07:20:22] Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 68
+[2025-05-22 07:20:22] Error: [2] Undefined array key "username" in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 68
+[2025-05-22 07:20:22] Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 68
+[2025-05-22 07:20:22] Error: [2] Undefined array key "username" in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 68
+[2025-05-22 07:20:22] Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 68
+[2025-05-22 07:20:22] Error: [2] Undefined array key "username" in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 68
+[2025-05-22 07:20:22] Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 68
+[2025-05-22 07:20:22] Error: [2] Undefined array key "username" in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 68
+[2025-05-22 07:20:22] Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 68
+[2025-05-22 07:24:42] Error: [2] Undefined array key "username" in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 68
+[2025-05-22 07:24:42] Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 68
+[2025-05-22 07:24:42] Error: [2] Undefined array key "username" in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 68
+[2025-05-22 07:24:42] Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 68
+[2025-05-22 07:24:42] Error: [2] Undefined array key "username" in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 68
+[2025-05-22 07:24:42] Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 68
+[2025-05-22 07:24:42] Error: [2] Undefined array key "username" in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 68
+[2025-05-22 07:24:42] Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 68
+[2025-05-22 07:24:42] Error: [2] Undefined array key "username" in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 68
+[2025-05-22 07:24:42] Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 68
+[2025-05-22 07:24:42] Error: [2] Undefined array key "username" in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 68
+[2025-05-22 07:24:42] Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 68
+[2025-05-22 07:24:42] Error: [2] Undefined array key "username" in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 68
+[2025-05-22 07:24:42] Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 68
+[2025-05-22 07:24:42] Error: [2] Undefined array key "username" in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 68
+[2025-05-22 07:24:42] Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 68
+[2025-05-22 07:31:30] Error: [2] Undefined array key "username" in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 68
+[2025-05-22 07:31:30] Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 68
+[2025-05-22 07:31:30] Error: [2] Undefined array key "username" in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 68
+[2025-05-22 07:31:30] Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 68
+[2025-05-22 07:31:30] Error: [2] Undefined array key "username" in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 68
+[2025-05-22 07:31:30] Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 68
+[2025-05-22 07:31:30] Error: [2] Undefined array key "username" in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 68
+[2025-05-22 07:31:30] Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 68
+[2025-05-22 07:31:30] Error: [2] Undefined array key "username" in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 68
+[2025-05-22 07:31:30] Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 68
+[2025-05-22 07:31:30] Error: [2] Undefined array key "username" in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 68
+[2025-05-22 07:31:30] Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 68
+[2025-05-22 07:31:30] Error: [2] Undefined array key "username" in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 68
+[2025-05-22 07:31:30] Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 68
+[2025-05-22 07:31:30] Error: [2] Undefined array key "username" in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 68
+[2025-05-22 07:31:30] Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 68
+[2025-05-22 08:17:34] Error: [2] Undefined array key "total_blogs" in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/models/blog.php on line 81
+[2025-05-22 08:17:34] Error: [2] Undefined variable $pendingBlogs in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 45
+[2025-05-22 08:19:06] Error: [2] Undefined array key "total_blogs" in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/models/blog.php on line 81
+[2025-05-22 08:19:06] Error: [2] Trying to access array offset on null in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 44
+[2025-05-22 08:19:06] Error: [2] Trying to access array offset on null in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 45
+[2025-05-22 08:19:07] Error: [2] Undefined array key "total_blogs" in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/models/blog.php on line 81
+[2025-05-22 08:19:07] Error: [2] Trying to access array offset on null in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 44
+[2025-05-22 08:19:07] Error: [2] Trying to access array offset on null in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 45
+[2025-05-22 08:19:07] Error: [2] Undefined array key "total_blogs" in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/models/blog.php on line 81
+[2025-05-22 08:19:07] Error: [2] Trying to access array offset on null in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 44
+[2025-05-22 08:19:07] Error: [2] Trying to access array offset on null in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 45
+[2025-05-22 08:19:07] Error: [2] Undefined array key "total_blogs" in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/models/blog.php on line 81
+[2025-05-22 08:19:07] Error: [2] Trying to access array offset on null in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 44
+[2025-05-22 08:19:07] Error: [2] Trying to access array offset on null in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 45
+[2025-05-22 08:19:07] Error: [2] Undefined array key "total_blogs" in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/models/blog.php on line 81
+[2025-05-22 08:19:07] Error: [2] Trying to access array offset on null in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 44
+[2025-05-22 08:19:07] Error: [2] Trying to access array offset on null in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 45
+[2025-05-22 08:21:47] Error: [2] Undefined array key "total_blogs" in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/models/blog.php on line 81
+[2025-05-22 08:21:48] Error: [2] Undefined array key "total_blogs" in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/models/blog.php on line 81
+[2025-05-22 08:25:43] Error: [2] Undefined array key "total_blogs" in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/models/blog.php on line 81
+[2025-05-22 08:27:35] Error: [2] Undefined array key "total_blogs" in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/models/blog.php on line 81
+[2025-05-22 08:35:21] Error: [2] Undefined array key "total_blogs" in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/models/blog.php on line 81
+[2025-05-22 08:35:41] Error: [2] Undefined array key "total_blogs" in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/models/blog.php on line 81
+[2025-05-22 08:36:34] Error: [2] Undefined array key "total_blogs" in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/models/blog.php on line 81
+[2025-05-22 08:41:58] Error: [2] Undefined array key "published_blogs" in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 46
+[2025-05-22 08:41:58] Error: [2] Undefined array key "pending_blogs" in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 47
+[2025-05-22 08:41:59] Error: [2] Undefined array key "published_blogs" in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 46
+[2025-05-22 08:41:59] Error: [2] Undefined array key "pending_blogs" in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 47
+[2025-05-22 08:47:49] Error: [2] Array to string conversion in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 38
+[2025-05-22 08:48:31] Error: [2] Array to string conversion in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 38
+[2025-05-22 08:48:31] Error: [2] Array to string conversion in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 38
+[2025-05-22 08:48:31] Error: [2] Array to string conversion in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 38
+[2025-05-22 08:48:32] Error: [2] Array to string conversion in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 38
+[2025-05-22 08:48:32] Error: [2] Array to string conversion in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 38
+[2025-05-22 08:53:07] Error: [2] Array to string conversion in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 38
+[2025-05-22 08:53:40] Error: [2] Array to string conversion in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 38
+[2025-05-22 08:54:08] Error: [2] Array to string conversion in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 38
+[2025-05-22 08:55:07] Error: [2] Array to string conversion in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 38
+[2025-05-22 09:02:09] Error: [2] Undefined array key "" in /Users/walid.kouider-ayad/Desktop/Projects/Blogify/view/blogsView.php on line 38

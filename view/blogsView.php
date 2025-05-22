@@ -15,7 +15,6 @@
         <?php if (!empty($blogs)): ?>
 
             <div class="filter-bar">
-
                     <div class="filters">
                         <button class="filter-btn active">Filter</button>
 
@@ -32,17 +31,16 @@
                         </a>
                     </button>
                 <?php endif;?>
-
             </div>
 
         <?php if (isLoggedIn() && isAdmin()): ?>
                 <div class="counts">
-                    <span class="published"><?php echo $totalBlogs; ?> Published Blogs</span>
+                    <span class="published"><?php echo $totalBlogs['total_blogs']; ?> Published Blogs</span>
                 </div>
         <?php elseif (isLoggedIn() && !isAdmin()): ?>
                 <div class="counts">
-                    <span class="published"><?php echo $totalBlogs; ?> Published Blogs</span>
-                    <span class="pending"><?php echo $pendingBlogs; ?> Pending Blogs</span>
+                    <span class="published"><?php echo $totalBlogs['published_blogs']; ?> Published Blogs</span>
+                    <span class="pending"><?php echo $totalBlogs['pending_blogs']; ?> Pending Blogs</span>
                 </div>
         <?php endif; ?>
 
