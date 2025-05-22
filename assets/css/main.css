@@ -1003,9 +1003,15 @@ p {
   font-weight: 600;
   transition: all 0.3s ease-in-out;
 }
+.blog-page .filter-bar .filter-btn i {
+  transition: transform 0.2s ease;
+}
 .blog-page .filter-bar .filter-btn.active, .blog-page .filter-bar .filter-btn:hover {
   background-color: var(--color-purple-1);
   color: var(--color-white);
+}
+.blog-page .filter-bar .filter-btn.active i, .blog-page .filter-bar .filter-btn:hover i {
+  transform: scale(1.4);
 }
 .blog-page .filter-bar .filter-btn a {
   display: flex;
@@ -1127,6 +1133,9 @@ p {
 }
 .blog-page .blog .content .author {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  widht: 100%;
   gap: 10px;
   font-size: 0.85rem;
   color: var(--color-purple-1);

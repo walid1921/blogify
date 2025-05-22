@@ -901,9 +901,17 @@
       font-weight: 600;
       @include hover-transition;
 
+      i{
+        transition: transform 0.2s ease
+      }
+
       &.active, &:hover {
         background-color: var(--color-purple-1);
         color: var(--color-white);
+
+        i {
+          transform: scale(1.4)
+        }
       }
 
       a {
@@ -914,6 +922,8 @@
         text-decoration: none;
         font-weight: 600;
       }
+
+
     }
 
 
@@ -1050,6 +1060,9 @@
 
       .author {
         display: flex;
+        justify-content: space-between;
+        align-items: center;
+        widht: 100%;
         gap: 10px;
         font-size: 0.85rem;
         color: var(--color-purple-1);
