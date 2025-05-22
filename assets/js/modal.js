@@ -34,7 +34,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const userBtn = document.querySelectorAll('.user-btn i');
 
-
     const publishBtn = document.querySelector('.status-btn');
     const publishInput = document.querySelector('input[name="is_published"]');
 
@@ -163,4 +162,5 @@ document.addEventListener("DOMContentLoaded", function () {
             icon.classList.remove('fa-bounce');
         });
     });
+
 });

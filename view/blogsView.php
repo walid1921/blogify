@@ -25,20 +25,26 @@
                     </div>
 
                 <?php if(isLoggedIn() && !isAdmin()):?>
-                    <button class="filter-btn with-icon">
+                    <button class="filter-btn">
                         <a href="blogs_manager.php">
-                            Blogs manager
-                            <img src="/assets/images/arrow-right-light.svg" alt="">
+                            New Blog
+                            <i class=" fa-solid fa-plus fa-md"></i>
                         </a>
                     </button>
                 <?php endif;?>
 
             </div>
 
-            <div class="counts">
-                <span class="published"><?php echo $totalBlogs; ?> Published Blogs</span>
-                <span class="pending"><?php echo $pendingBlogs; ?> Pending Blogs</span>
-            </div>
+        <?php if (isLoggedIn() && isAdmin()): ?>
+                <div class="counts">
+                    <span class="published"><?php echo $totalBlogs; ?> Published Blogs</span>
+                </div>
+        <?php elseif (isLoggedIn() && !isAdmin()): ?>
+                <div class="counts">
+                    <span class="published"><?php echo $totalBlogs; ?> Published Blogs</span>
+                    <span class="pending"><?php echo $pendingBlogs; ?> Pending Blogs</span>
+                </div>
+        <?php endif; ?>
 
             <div class="blogs-wrapper">
                     <?php foreach ($blogs as $blog): ?>
@@ -59,7 +65,7 @@
                                 </div>
 
                                 <div class="author">
-                                    <span class="author-name">Author ID: <?php echo htmlspecialchars($blog['author_id']); ?></span>
+                                    <span class="author-name">Author: <?php echo htmlspecialchars($blog['username']); ?></span>
                                     <span class="created-date"><?php echo date('d M Y', strtotime($blog['created_at'])); ?></span>
                                 </div>
 
