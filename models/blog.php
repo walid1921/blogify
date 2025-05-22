@@ -87,4 +87,35 @@ ORDER BY b.created_at DESC;";
         $stmt = $this->pdo->prepare($query);
         return $stmt->execute([':status' => $status, ':id' => $id]);
     }
+
+    //! Delete a blog for the current user or Admin can delete any blog
+     function deleteBlogData($id, $author_id = null) {
+         // First delete from blog_categories to avoid foreign key constraint
+         $this->deleteBlogCategories($id);
+
+        if ($author_id) {
+            // Regular user can only delete their own blogs
+            $query = "DELETE FROM blogs WHERE id = :id AND author_id = :author_id";
+            $params = [':id' => $id, ':author_id' => $author_id];
+        } else {
+            // Admin can delete any blog
+            $query = "DELETE FROM blogs WHERE id = :id";
+            $params = [':id' => $id];
+        }
+
+        $stmt = $this->pdo->prepare($query);
+        return $stmt->execute($params);
+
+         // to display the blogs
+//          echo "<pre>";
+//          var_dump($id);
+//          echo "</pre>";
+
+    }
+
+    public function deleteBlogCategories($blogId) {
+        $query = "DELETE FROM blog_categories WHERE blog_id = :blog_id";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute([':blog_id' => $blogId]);
+    }
 }

@@ -32,6 +32,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const cancelDeletion = document.querySelectorAll(".cancelDeletion");
     const deleteUserIdInput = document.getElementById("deleteUserId");
 
+
+    const deleteBlogs = document.querySelectorAll(".deleteBlog");
+    const deleteOneBlogModal = document.getElementById("deleteOneBlogModal");
+    const cancelBlogDeletion = document.querySelectorAll(".cancelBlogDeletion");
+    const deleteBlogIdInput = document.getElementById("deleteBlogId");
+    const blogTitleToDelete = document.getElementById("blogTitleToDelete");
+
     const userBtn = document.querySelectorAll('.user-btn i');
 
     const publishBtn = document.querySelector('.status-btn');
@@ -150,8 +157,8 @@ document.addEventListener("DOMContentLoaded", function () {
         if (event.target === passwordModal) passwordModal.style.display = "none";
         if (event.target === editUserModal) editUserModal.style.display = "none";
         if (event.target === deleteOneUserModal) deleteOneUserModal.style.display = "none";
+        if (event.target === deleteOneBlogModal) deleteOneBlogModal.style.display = "none";
     };
-
 
     userBtn.forEach(btn => {
         const icon = btn.querySelector('i');
@@ -162,5 +169,22 @@ document.addEventListener("DOMContentLoaded", function () {
             icon.classList.remove('fa-bounce');
         });
     });
+
+    // === Delete one blog Modal ===
+    if (deleteBlogs && deleteOneBlogModal) {
+        deleteBlogs.forEach(button => {
+            button.addEventListener("click", () => {
+                deleteBlogIdInput.value = button.getAttribute("data-blog-id");
+                blogTitleToDelete.textContent = button.getAttribute("data-blog-title");
+                deleteOneBlogModal.style.display = "flex";
+            });
+        });
+
+        cancelBlogDeletion.forEach(button => {
+            button.addEventListener("click", () => {
+                deleteOneBlogModal.style.display = "none";
+            });
+        });
+    }
 
 });

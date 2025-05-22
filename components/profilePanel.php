@@ -68,6 +68,8 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
         <p class="account-info"><span>Hi, <?php echo $currentUser ?>!</span> Update your account information here.</p>
 
         <div class="user-header">
+
+            <!--  Edit a profile-->
             <div class="update-user">
                 <div class="form-container">
                     <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
@@ -82,6 +84,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
                 </div>
             </div>
 
+            <!-- Change password -->
             <div id="passwordForm">
                 <div class="password-user">
                     <div class="form-container">

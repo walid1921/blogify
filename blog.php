@@ -5,12 +5,18 @@ include "./components/header.php";
 $blogController = new BlogController();
 
 // Handle form actions
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'updateBlog') {
-    $blogController->updateBlog();
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['update_blog'])) {
+        $blogController->updateBlog();
+    } elseif (isset($_POST['delete_blog'])) {
+        $blogController->deleteBlog();
+    }
+} elseif (isset($_GET['action']) && $_GET['action'] === 'deleteBlog') {
+    // Handle GET requests if needed
+    $blogController->deleteBlog();
 } else {
-    $blogController->index(); // default to blog list view
+    $blogController->index();
 }
-?>
 
-<script src="/assets/js/gradient.js"></script>
-<?php include "./components/footer.php"; ?>
+
+include "./components/footer.php";
