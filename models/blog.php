@@ -20,14 +20,12 @@ class Blog {
 
     //! Fetch all published blogs (all authors) for admin, guest pages
     public function getAllBlogsWithCategories() {
-        $query = "SELECT b.id, b.title, b.content, b.author_id, b.created_at, b.updated_at,
-        b.is_published,
-        u.username, 
+        $query = "SELECT b.id, b.title, b.content, b.author_id, b.created_at, b.updated_at, b.is_published, u.username, 
         GROUP_CONCAT(c.name ORDER BY c.name SEPARATOR ', ') AS category_names
         FROM blogs b
-        LEFT JOIN blog_categories bc ON b.id = bc.blog_id
-        LEFT JOIN categories c ON bc.category_id = c.id
-        LEFT JOIN users u ON b.author_id = u.id
+            LEFT JOIN blog_categories bc ON b.id = bc.blog_id
+            LEFT JOIN categories c ON bc.category_id = c.id
+            LEFT JOIN users u ON b.author_id = u.id
         WHERE b.is_published = 1
         GROUP BY b.id, b.title, b.content, b.author_id, b.created_at, b.updated_at, b.is_published, u.username
         ORDER BY b.created_at DESC";
@@ -38,18 +36,17 @@ class Blog {
 
     //! Fetch blogs (published, pending) for current user (author)
     public function getBlogsWithCategoriesByAuthor($author_id) {
-        $query = "SELECT
-    b.id, b.title, b.content, b.author_id, b.created_at, b.updated_at, b.is_published,
-    u.username,
+        $query = "
+    SELECT b.id, b.title, b.content, b.author_id, b.created_at, b.updated_at, b.is_published, u.username,
     GROUP_CONCAT(c.name ORDER BY c.name SEPARATOR ', ') AS category_names
-FROM blogs b
+    FROM blogs b
          LEFT JOIN blog_categories bc ON b.id = bc.blog_id
          LEFT JOIN categories c ON bc.category_id = c.id
          LEFT JOIN users u ON b.author_id = u.id
-WHERE b.author_id = :author_id
-GROUP BY b.id, b.title, b.content, b.author_id, b.created_at, b.updated_at, b.is_published,
-    u.username
-ORDER BY b.created_at DESC;";
+    WHERE b.author_id = :author_id
+    GROUP BY b.id, b.title, b.content, b.author_id, b.created_at, b.updated_at, b.is_published,
+        u.username
+    ORDER BY b.created_at DESC;";
 
         $stmt = $this->pdo->prepare($query);
         $stmt->execute([':author_id' => $author_id]);

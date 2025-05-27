@@ -31,7 +31,7 @@
             $stmt = $pdo->query("
                                 SELECT u.id, u.username, u.email, u.age, u.phone, u.gender, u.created_at, u.admin, COUNT(b.id) AS blogs_num  
                                 FROM users u LEFT JOIN blogs b ON u.id = b.author_id  
-                                WHERE b.is_published = 1
+                                AND b.is_published = 1
                                 GROUP BY u.id
                                 ORDER BY blogs_num DESC;
                                 ");

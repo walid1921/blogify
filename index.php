@@ -257,12 +257,8 @@ include "./components/header.php";
                 </div>
             </div>
         </div>
-
     </main>
 
-
     <script src="/assets/js/gradient.js"></script>
-<!--    <script src="/assets/js/modal.js"></script>-->
-
 
 <?php include "./components/footer.php"; ?>
