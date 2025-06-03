@@ -2,7 +2,8 @@
     global $pdo;
     require_once "includes/database.php";
     require_once "includes/helpers.php";
-    require_once "includes/crudUser.php";
+    require_once "includes/registerUser.php";
+    require_once "includes/crudUser.php"; // this will be removed later
 
     if (!isLoggedIn()) {
         redirect("login.php");
@@ -45,7 +46,7 @@
 
         //! Register New User
         if (isset($_POST["registerNewUser"])) {
-            registerUser($pdo, $_POST, $errors, false, true);
+            registerUserService($pdo, $_POST, $errors, false, true);
         }
 
         //! Update User
