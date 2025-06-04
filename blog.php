@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/controllers/blogController.php';
-include "./components/header.php";
+include "components/header.php";
 
 $blogController = new BlogController();
 
@@ -19,4 +19,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 
-include "./components/footer.php";
+include "components/footer.php";

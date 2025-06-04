@@ -1,8 +1,7 @@
 <?php
-require_once "includes/session.php";
-require_once "includes/database.php";
-require_once "includes/helpers.php";
-include "./components/header.php";
+require_once __DIR__ . '/includes/session.php';
+require_once __DIR__ . '/includes/helpers.php';
+include "components/header.php";
 
 if (!isLoggedIn()) {
     redirect("login.php");
@@ -44,6 +43,6 @@ if (!isLoggedIn()) {
 </div>
 
 
-<script src="/assets/js/gradient.js"></script>
+<script src="assets/js/gradient.js"></script>
 
-<?php include "./components/footer.php"; ?>
+<?php include "components/footer.php"; ?>

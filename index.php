@@ -1,8 +1,7 @@
 <?php
-require_once "includes/session.php";
-require_once "includes/database.php";
-require_once "includes/helpers.php";
-include "./components/header.php";
+require_once __DIR__ . '/includes/session.php';
+require_once __DIR__ . '/includes/helpers.php';
+include "components/header.php";
 ?>
 
     <main>
@@ -19,17 +18,17 @@ include "./components/header.php";
                     </p>
                     <div class="btn-container">
                         <?php if(isLoggedIn()) : ?>
-                               <a class="primary-button with-icon" href="blog.php">Blogs <img src="/assets/images/arrow-right-light.svg" alt=""></a>
-                               <a class="secondary-button with-icon" href="todo.php">Planner <img src="/assets/images/arrow-right-purple.svg" alt=""></a>
+                               <a class="primary-button with-icon" href="blog.php">Blogs <img src="assets/images/arrow-right-light.svg" alt=""></a>
+                               <a class="secondary-button with-icon" href="todo.php">Planner <img src="assets/images/arrow-right-purple.svg" alt=""></a>
                         <?php else:  ?>
-                                <a class="primary-button with-icon" href="login.php">Start now <img src="/assets/images/arrow-right-light.svg" alt=""></a>
-                                <a class="secondary-button with-icon" href="blog.php">Blogs <img src="/assets/images/arrow-right-purple.svg" alt=""></a>
+                                <a class="primary-button with-icon" href="login.php">Start now <img src="assets/images/arrow-right-light.svg" alt=""></a>
+                                <a class="secondary-button with-icon" href="blog.php">Blogs <img src="assets/images/arrow-right-purple.svg" alt=""></a>
                         <?php endif; ?>
                     </div>
 
                 </div>
                 <div class="col-right hero-phone-container">
-                    <img class="hero-phone" src="/assets/images/hero-phone.png" alt="">
+                    <img class="hero-phone" src="assets/images/hero-phone.png" alt="">
                 </div>
             </div>
         </div>
@@ -47,7 +46,7 @@ include "./components/header.php";
                         <p>We also provide features to <span>optimize SEO</span>, <span>schedule posts</span>, <span>collaborate with co-authors</span>, <span>analyze reader insights</span>, <span>monetize your content</span>, and so much more.</p>
                     </div>
                 </div>
-                <a class="primary-button with-icon" href="login.php">Start Blogging <img src="/assets/images/arrow-right-light.svg" alt=""></a>
+                <a class="primary-button with-icon" href="login.php">Start Blogging <img src="assets/images/arrow-right-light.svg" alt=""></a>
             </div>
         </div>
 
@@ -58,7 +57,7 @@ include "./components/header.php";
                     <p class="subtitle-2">Made for Writers & Readers</p>
                     <h2>Your Thoughts, Beautifully Shared</h2>
                     <p>Blogify gives you a simple yet powerful space to write, publish, and connect with your audience. Whether you’re sharing ideas, tutorials, or stories — we help you focus on what matters: your voice.</p>
-                    <a class="primary-button with-icon" href="login.php">Start Writing <img src="/assets/images/arrow-right-dark.svg" alt=""></a>
+                    <a class="primary-button with-icon" href="login.php">Start Writing <img src="assets/images/arrow-right-dark.svg" alt=""></a>
 
                     <div class="card-container">
                         <div class="card">
@@ -164,7 +163,7 @@ include "./components/header.php";
                     <p class="subtitle">Community</p>
                     <h2>Join the Blogify community</h2>
                     <p>Join our community of bloggers, writers, and content creators. Share your experiences, get tips, and connect with like-minded individuals.</p>
-                    <a class="primary-button with-icon" href="login.php">Join now <img src="/assets/images/arrow-right-light.svg" alt=""></a>
+                    <a class="primary-button with-icon" href="login.php">Join now <img src="assets/images/arrow-right-light.svg" alt=""></a>
                 </div>
                 <div class="col-right">
                     <div class="blogify-card">
@@ -195,7 +194,7 @@ include "./components/header.php";
                 <div class="col-left">
                     <h2>What are you waiting for?</h2>
                     <p>Discover the power of <a href="#">Blogify</a>, or sign up now and start sharing your stories with the world! Whether you're a beginner or a pro, we're here to support your blogging journey.</p>
-                    <a class="primary-button with-icon" href="login.php">Start Blogging <img src="/assets/images/arrow-right-light.svg" alt=""></a>
+                    <a class="primary-button with-icon" href="login.php">Start Blogging <img src="assets/images/arrow-right-light.svg" alt=""></a>
                 </div>
                 <div class="col-right">
                     <div class="card-container">
@@ -259,6 +258,5 @@ include "./components/header.php";
         </div>
     </main>
 
-    <script src="/assets/js/gradient.js"></script>
-
-<?php include "./components/footer.php"; ?>
+<script src="assets/js/gradient.js"></script>
+<?php include "components/footer.php"; ?>

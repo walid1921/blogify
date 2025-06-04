@@ -29,4 +29,4 @@ ini_set('display_startup_errors', '0');
 
 <body>
 
-<?php include "./components/navigation.php"; ?>
+<?php include "navigation.php"; ?>

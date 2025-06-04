@@ -1,6 +1,6 @@
 <?php
 
-require_once "models/userModel.php";
+require_once __DIR__ . '/../models/userModel.php';
 require_once "session.php";
 require_once "helpers.php";
 
