@@ -1,0 +1,188 @@
+# CREATE TABLE blogs (
+#     id INT PRIMARY KEY AUTO_INCREMENT,
+#     title VARCHAR(255) NOT NULL,
+#     content TEXT NOT NULL,
+#     author_id INT NOT NULL,
+#     category VARCHAR(100) NOT NULL,
+#     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+#     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+#     FOREIGN KEY (author_id) REFERENCES users(id) ON DELETE CASCADE
+# )
+
+# CREATE TABLE categories (
+#     id INT PRIMARY KEY AUTO_INCREMENT,
+#     name VARCHAR(100) NOT NULL UNIQUE,
+#     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+# )
+
+# CREATE TABLE blog_categories (
+#     blog_id INT NOT NULL,
+#     category_id INT NOT NULL,
+#     PRIMARY KEY (blog_id, category_id),
+#     FOREIGN KEY (blog_id) REFERENCES blogs(id) ON DELETE CASCADE,
+#     FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE
+# )
+
+# ALTER Table blogs DROP category;
+
+# INSERT INTO categories (name) VALUES ('SQL'), ('Python'), ('JavaScript'), ('Web Development'), ('Databases'), ('APIs');
+
+
+# INSERT INTO blogs (title, content, author_id) VALUES
+# ('Understanding SQL Joins', 'SQL joins are used to combine rows from two or more tables based on a related column between them. The most common types of joins are INNER JOIN, LEFT JOIN, RIGHT JOIN, and FULL OUTER JOIN.', 87),
+# ('A Guide to Python Decorators', 'Decorators in Python are a powerful tool that allows you to modify the behavior of a function or class. They are often used for logging, enforcing access control, instrumentation, caching, and more.', 91),
+# ('Exploring JavaScript Promises', 'JavaScript promises are objects that represent the eventual completion (or failure) of an asynchronous operation and its resulting value. They provide a cleaner alternative to traditional callback-based approaches.', 91);
+#
+
+# INSERT INTO blog_categories (blog_id, category_id) VALUES
+# (4, 1), (5, 2), (6, 3), (6, 4);
+
+
+# INSERT INTO blogs (title, content, author_id, is_published) VALUES
+# ('Understanding SQL Joins', 'SQL joins are used to combine rows from two or more tables based on a related column between them. The most common types of joins are INNER JOIN, LEFT JOIN, RIGHT JOIN, and FULL OUTER JOIN.', 87, TRUE),
+# ('A Guide to Python Decorators', 'Decorators in Python are a powerful tool that allows you to modify the behavior of a function or class. They are often used for logging, enforcing access control, instrumentation, caching, and more.', 91, TRUE),
+# ('Exploring JavaScript Promises', 'JavaScript promises are objects that represent the eventual completion (or failure) of an asynchronous operation and its resulting value. They provide a cleaner alternative to traditional callback-based approaches.', 91, FALSE),
+# ('Mastering Web Development', 'Web development is a broad field that encompasses everything from building simple static websites to complex web applications. It involves a combination of programming, design, and user experience.', 87, TRUE),
+# ('Databases 101', 'Databases are structured collections of data that can be easily accessed, managed, and updated. They are essential for storing and retrieving information in modern applications.', 91, FALSE),
+# ('APIs Explained', 'APIs (Application Programming Interfaces) allow different software applications to communicate with each other. They define the methods and data formats that applications can use to request and exchange information.', 87, TRUE),
+# ('The Future of SQL', 'SQL (Structured Query Language) is a standard programming language for managing and manipulating relational databases. It is widely used in various applications and continues to evolve with new features and capabilities.', 91, TRUE),
+# ('Python for Data Science', 'Python is a versatile programming language that is widely used in data science and machine learning. Its simplicity and readability make it an excellent choice for data analysis and visualization.', 87, FALSE),
+# ('JavaScript Frameworks', 'JavaScript frameworks like React, Angular, and Vue.js have revolutionized web development by providing powerful tools for building dynamic and interactive user interfaces.', 91, TRUE),
+# ('Web Security Best Practices', 'Web security is a critical aspect of web development that involves protecting websites and web applications from various threats and vulnerabilities. Best practices include using HTTPS, validating user input, and implementing proper authentication and authorization mechanisms.', 87, TRUE),
+# ('Understanding RESTful APIs', 'REST (Representational State Transfer) is an architectural style for designing networked applications. It relies on a stateless, client-server communication model and uses standard HTTP methods for interaction.', 91, FALSE),
+# ('Database Normalization', 'Database normalization is the process of organizing data in a database to reduce redundancy and improve data integrity. It involves dividing large tables into smaller, related tables and defining relationships between them.', 87, TRUE),
+# ('The Role of APIs in Modern Applications', 'APIs play a crucial role in modern software development by enabling different applications to communicate and share data. They allow developers to integrate third-party services and build complex systems more efficiently.', 91, TRUE),
+# ('Web Development Trends', 'Web development is constantly evolving, with new technologies and trends emerging regularly. Staying updated with the latest trends is essential for developers to create modern and efficient web applications.', 87, FALSE),
+# ('SQL Performance Tuning', 'SQL performance tuning involves optimizing SQL queries and database design to improve the performance of database operations. Techniques include indexing, query optimization, and proper schema design.', 91, TRUE),
+# ('Python Libraries for Data Analysis', 'Python has a rich ecosystem of libraries for data analysis, including Pandas, NumPy, and Matplotlib. These libraries provide powerful tools for data manipulation, analysis, and visualization.', 87, TRUE),
+# ('JavaScript ES6 Features', 'JavaScript ES6 (ECMAScript 2015) introduced several new features and improvements to the language, including arrow functions, classes, template literals, and destructuring assignment.', 91, FALSE),
+# ('Building RESTful APIs with Flask', 'Flask is a lightweight web framework for Python that makes it easy to build RESTful APIs. It provides a simple and flexible way to create web applications and APIs quickly.', 87, TRUE),
+# ('Web Development Tools', 'There are many tools available for web development that can help streamline the development process. These include code editors, version control systems, build tools, and testing frameworks.', 91, TRUE);
+
+# SELECT
+#     b.id,
+#     b.title,
+#     b.content,
+#     b.author_id,
+#     b.created_at,
+#     b.updated_at,
+#     b.is_published,
+#     u.username,
+#     GROUP_CONCAT(c.name ORDER BY c.name SEPARATOR ', ') AS category_names
+# FROM blogs b
+#          LEFT JOIN blog_categories bc ON b.id = bc.blog_id
+#          LEFT JOIN categories c ON bc.category_id = c.id
+#          LEFT JOIN users u ON b.author_id = u.id
+# WHERE b.author_id = :author_id
+# GROUP BY
+#     b.id,
+#     b.title,
+#     b.content,
+#     b.author_id,
+#     b.created_at,
+#     b.updated_at,
+#     b.is_published,
+#     u.username
+# ORDER BY b.created_at DESC;
+
+
+SELECT
+    SUM(CASE WHEN is_published =1 THEN 1 ELSE 0 END) AS published_blogs,
+    SUM(CASE WHEN is_published =0 THEN 1 ELSE 0 END) AS pending_blogs
+FROM blogs WHERE author_id = :author_id
+
+
+# CREATE TABLE blogs (
+#     id INT PRIMARY KEY AUTO_INCREMENT,
+#     title VARCHAR(255) NOT NULL,
+#     content TEXT NOT NULL,
+#     author_id INT NOT NULL,
+#     category VARCHAR(100) NOT NULL,
+#     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+#     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+#     FOREIGN KEY (author_id) REFERENCES users(id) ON DELETE CASCADE
+# )
+
+# CREATE TABLE categories (
+#     id INT PRIMARY KEY AUTO_INCREMENT,
+#     name VARCHAR(100) NOT NULL UNIQUE,
+#     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+# )
+
+# CREATE TABLE blog_categories (
+#     blog_id INT NOT NULL,
+#     category_id INT NOT NULL,
+#     PRIMARY KEY (blog_id, category_id),
+#     FOREIGN KEY (blog_id) REFERENCES blogs(id) ON DELETE CASCADE,
+#     FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE
+# )
+
+# ALTER Table blogs DROP category;
+
+# INSERT INTO categories (name) VALUES ('SQL'), ('Python'), ('JavaScript'), ('Web Development'), ('Databases'), ('APIs');
+
+
+# INSERT INTO blogs (title, content, author_id) VALUES
+# ('Understanding SQL Joins', 'SQL joins are used to combine rows from two or more tables based on a related column between them. The most common types of joins are INNER JOIN, LEFT JOIN, RIGHT JOIN, and FULL OUTER JOIN.', 87),
+# ('A Guide to Python Decorators', 'Decorators in Python are a powerful tool that allows you to modify the behavior of a function or class. They are often used for logging, enforcing access control, instrumentation, caching, and more.', 91),
+# ('Exploring JavaScript Promises', 'JavaScript promises are objects that represent the eventual completion (or failure) of an asynchronous operation and its resulting value. They provide a cleaner alternative to traditional callback-based approaches.', 91);
+#
+
+# INSERT INTO blog_categories (blog_id, category_id) VALUES
+# (4, 1), (5, 2), (6, 3), (6, 4);
+
+# ALTER TABLE blogs ADD COLUMN is_published BOOLEAN DEFAULT FALSE;
+
+
+# INSERT INTO blogs (title, content, author_id, is_published) VALUES
+# ('Understanding SQL Joins', 'SQL joins are used to combine rows from two or more tables based on a related column between them. The most common types of joins are INNER JOIN, LEFT JOIN, RIGHT JOIN, and FULL OUTER JOIN.', 87, TRUE),
+# ('A Guide to Python Decorators', 'Decorators in Python are a powerful tool that allows you to modify the behavior of a function or class. They are often used for logging, enforcing access control, instrumentation, caching, and more.', 91, TRUE),
+# ('Exploring JavaScript Promises', 'JavaScript promises are objects that represent the eventual completion (or failure) of an asynchronous operation and its resulting value. They provide a cleaner alternative to traditional callback-based approaches.', 91, FALSE),
+# ('Mastering Web Development', 'Web development is a broad field that encompasses everything from building simple static websites to complex web applications. It involves a combination of programming, design, and user experience.', 87, TRUE),
+# ('Databases 101', 'Databases are structured collections of data that can be easily accessed, managed, and updated. They are essential for storing and retrieving information in modern applications.', 91, FALSE),
+# ('APIs Explained', 'APIs (Application Programming Interfaces) allow different software applications to communicate with each other. They define the methods and data formats that applications can use to request and exchange information.', 87, TRUE),
+# ('The Future of SQL', 'SQL (Structured Query Language) is a standard programming language for managing and manipulating relational databases. It is widely used in various applications and continues to evolve with new features and capabilities.', 91, TRUE),
+# ('Python for Data Science', 'Python is a versatile programming language that is widely used in data science and machine learning. Its simplicity and readability make it an excellent choice for data analysis and visualization.', 87, FALSE),
+# ('JavaScript Frameworks', 'JavaScript frameworks like React, Angular, and Vue.js have revolutionized web development by providing powerful tools for building dynamic and interactive user interfaces.', 91, TRUE),
+# ('Web Security Best Practices', 'Web security is a critical aspect of web development that involves protecting websites and web applications from various threats and vulnerabilities. Best practices include using HTTPS, validating user input, and implementing proper authentication and authorization mechanisms.', 87, TRUE),
+# ('Understanding RESTful APIs', 'REST (Representational State Transfer) is an architectural style for designing networked applications. It relies on a stateless, client-server communication model and uses standard HTTP methods for interaction.', 91, FALSE),
+# ('Database Normalization', 'Database normalization is the process of organizing data in a database to reduce redundancy and improve data integrity. It involves dividing large tables into smaller, related tables and defining relationships between them.', 87, TRUE),
+# ('The Role of APIs in Modern Applications', 'APIs play a crucial role in modern software development by enabling different applications to communicate and share data. They allow developers to integrate third-party services and build complex systems more efficiently.', 91, TRUE),
+# ('Web Development Trends', 'Web development is constantly evolving, with new technologies and trends emerging regularly. Staying updated with the latest trends is essential for developers to create modern and efficient web applications.', 87, FALSE),
+# ('SQL Performance Tuning', 'SQL performance tuning involves optimizing SQL queries and database design to improve the performance of database operations. Techniques include indexing, query optimization, and proper schema design.', 91, TRUE),
+# ('Python Libraries for Data Analysis', 'Python has a rich ecosystem of libraries for data analysis, including Pandas, NumPy, and Matplotlib. These libraries provide powerful tools for data manipulation, analysis, and visualization.', 87, TRUE),
+# ('JavaScript ES6 Features', 'JavaScript ES6 (ECMAScript 2015) introduced several new features and improvements to the language, including arrow functions, classes, template literals, and destructuring assignment.', 91, FALSE),
+# ('Building RESTful APIs with Flask', 'Flask is a lightweight web framework for Python that makes it easy to build RESTful APIs. It provides a simple and flexible way to create web applications and APIs quickly.', 87, TRUE),
+# ('Web Development Tools', 'There are many tools available for web development that can help streamline the development process. These include code editors, version control systems, build tools, and testing frameworks.', 91, TRUE);
+
+# SELECT
+#     b.id,
+#     b.title,
+#     b.content,
+#     b.author_id,
+#     b.created_at,
+#     b.updated_at,
+#     b.is_published,
+#     u.username,
+#     GROUP_CONCAT(c.name ORDER BY c.name SEPARATOR ', ') AS category_names
+# FROM blogs b
+#          LEFT JOIN blog_categories bc ON b.id = bc.blog_id
+#          LEFT JOIN categories c ON bc.category_id = c.id
+#          LEFT JOIN users u ON b.author_id = u.id
+# WHERE b.author_id = :author_id
+# GROUP BY
+#     b.id,
+#     b.title,
+#     b.content,
+#     b.author_id,
+#     b.created_at,
+#     b.updated_at,
+#     b.is_published,
+#     u.username
+# ORDER BY b.created_at DESC;
+
+
+SELECT
+    SUM(CASE WHEN is_published =1 THEN 1 ELSE 0 END) AS published_blogs,
+    SUM(CASE WHEN is_published =0 THEN 1 ELSE 0 END) AS pending_blogs
+FROM blogs WHERE author_id = :author_id

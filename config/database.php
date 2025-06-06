@@ -1,29 +1,30 @@
 <?php
+require_once __DIR__ . '/../env.php';
 
-    class Database {
+class Database {
+    private $host;
+    private $user;
+    private $password;
+    private $dbname;
+    private $pdo;
 
-        private $host = "localhost";
-        private $user = "root";
-        private $password = "root";
-        private $dbname = "registration_test";
-        private $pdo;
+    public function __construct() {
+        $this->host = $_ENV['DB_HOST'];
+        $this->user = $_ENV['DB_USER'];
+        $this->password = $_ENV['DB_PASS'];
+        $this->dbname = $_ENV['DB_NAME'];
 
-        public function __construct() {
-            $dsn = "mysql:host={$this->host};dbname={$this->dbname};charset=utf8mb4";
+        $dsn = "mysql:host={$this->host};dbname={$this->dbname};charset=utf8mb4";
 
-            try {
-                $this-> pdo = new PDO($dsn, $this->user, $this->password);
-                $this-> pdo-> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-                // echo "Connected successfully!";
-
-            } catch (PDOException $e) {
-                die("Connection failed :" . $e->getMessage());
-            }
+        try {
+            $this->pdo = new PDO($dsn, $this->user, $this->password);
+            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch (PDOException $e) {
+            die("Connection failed: " . $e->getMessage());
         }
-
-        public function getConnection() {
-            return $this->pdo;
-        }
-
     }
+
+    public function getConnection() {
+        return $this->pdo;
+    }
+}
