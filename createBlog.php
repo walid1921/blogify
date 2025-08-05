@@ -14,7 +14,7 @@ if (!isLoggedIn()) {
     <div class="hero">
         <div class="form-container">
 
-            <h2>Blogs Manager</h2>
+            <h2>Create New Blog</h2>
 
             <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                 <input type="text" name="title" placeholder="Title" required>
@@ -36,7 +36,11 @@ if (!isLoggedIn()) {
                 <textarea name="content" placeholder="Content" required></textarea>
                 <br>
 
-                <input type="submit" value="Create Blog">
+                <div style="display: flex; justify-content: space-around; gap: 10px;">
+                    <input type="submit" value="Create Blog">
+                    <a class="cancelBtn" href="blog.php">Cancel</a>
+                </div>
+
             </form>
         </div>
     </div>

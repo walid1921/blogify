@@ -647,6 +647,22 @@ p {
 .form-container form input[type=submit]:hover {
   background-color: var(--color-blue-dark);
 }
+.form-container .cancelBtn {
+  background-color: transparent;
+  color: var(--color-purple-1);
+  border: 1px solid var(--color-purple-1);
+  padding: 10px 15px;
+  font-size: 16px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: var(--border-radius);
+  width: 100%;
+  margin-top: 10px;
+}
+.form-container .cancelBtn:hover {
+  background-color: var(--color-blue-dark);
+  color: var(--color-white);
+}
 
 .form-container.blur-bg {
   display: flex;

@@ -25,7 +25,7 @@
 
                 <?php if(isLoggedIn() && !isAdmin()):?>
                     <button class="filter-btn">
-                        <a href="blogs_manager.php">
+                        <a href="createBlog.php">
                             New Blog
                             <i class=" fa-solid fa-plus fa-md"></i>
                         </a>
