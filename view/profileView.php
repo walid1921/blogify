@@ -70,15 +70,6 @@
                     <div>
                         <span>Email: <?php echo htmlspecialchars($this->getUser()['email']); ?></span>
                     </div>
-                    <div>
-                        <span>Age: <?php echo htmlspecialchars($this->getUser()['age']); ?></span>
-                    </div>
-                    <div>
-                        <span>Phone: <?php echo htmlspecialchars($this->getUser()['phone']); ?></span>
-                    </div>
-                    <div>
-                        <span>Gender: <?php echo htmlspecialchars($this->getUser()['gender']); ?></span>
-                    </div>
                 </div>
                 <br>
                 <button class="delete-button" id="deleteUserBtn">Delete account <i class="fa-solid fa-trash"></i></button>
@@ -160,19 +151,6 @@
                             <div class="mb-3">
                                 <label class="small mb-1" for="inputEmailAddress">Email address</label>
                                 <input class="form-control" id="inputEmailAddress" type="email" name="email" placeholder="Please enter Email address" value="EdwinDiaz@edwindiaz.com">
-                            </div>
-                            <!-- Form Row-->
-                            <div class="row gx-3 mb-3">
-                                <!-- Form Group (phone number)-->
-                                <div class="col-md-6">
-                                    <label class="small mb-1" for="inputPhone">Phone number</label>
-                                    <input class="form-control" id="inputPhone" type="tel" name="phone" placeholder="Please enter Phone number" value="+1 (555) 123-4567">
-                                </div>
-                                <!-- Form Group (birthday)-->
-                                <div class="col-md-6">
-                                    <label class="small mb-1" for="inputBirthday">Birthday</label>
-                                    <input class="form-control" id="inputBirthday" type="date" name="birthday" placeholder="Please enter Birthday" value="1990-01-01">
-                                </div>
                             </div>
                             <!-- Save changes button-->
                             <button class="btn btn-primary" type="submit">Save changes</button>

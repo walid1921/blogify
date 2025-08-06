@@ -35,9 +35,6 @@
                     <th>Role</th>
                     <th>Username</th>
                     <th>Email</th>
-                    <th>Age</th>
-                    <th>Phone</th>
-                    <th>Gender</th>
                     <th>Registration Date</th>
                     <th>Published Blogs</th>
                     <th>Update User</th>
@@ -61,9 +58,6 @@
                             </td>
                             <td><?php echo htmlspecialchars($user["username"]); ?></td>
                             <td><?php echo htmlspecialchars($user["email"]); ?></td>
-                            <td><?php echo htmlspecialchars($user["age"]); ?></td>
-                            <td><?php echo htmlspecialchars($user["phone"]); ?></td>
-                            <td><?php echo htmlspecialchars($user["gender"]); ?></td>
                             <td><?php echo htmlspecialchars($user["created_at"]); ?></td>
                             <td><?php echo htmlspecialchars($user["blogs_num"]); ?></td>
 
@@ -140,17 +134,6 @@
                     <?php endif; ?>
                     <br>
 
-                    <input type="number" name="age" placeholder="age" value="<?php echo isset($_POST['age']) ? $_POST['age'] : "" ?>" required>
-                    <?php if (isset($this->getErrors()['age'])): ?>
-                        <span class="error"><?php echo $this->getErrors()['age'] ?></span>
-                    <?php endif; ?>
-                    <br>
-
-                    <input type="text" name="phone" placeholder="phone number" value="<?php echo isset($_POST['phone']) ? $_POST['phone'] : "" ?>">
-                    <?php if (isset($this->getErrors()['phone'])): ?>
-                        <span class="error"><?php echo $this->getErrors()['phone'] ?></span>
-                    <?php endif; ?>
-                    <br>
 
                     <select name="admin">
                         <option value="0" <?php echo isset($_POST['admin']) && $_POST['admin'] === "0" ? "selected" : ""?>>User</option>
@@ -158,22 +141,6 @@
                     </select>
                     <?php if (isset($this->getErrors()['admin'])): ?>
                         <span class="error"><?php echo $this->getErrors()['admin'] ?></span>
-                    <?php endif; ?>
-                    <br>
-
-                    <div>
-                        <input type="radio" name="gender" value="Male" <?php echo (isset($_POST['gender']) && $_POST['gender'] === 'Male') ? 'checked' : ''; ?>> Male
-                        <input type="radio" name="gender" value="Female" <?php echo (isset($_POST['gender']) && $_POST['gender'] === 'Female') ? 'checked' : ''; ?>> Female
-                        <input type="radio" name="gender" value="Other" <?php echo (isset($_POST['gender']) && $_POST['gender'] === 'Other') ? 'checked' : ''; ?>> Other
-                    </div>
-                    <?php if (isset($this->getErrors()['gender'])): ?>
-                        <span class="error"><?php echo $this->getErrors()['gender'] ?></span>
-                    <?php endif; ?>
-                    <br>
-
-                    <label><input type="checkbox" name="terms" value="agree" <?php echo (isset($_POST['terms']) && $_POST['terms'] === 'agree') ? 'checked' : ''; ?>> I agree to the terms and conditions</label>
-                    <?php if (isset($this->getErrors()['terms'])): ?>
-                        <span class="error"><?php echo $this->getErrors()['terms'] ?></span>
                     <?php endif; ?>
                     <br>
 

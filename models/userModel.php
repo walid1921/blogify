@@ -19,9 +19,7 @@ class UserModel {
 
     //! Create user
     public function createUser($data) {
-        $stmt = $this->pdo->prepare("INSERT INTO users (username, email, password, age, phone, gender, terms, admin) 
-            VALUES (:username, :email, :password, :age, :phone, :gender, :terms, :admin)");
-
+        $stmt = $this->pdo->prepare("INSERT INTO users (username, email, password, admin) VALUES (:username, :email, :password, :admin)");
         return $stmt->execute($data);
     }
 
@@ -35,7 +33,7 @@ class UserModel {
     //! get All Users
     public function getAllUsers() {
         $stmt = $this->pdo->query("
-            SELECT u.id, u.username, u.email, u.age, u.phone, u.gender, u.created_at, u.admin, COUNT(b.id) AS blogs_num  
+            SELECT u.id, u.username, u.email, u.created_at, u.admin, COUNT(b.id) AS blogs_num  
             FROM users u LEFT JOIN blogs b ON u.id = b.author_id AND b.is_published = 1
             GROUP BY u.id
             ORDER BY blogs_num DESC;
@@ -46,7 +44,7 @@ class UserModel {
     //! Search Users by username or email
     public function searchUsers($searchTerm) {
         $stmt = $this->pdo->prepare("
-            SELECT u.id, u.username, u.email, u.age, u.phone, u.gender, u.created_at, u.admin, COUNT(b.id) AS blogs_num FROM users u 
+            SELECT u.id, u.username, u.email, u.created_at, u.admin, COUNT(b.id) AS blogs_num FROM users u 
             LEFT JOIN blogs b ON u.id = b.author_id AND b.is_published = 1
             WHERE u.username LIKE :search OR u.email LIKE :search
             GROUP BY u.id

@@ -62,7 +62,7 @@ class BlogController {
 
     }
 
-    //! method to handle the form submission for deleting a  blog
+    //! method to handle the form submission for deleting a blog
 // In controllers/blogController.php
     public function deleteBlog() {
         if (!isLoggedIn()) {

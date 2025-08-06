@@ -12,10 +12,6 @@ function registerUserService($pdo, $formData, &$errors, $autoLogin = false, $isA
     $email = trim($formData["email"]);
     $password = trim($formData["password"]);
     $confPassword = trim($formData["confPassword"]);
-    $age = trim($formData["age"]);
-    $phone = filter_var(trim($formData["phone"]), FILTER_SANITIZE_NUMBER_INT);
-    $gender = trim($formData["gender"]);
-    $terms = isset($formData["terms"]) ? 1 : 0;
     $admin = isset($formData["admin"]) && (string)$formData["admin"] === "1" ? 1 : 0;
 
     // Username Validation
@@ -39,26 +35,6 @@ function registerUserService($pdo, $formData, &$errors, $autoLogin = false, $isA
     // Confirm Password Validation
     if ($password !== $confPassword) {
         $errors['confPassword'] = "Passwords do not match";
-    }
-
-    // Age Validation
-    if (empty($age) || $age < 18 || $age > 100) {
-        $errors['age'] = "Age must be between 18 and 100";
-    }
-
-    // Phone Validation
-    if (empty($phone) || !preg_match("/^[0-9]{10,15}$/", $phone)) {
-        $errors['phone'] = "Invalid phone number";
-    }
-
-    // Gender Validation
-    if (empty($gender)) {
-        $errors['gender'] = "Gender is required";
-    }
-
-    // Terms Validation
-    if (!$terms) {
-        $errors['terms'] = "You must agree to the terms";
     }
 
     // Admin Validation
@@ -91,10 +67,6 @@ function registerUserService($pdo, $formData, &$errors, $autoLogin = false, $isA
             ':username' => $username,
             ':email' => $email,
             ':password' => $hashedPassword,
-            ':age' => $age,
-            ':phone' => $phone,
-            ':gender' => $gender,
-            ':terms' => $terms,
             ':admin' => $admin
         ]);
 
