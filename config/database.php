@@ -85,8 +85,7 @@ class Database {
 //}
 //-	we use prepare() method to protect the database and sanitize inputs from SQL injection (ex: someone can inject SQL code to delete database).
 // So, prepare() used to prepares an SQL query for execution using placeholders. It takes a SQL query as an argument and returns a statement object.
-//-	the SQL query checks if a row exists in the users table where the username, email matches a given value (placeholders).  Means SQL query is prepared with placeholders (:)
-//-	The execute() method runs the prepared SQL query with the values bound earlier. At this point, the database checks if there are any rows in the users table where: The username matches $username, OR The email matches $email.
+//-	the SQL query checks if a row exists in the users table where the username matches a given value (placeholders).  Means SQL query is prepared with placeholders (:)
+//-	The execute() method runs the prepared SQL query with the values bound earlier. At this point, the database checks if there are any rows in the users table where: The username matches $username.
 // PDO::FETCH_ASSOC: Return the result as an associative array (e.g., ['id' => 1, 'username' => 'john']). (column name => value).
-//-	The fetch method to fetch the result from the query. $r
-//result now holds the database response, which could be a row or Empty. If username or email exists, show error – If no error, insert new user into database.
+//-	The fetch method to fetch the result from the query. $result now holds the database response, which could be a row or Empty. If a username doesn't exist, show an error – If no error, return that $username value.
