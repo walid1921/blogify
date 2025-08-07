@@ -1,6 +1,6 @@
 :root {
   --color-black: #000;
-  --color-white: #ffffff;
+  --color-white: #fff;
   --color-white-light: #f7f9fc;
   --color-grey: #adbdcc;
   --color-grey-light-2: #e4e9f2;
@@ -1300,11 +1300,13 @@ p {
 .profilePage .user-header .update-user {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: 10px;
   align-items: flex-start;
 }
 .profilePage .user-header .update-user .form-container {
   width: 380px;
+  height: 260px;
 }
 .profilePage .user-header .update-user p {
   font-size: 0.9rem;
@@ -1321,10 +1323,12 @@ p {
 .profilePage .user-header #passwordForm {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: 10px;
 }
 .profilePage .user-header #passwordForm .form-container {
   width: 380px;
+  height: 260px;
 }
 .profilePage .user-header #passwordForm .password-user {
   display: flex;
@@ -1391,6 +1395,7 @@ p {
   justify-content: space-between;
   width: 380px;
   padding: 20px;
+  height: 260px;
   border: 1px solid #ccc;
   border-radius: var(--border-radius);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);

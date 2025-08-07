@@ -1264,11 +1264,14 @@
     .update-user {
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
       gap: 10px;
       align-items: flex-start;
 
       .form-container {
         width: 380px;
+        height: 260px;
+
       }
 
 
@@ -1298,10 +1301,12 @@
     #passwordForm {
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
       gap: 10px;
 
       .form-container {
         width: 380px;
+        height: 260px;
       }
 
 
@@ -1394,6 +1399,7 @@
       justify-content: space-between;
       width: 380px;
       padding: 20px;
+      height: 260px;
       border: 1px solid #ccc;
       border-radius: var(--border-radius);
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
