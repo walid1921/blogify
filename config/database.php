@@ -40,45 +40,44 @@ class Database {
 // In PHP, we have various APIs to connect our project to the database:
 
 // PDO (PHP Data Objects): it is more flexible and supports multiple databases (MySQL, SQLite, Postgres). It also supports prepared queries and is considered more modern and secure against SQL injection. ($dsn = "mysql: => this is where we specify the type of database we are connecting to, in this case, MySQL).
-// MySQLi: Gut zum Lernen. unterstützt nur MySQL-Datenbanken. Die Verwendung wird nicht empfohlen, da es nicht sicher genug ist.
-// ODBC (Open Database Connectivity) : Ermöglicht die Verbindung zu vielen verschiedenen Arten von Datenbanken, auch Remote-Datenbanken. Wird oft in großen Firmen verwendet
+// MySQLi: Good for learning. Only supports MySQL databases. Its use is not recommended because it is not secure enough.
+// ODBC (Open Database Connectivity): Allows connections to many different types of databases, including remote databases. Often used in large companies. for example, if you want to connect to a Microsoft SQL Server database, you would use ODBC.
 
 
 // So in this code we have a Database class that connects to a MySQL database using PDO (PHP Data Objects).
 // The purpose of this class is to centralize and manage the database connection, making your code cleaner, more secure, and easier to maintain.
 
 // The class has private properties for the database connection parameters: host, user, password, dbname, and pdo.
-// The hostname or IP address where the database is running. In this case, locally.
+// The hostname or IP address where the database is running. In this case, locally. But in production, it would be the IP address of the remote server running the database.
 // Username and password for accessing the database
 // The name of the database our project should connect to.
 
-// The constructor initializes these properties using environment variables, which are typically set in a separate configuration file (like env.php).
-// The database connection parameters are typically stored in environment variables (like DB_HOST, DB_USER, DB_PASS, DB_NAME) for security reasons, so they are not hard-coded
-// in the codebase. This is a good practice to keep sensitive information out of the source code.
+// The constructor initializes these properties using environment variables, which are stored in .env and loaded with env.php for security reasons, so they are not hard-coded and exposed in the codebase. This is a good practice to keep sensitive information out of the source code.
 
 // The constructor is a special method that runs automatically when an instance of the class is created.
-// It creates the Data Source Name (DSN) string, which tells PDO how to connect to the database.
-// It trys to create a new PDO object using the DSN and the credentials. This is where the actual connection to the database server happens.
+// The Data Source Name (DSN) string tells PDO how to connect to the database.
 
 // try...catch block is used to handle any exceptions that might occur during the connection process.
-// If the connection is successful, the PDO instance (built-in function) is stored in the $pdo property of the class, which can be accessed; now the $pdo variable holds the connection object. And it sets the error mode to exception using setAttribute(). The PDO::ATTR_ERRMODE and PDO::ERRMODE_EXCEPTION constants are used to set the error reporting mode.
+// If the connection is successful, the PDO instance (built-in function) is stored in the $pdo property of the class, which can be accessed; This is where the actual connection to the database server happens.
+// Now the $pdo variable holds the connection object. And it sets the error mode to exception using setAttribute(). The PDO::ATTR_ERRMODE and PDO::ERRMODE_EXCEPTION constants are used to set the error reporting mode.
 // If the connection fails, it prints a user-friendly error message and terminates the script with die().
 // (to test the error change one of the variables "rot" instead of "root")
 
 // The getConnection method is a simple public function that returns the PDO instance that was created in the constructor for use in other parts of the application.
 
+
+
+
 // To use the class, you would create a new Database object and then call getConnection() to get a handle to the database.
-
-
 
 // Create a new database object
 //$database = new Database();
 
-/// // Get the PDO connection from the object
+// Get the PDO connection from the object
 //$conn = $database->getConnection();
 
 // $conn is now a PDO object you can use to run queries.
-//function getUserByUsername($conn, $username) {
+// function getUserByUsername($conn, $username) {
 //    $stmt = $conn->prepare("SELECT * FROM users WHERE username = :username LIMIT 1");
 //    $stmt->execute(['username' => $username]);
 //    $result = $stmt->fetch(PDO::FETCH_ASSOC);
