@@ -14,7 +14,7 @@ class UserModel {
             ':username' => $username,
             ':email' => $email
         ]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return true;
     }
 
     //! Create user

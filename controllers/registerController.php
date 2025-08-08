@@ -5,15 +5,20 @@ require_once __DIR__ . '/../includes/helpers.php';
 require_once __DIR__ . '/../includes/registerUser.php';
 
 class RegisterController {
+
+    // Database connection
     private $pdo;
     private $errors = [];
 
+    // Constructor initializes the database connection
     public function __construct() {
         $db = new Database();
         $pdo = $db->getConnection();
         $this->pdo = $pdo;
     }
 
+
+    // Handles the registration request
     public function handleRequest() {
 
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -28,12 +33,14 @@ class RegisterController {
         $this->showForm();
     }
 
+    // Displays the registration form
     private function showForm() {
         include __DIR__ . '/../components/header.php';
         include __DIR__ . '/../view/registerView.php';
         include __DIR__ . '/../components/footer.php';
     }
 
+    // Returns any errors encountered during registration
     public function getErrors() {
         return $this->errors;
     }

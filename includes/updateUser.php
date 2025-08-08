@@ -6,9 +6,12 @@ require_once "helpers.php";
 function updateUserService($pdo, $formData, &$errors) {
     $userModel = new UserModel($pdo);
 
+
     $userId = isset($formData["userId"]) ? (int)$formData["userId"] : 0;
     $username = trim($formData["username"]);
     $email = trim($formData["email"]);
+
+
 
     // Validate username
     if (empty($username) || !preg_match("/^[a-zA-Z0-9_]{5,20}$/", $username)) {
@@ -23,12 +26,16 @@ function updateUserService($pdo, $formData, &$errors) {
     // Check for existing username/email
     if (empty($errors)) {
         $existingUser = $userModel->userExists($username, $email);
-        if ($existingUser && $existingUser['id'] != $userId) {
-            if ($existingUser['username'] === $username) {
-                $errors['username'] = "Username already taken.";
-            }
-            if ($existingUser['email'] === $email) {
-                $errors['email'] = "Email already in use.";
+
+
+//        echo "<pre>";
+//        var_dump($existingUser);
+//        echo "</pre>";
+//        exit;
+
+        if ($existingUser && $existingUser['id'] !== $userId) {
+            if ($existingUser['username'] === $username || $existingUser['email'] === $email) {
+                $errors['username'] = "Username or email already exists";
             }
         }
     }
