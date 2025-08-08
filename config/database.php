@@ -35,8 +35,7 @@ class Database {
 
 //! Explanation:
 
-// We use Herd as our PHP development environment, and a MySQL server installed and running,
-// then we need to create a database.
+// After we set up the Herd as our PHP development environment, and a MySQL server installed and running, we need to create a database.
 // In PHP, we have various APIs to connect our project to the database:
 
 // PDO (PHP Data Objects): it is more flexible and supports multiple databases (MySQL, SQLite, Postgres). It also supports prepared queries and is considered more modern and secure against SQL injection. ($dsn = "mysql: => this is where we specify the type of database we are connecting to, in this case, MySQL).
@@ -54,7 +53,7 @@ class Database {
 
 // The constructor initializes these properties using environment variables, which are stored in .env and loaded with env.php for security reasons, so they are not hard-coded and exposed in the codebase. This is a good practice to keep sensitive information out of the source code.
 
-// The constructor is a special method that runs automatically when an instance of the class is created.
+// The constructor is a special method that runs automatically when an instance of this class is created.
 // The Data Source Name (DSN) string tells PDO how to connect to the database.
 
 // try...catch block is used to handle any exceptions that might occur during the connection process.
@@ -68,24 +67,44 @@ class Database {
 
 
 
-// To use the class, you would create a new Database object and then call getConnection() to get a handle to the database.
+// To use the class, we create an instance of the Database class and then call getConnection() to get a handle to the database.
 
-// Create a new database object
-//$database = new Database();
-
-// Get the PDO connection from the object
-//$conn = $database->getConnection();
+// $database = new Database();
+// $conn = $database->getConnection();
 
 // $conn is now a PDO object you can use to run queries.
 // function getUserByUsername($conn, $username) {
 //    $stmt = $conn->prepare("SELECT * FROM users WHERE username = :username LIMIT 1");
 //    $stmt->execute(['username' => $username]);
 //    $result = $stmt->fetch(PDO::FETCH_ASSOC);
-//    return $result; // returns one user or false
+//    var_dump($result); // for testing
+//    return $result ? $result['username'] : null; // returns one user or false
 //}
-//-	we use prepare() method to protect the database and sanitize inputs from SQL injection (ex: someone can inject SQL code to delete database).
+
+//$username = getUserById($connection, 87); // this will be used somewhere else in the code, like in a controller or model.
+//
+//if ($username) {
+//    echo "Username for user ID 1: $username";
+//} else {
+//    echo "User not found.";
+//}
+
+
+// In HTML
+
+// <h1>Welcome to the User Management System</h1>
+// <h2>The user has been called is:</h2>
+// <?php if ($username) :
+// <p>--><?php //echo htmlspecialchars($username); <!--</p>-->
+// <?php //endif
+
+
+
+// We use prepare() method to protect the database and sanitize inputs from SQL injection (ex: someone can inject SQL code to delete database).
 // So, prepare() used to prepares an SQL query for execution using placeholders. It takes a SQL query as an argument and returns a statement object.
-//-	the SQL query checks if a row exists in the users table where the username matches a given value (placeholders).  Means SQL query is prepared with placeholders (:)
-//-	The execute() method runs the prepared SQL query with the values bound earlier. At this point, the database checks if there are any rows in the users table where: The username matches $username.
-// PDO::FETCH_ASSOC: Return the result as an associative array (e.g., ['id' => 1, 'username' => 'john']). (column name => value).
-//-	The fetch method to fetch the result from the query. $result now holds the database response, which could be a row or Empty. If a username doesn't exist, show an error – If no error, return that $username value.
+// The SQL query checks if a row exists in the user table where the username matches a given value (placeholders).  Means SQL query is prepared with placeholders (:)
+// The execute() method runs the prepared SQL query with the values bound earlier. At this point, the database checks if there are any rows in the users table where: The username matches $username.
+// fetch(PDO::FETCH_ASSOC); Return the result as an associative array (e.g., ['id' => 1, 'username' => 'john']). (column name => value).
+// The fetch method to fetch the result from the query.
+// or fetchAll() to fetch all results as an array of associative arrays.
+// $result now holds the database response, which could be a row or Empty. If a username doesn't exist, show an error – If no error, return that $username value.
