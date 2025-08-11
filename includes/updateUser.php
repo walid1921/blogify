@@ -6,12 +6,9 @@ require_once "helpers.php";
 function updateUserService($pdo, $formData, &$errors) {
     $userModel = new UserModel($pdo);
 
-
     $userId = isset($formData["userId"]) ? (int)$formData["userId"] : 0;
-    $username = trim($formData["username"]);
-    $email = trim($formData["email"]);
-
-
+    $username = strtolower(trim($formData["username"]));
+    $email = strtolower(trim($formData["email"]));
 
     // Validate username
     if (empty($username) || !preg_match("/^[a-zA-Z0-9_]{5,20}$/", $username)) {
@@ -23,29 +20,44 @@ function updateUserService($pdo, $formData, &$errors) {
         $errors['email'] = "Invalid email format";
     }
 
-    // Check for existing username/email
+    // If no validation errors so far, proceed with uniqueness checks
     if (empty($errors)) {
-        $existingUser = $userModel->userExists($username, $email);
+        // Get the current user data
+        $currentUser = $userModel->getUserById($userId);
+        $currentUserToLower = strtolower($currentUser['username'] ?? '');
+        $currentEmailToLower = strtolower($currentUser['email'] ?? '');
 
+        if (!$currentUser) {
+            $errors['user'] = "User not found";
+        } else {
+            // Check username uniqueness only if it changed
+            if ($username !== $currentUserToLower) {
+                $existingUser = $userModel->userExists($username, $currentEmailToLower, $userId);
+                $existingUserUsernameToLower = strtolower($existingUser['username'] ?? '');
+                if ($existingUser && $existingUserUsernameToLower === $username) {
+                    $errors['username'] = "Username already exists";
+                }
+            }
 
-//        echo "<pre>";
-//        var_dump($existingUser);
-//        echo "</pre>";
-//        exit;
-
-        if ($existingUser && $existingUser['id'] !== $userId) {
-            if ($existingUser['username'] === $username || $existingUser['email'] === $email) {
-                $errors['username'] = "Username or email already exists";
+            // Check email uniqueness only if it changed
+            if ($email !== $currentEmailToLower) {
+                $existingUser = $userModel->userExists($currentUserToLower, $email, $userId);
+                $existingUserEmailToLower = strtolower($existingUser['email'] ?? '');
+                if ($existingUser && $existingUserEmailToLower === $email) {
+                    $errors['email'] = "Email already exists";
+                }
             }
         }
     }
 
+    // If there are errors, stop and show them
     if (!empty($errors)) {
         $_SESSION["message"] = "Please correct the form errors";
         $_SESSION["msg_type"] = "error";
         return false;
     }
 
+    // Attempt update
     try {
         $success = $userModel->updateUser($userId, $username, $email);
 
@@ -55,7 +67,7 @@ function updateUserService($pdo, $formData, &$errors) {
             return true;
         } else {
             $errors['database'] = "Failed to update user";
-            $_SESSION["message"] = "Failed to update user";
+            $_SESSION["message"] = $errors['database'];
             $_SESSION["msg_type"] = "error";
             return false;
         }

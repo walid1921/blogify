@@ -8,7 +8,7 @@ class TaskController {
 
     public function index() {
 
-        $currentUser = $_SESSION['username'];
+        $currentUser = strtolower($_SESSION['username']);
 
 
         $taskModel = new Task();

@@ -7,15 +7,29 @@ class UserModel {
         $this->pdo = $pdo;
     }
 
-    //! Check if username or email already exists
-    public function userExists($username, $email) {
-        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE username = :username OR email = :email");
-        $stmt->execute([
+    //! Check if a username or email already exists
+    public function userExists($username, $email, $excludeUserId = null) {
+        $sql = "SELECT id, username, email FROM users WHERE (username = :username OR email = :email)";
+
+        if ($excludeUserId) {
+            $sql .= " AND id != :excludeId";
+        }
+
+        $stmt = $this->pdo->prepare($sql);
+
+        $params = [
             ':username' => $username,
             ':email' => $email
-        ]);
-        return true;
+        ];
+
+        if ($excludeUserId) {
+            $params[':excludeId'] = $excludeUserId;
+        }
+
+        $stmt->execute($params);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
 
     //! Create user
     public function createUser($data) {

@@ -20,7 +20,7 @@ class ProfileController {
         $this->pdo = $db->getConnection();
         $this->userModel = new UserModel($this->pdo);
         $this->currentUserId = $_SESSION['user_id'];
-        $this->currentUser = $_SESSION['username'];
+        $this->currentUser = strtolower($_SESSION['username']);
     }
 
     public function handleRequest() {

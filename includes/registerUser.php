@@ -8,8 +8,8 @@ function registerUserService($pdo, $formData, &$errors, $autoLogin = false, $isA
     $userModel = new UserModel($pdo);
 
     // Sanitize and validate input
-    $username = trim($formData["username"]);
-    $email = trim($formData["email"]);
+    $username = strtolower(trim($formData["username"]));
+    $email = strtolower(trim($formData["email"]));
     $password = trim($formData["password"]);
     $confPassword = trim($formData["confPassword"]);
     $admin = isset($formData["admin"]) && (string)$formData["admin"] === "1" ? 1 : 0;
