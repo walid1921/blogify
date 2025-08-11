@@ -607,10 +607,8 @@
       align-items: center;
 
       span.completed {
-        background-color: #d4edda;
+        color: var(--color-success);
         text-decoration: line-through;
-        color: #6c757d;
-        padding: 10px;
       }
 
       form {

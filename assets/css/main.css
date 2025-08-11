@@ -786,10 +786,8 @@ p {
   align-items: center;
 }
 .todoApp ul li span.completed {
-  background-color: #d4edda;
+  color: var(--color-success);
   text-decoration: line-through;
-  color: #6c757d;
-  padding: 10px;
 }
 .todoApp ul li form {
   display: inline-block;
