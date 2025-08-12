@@ -588,6 +588,11 @@ p {
   gap: 5px;
   margin-top: 25px;
 }
+.form-container form .pass_validation {
+  color: var(--color-grey);
+  font-size: 0.7rem;
+  margin: 0;
+}
 .form-container form input[type=text],
 .form-container form input[type=email],
 .form-container form input[type=password],

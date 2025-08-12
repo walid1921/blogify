@@ -17,6 +17,7 @@
                 <br>
 
                 <input type="password" name="password" placeholder="password" required>
+                <p class="pass_validation">• more than 8 characters • uppercase • lowercase • number</p>
                 <?php if (!empty($this->errors['password'])): ?><span class="error"><?php echo $this->errors['password'] ?></span><?php endif; ?>
                 <br>
 

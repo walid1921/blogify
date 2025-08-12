@@ -393,6 +393,12 @@
     gap: 5px;
     margin-top: 25px;
 
+    .pass_validation {
+      color: var(--color-grey);
+      font-size: 0.7rem;
+      margin: 0;
+    }
+
     input[type="text"],
     input[type="email"],
     input[type="password"],

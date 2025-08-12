@@ -73,7 +73,7 @@
 
                                 <div class="author">
                                     <span class="author-name">Author: <?php echo htmlspecialchars($blog['username']); ?></span>
-                                    <span class="created-date"><?php echo date('d M Y', strtotime($blog['created_at'])); ?></span>
+                                    <span class="created-date"><?php echo day_month_year($blog['created_at']); ?></span>
                                 </div>
 
                                 <p><?php echo $blog['content']; ?></p>

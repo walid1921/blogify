@@ -25,6 +25,11 @@ function isAdmin(){
     return isset($_SESSION["admin"]) && $_SESSION["admin"] === true;
 }
 
+function day_month_year($date) {
+    $timestamp = strtotime($date);
+    return date('d M Y', $timestamp);
+}
+
 function checkServer($conn, $result) { // to check if the server is working
     if (!$result) {
         die("Query failed: " . $conn->error);

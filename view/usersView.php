@@ -58,7 +58,7 @@
                             </td>
                             <td><?php echo htmlspecialchars($user["username"]); ?></td>
                             <td><?php echo htmlspecialchars($user["email"]); ?></td>
-                            <td><?php echo htmlspecialchars($user["created_at"]); ?></td>
+                            <td><?php echo day_month_year(htmlspecialchars($user["created_at"]));?></td>
                             <td><?php echo htmlspecialchars($user["blogs_num"]); ?></td>
 
                             <?php if ($user["admin"]): ?>
@@ -123,6 +123,7 @@
 
                     <!-- password-->
                     <input type="password" name="password" placeholder="password" value="<?php echo isset($_POST['password']) ? $_POST['password'] : "" ?>" required>
+                    <p class="pass_validation">• more than 8 characters • uppercase • lowercase • number</p>
                     <?php if (isset($this->getErrors()['password'])): ?>
                         <span class="error"><?php echo $this->getErrors()['password'] ?></span>
                     <?php endif; ?>
