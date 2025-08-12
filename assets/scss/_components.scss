@@ -29,12 +29,16 @@
     @include center;
     list-style: none;
 
+    .active {
+      color: var(--color-purple-1);
+    }
+
     a {
       color: var(--color-black);
       margin: 0 var(--spacing-md);
 
       &:hover {
-
+        color: var(--color-purple-1);
       }
     }
 

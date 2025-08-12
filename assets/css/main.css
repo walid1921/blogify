@@ -293,9 +293,15 @@ p {
   align-items: center;
   list-style: none;
 }
+.navbar .menu .active {
+  color: var(--color-purple-1);
+}
 .navbar .menu a {
   color: var(--color-black);
   margin: 0 var(--spacing-md);
+}
+.navbar .menu a:hover {
+  color: var(--color-purple-1);
 }
 .navbar .nav-right {
   list-style: none;

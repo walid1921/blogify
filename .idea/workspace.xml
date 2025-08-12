@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b80f1ff0-b2c3-4ff9-ab91-3446919ab8bd" name="Changes" comment="" />
+    <list default="true" id="b80f1ff0-b2c3-4ff9-ab91-3446919ab8bd" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/controllers/bloginfoController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/bloginfo.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/view/bloginfoView.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/navigation.php" beforeDir="false" afterPath="$PROJECT_DIR$/components/navigation.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logout.php" beforeDir="false" afterPath="$PROJECT_DIR$/logout.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -73,37 +81,40 @@
   &quot;associatedIndex&quot;: 4
 }</component>
   <component name="ProjectId" id="2uRHOLzsnNgurA6BZ7EbyA8zp4W" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;JavaScript Debug.crudUser.php.executor&quot;: &quot;Debug&quot;,
-    &quot;JavaScript Debug.register.php.executor&quot;: &quot;Debug&quot;,
-    &quot;PHP Script.crudUser.php.executor&quot;: &quot;Run&quot;,
-    &quot;PHP Script.header.php.executor&quot;: &quot;Debug&quot;,
-    &quot;PHP Script.register.php.executor&quot;: &quot;Debug&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;Shell Script.compileAndInstallXdebug2.sh.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;envLoader&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/walid.kouider-ayad/Desktop/Projects/Blogify&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.General&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "JavaScript Debug.crudUser.php.executor": "Debug",
+    "JavaScript Debug.register.php.executor": "Debug",
+    "PHP Script.crudUser.php.executor": "Run",
+    "PHP Script.header.php.executor": "Debug",
+    "PHP Script.register.php.executor": "Debug",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "Shell Script.compileAndInstallXdebug2.sh.executor": "Run",
+    "git-widget-placeholder": "06-08",
+    "last_opened_file_path": "/Users/walid.kouider-ayad/Desktop/Projects/Blogify",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.General",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />

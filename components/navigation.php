@@ -19,6 +19,8 @@
             <li><a class="<?php echo activeLink('contact.php') ?>" href="/contact.php">Contact</a></li>
         <?php endif; ?>
     </ul>
+
+
     <div class="nav-right">
         <?php if (isLoggedIn()) : ?>
             <a class="user-btn" href="/profile.php"><i class="fa-solid fa-user fa-fw"></i></a>
@@ -28,12 +30,17 @@
             <a class="<?php echo activeLink('register.php') ?> secondary-button nav-btn" href="/register.php">Register</a>
         <?php endif; ?>
     </div>
+
+
     <div class="hamburger">
         <div class="bar1"></div>
         <div class="bar2"></div>
         <div class="bar3"></div>
     </div>
 </nav>
+
+
+
 
 <!--  Mobile Navbar-->
 <nav class="mobileNav">
