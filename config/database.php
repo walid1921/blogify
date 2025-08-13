@@ -34,7 +34,6 @@ class Database {
 
 
 //! Explanation:
-
 // After we set up the Herd as our PHP development environment, and a MySQL server installed and running, we need to create a database.
 // In PHP, we have various APIs to connect our project to the database:
 
@@ -67,7 +66,8 @@ class Database {
 
 
 
-// To use the class, we create an instance of the Database class and then call getConnection() to get a handle to the database.
+//! The Use:
+// we create an instance of the Database class and then call getConnection() to get a handle to the database.
 
 // $database = new Database();
 // $conn = $database->getConnection();
@@ -108,3 +108,44 @@ class Database {
 // The fetch method to fetch the result from the query.
 // or fetchAll() to fetch all results as an array of associative arrays.
 // $result now holds the database response, which could be a row or Empty. If a username doesn't exist, show an error – If no error, return that $username value.
+
+
+
+//! EXAMPLE OF SQL INJECTION VULNERABILITY AND PREVENTION
+
+//<?php
+//
+//require_once "database.php";
+//
+//$database = new Database();
+//$conn = $database->getConnection();
+//
+// ❌ Vulnerable version === variable directly inside the SQL string
+//
+//function getUserByID_vulnerable($conn, $userId) {
+//    $sql = "SELECT * FROM users WHERE id = $userId";
+//    $stmt = $conn->query($sql); // executes raw SQL
+//    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+//}
+//
+// Injection attempt
+//$input = "87 OR '1'='1'";  => '1'='1' means true
+//$users_vulnerable = getUserByID_vulnerable($conn, $input);
+//
+//var_dump($users_vulnerable);
+//
+//
+//
+// ✅ Safe version === parameterized prepared statement
+//
+//function getUserByID_safe($conn, $userId) {
+//    $stmt = $conn->prepare("SELECT * FROM users WHERE id = :id");
+//    $stmt->execute([':id' => $userId]); // bound as literal value
+//    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+//}
+//
+// Same injection attempt
+//$users_safe = getUserByID_safe($conn, $input);
+//
+//var_dump($users_safe);
+//

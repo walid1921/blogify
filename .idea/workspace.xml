@@ -6,13 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b80f1ff0-b2c3-4ff9-ab91-3446919ab8bd" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/css/main.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/main.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_components.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_components.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/includes/helpers.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/helpers.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/blogsView.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/blogsView.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/registerView.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/registerView.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/usersView.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/usersView.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/database.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/database.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
