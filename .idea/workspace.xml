@@ -5,8 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b80f1ff0-b2c3-4ff9-ab91-3446919ab8bd" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/config/db-structure.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/migrate.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/migration.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/setup.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/delploy.config" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/deploy.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/database.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/database.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/readme.text" beforeDir="false" afterPath="$PROJECT_DIR$/readme.text" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,11 +127,11 @@
       <recent name="$PROJECT_DIR$/assets" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/config" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/public" />
       <recent name="$PROJECT_DIR$/assets/images" />
       <recent name="$PROJECT_DIR$/assets/js" />
-      <recent name="$PROJECT_DIR$/assets" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -222,6 +230,7 @@
       <workItem from="1750026016820" duration="3662000" />
       <workItem from="1753364713312" duration="9003000" />
       <workItem from="1754398180626" duration="403000" />
+      <workItem from="1755084611329" duration="907000" />
     </task>
     <servers />
   </component>
