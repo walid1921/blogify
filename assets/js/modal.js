@@ -26,6 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const editUserIdInput = document.getElementById("editUserId");
     const editUsernameInput = document.getElementById("editUsername");
     const editEmailInput = document.getElementById("editEmail");
+    const editIsActiveInput = document.getElementById("editIsActive");
 
     const deleteUsers = document.querySelectorAll(".delete-btn");
     const deleteOneUserModal = document.getElementById("deleteOneUserModal");
@@ -78,11 +79,12 @@ document.addEventListener("DOMContentLoaded", function () {
             const userId = button.getAttribute("data-user-id");
             const username = button.getAttribute("data-username");
             const email = button.getAttribute("data-email");
+            const isActive = button.getAttribute("data-is-active");
 
             editUserIdInput.value = userId;
             editUsernameInput.value = username;
             editEmailInput.value = email;
-
+            editIsActiveInput.checked = isActive === "1";
             editUserModal.style.display = "flex";
         });
     });

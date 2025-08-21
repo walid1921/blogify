@@ -1605,6 +1605,14 @@
     text-align: center;
     font-size: 0.9rem;
 
+    .active {
+      color: var(--color-success);
+    }
+
+    .inactive {
+      color: var(--color-grey);
+    }
+
     span {
       font-size: 0.9rem;
       color: var(--color-error);
@@ -1626,6 +1634,8 @@
   .restricted{
     color: var(--color-error);
   }
+
+
 }
 
 
@@ -1885,6 +1895,106 @@
     }
   }
 }
+  .switch-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    .tgl {
+      display: none;
+
+      &::selection,
+      &:after::selection,
+      &:before::selection,
+      *::selection,
+      *:after::selection,
+      *:before::selection,
+      + .tgl-btn::selection {
+        background: none;
+      }
+    }
+
+    &, *, *:after, *:before {
+      box-sizing: border-box;
+    }
+
+    .tgl + .tgl-btn {
+      outline: 0;
+      display: block;
+      width: 35px;
+      height: 20px;
+      position: relative;
+      cursor: pointer;
+      user-select: none;
+
+      &:after,
+      &:before {
+        position: relative;
+        display: block;
+        content: "";
+        width: 50%;
+        height: 100%;
+      }
+
+      &:after {
+        left: 0;
+      }
+
+      &:before {
+        display: none;
+      }
+    }
+
+    .tgl:checked + .tgl-btn {
+      &:after {
+        left: 50%;
+      }
+    }
+
+    .tgl-ios {
+      + .tgl-btn {
+        background: var(--color-grey);
+        border-radius: 32px;
+        padding: 2px;
+        transition: all 0.4s ease;
+        border: 1px solid #e8eae9;
+
+        &:after {
+          border-radius: 32px;
+          background: #fbfbfb;
+          transition:
+                  left 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                  padding 0.3s ease,
+                  margin 0.3s ease;
+          box-shadow:
+                  0 0 0 1px rgba(0, 0, 0, 0.1),
+                  0 4px 0 rgba(0, 0, 0, 0.08);
+        }
+
+        &:hover:after {
+          will-change: padding;
+        }
+
+        &:active {
+          box-shadow: inset 0 0 0 32px #e8eae9;
+
+          &:after {
+            padding-right: 12.8px;
+          }
+        }
+      }
+
+      &:checked + .tgl-btn {
+        background: var(--color-success);
+
+        &:active {
+          box-shadow: none;
+
+          &:after {
+            margin-left: -12.8px;
+          }
+        }
+      }
+    }
+  }
 
 
 
@@ -2039,7 +2149,6 @@
 
   }
 
-
   .closeEditUserModal {
     font-size: 24px;
     cursor: pointer;
@@ -2048,6 +2157,21 @@
 
     &:hover {
       color: var(--color-blue-dark);
+    }
+  }
+
+  .switch-wrapper {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 10px;
+
+    span.active {
+      color: var(--color-success);
+    }
+
+    span.inactive {
+      color: var(--color-grey);
     }
   }
 }

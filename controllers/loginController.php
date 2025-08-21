@@ -41,6 +41,11 @@ class LoginController {
 
     private function processLogin($username, $password) {
         $user = $this->model->getUserByUsername($username);
+
+        if ($user["is_active"] === 0) {
+            return "This account is not active. Please contact the administrator.";
+        }
+
         if ($user && password_verify($password, $user["password"])) {
             session_regenerate_id(true); // Prevent session hijacking
             $_SESSION["logged_in"] = true; // This is how we know the user is logged in

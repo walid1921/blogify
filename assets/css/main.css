@@ -1562,6 +1562,14 @@ p {
   text-align: center;
   font-size: 0.9rem;
 }
+.user-table th .active,
+.user-table td .active {
+  color: var(--color-success);
+}
+.user-table th .inactive,
+.user-table td .inactive {
+  color: var(--color-grey);
+}
 .user-table th span,
 .user-table td span {
   font-size: 0.9rem;
@@ -1808,6 +1816,80 @@ p {
   background-color: #5a6268;
 }
 
+.switch-wrapper {
+  display: flex;
+  justify-content: flex-start;
+}
+.switch-wrapper .tgl {
+  display: none;
+}
+.switch-wrapper .tgl::selection, .switch-wrapper .tgl:after::selection, .switch-wrapper .tgl:before::selection,
+.switch-wrapper .tgl *::selection,
+.switch-wrapper .tgl *:after::selection,
+.switch-wrapper .tgl *:before::selection,
+.switch-wrapper .tgl + .tgl-btn::selection {
+  background: none;
+}
+.switch-wrapper, .switch-wrapper *, .switch-wrapper *:after, .switch-wrapper *:before {
+  box-sizing: border-box;
+}
+.switch-wrapper .tgl + .tgl-btn {
+  outline: 0;
+  display: block;
+  width: 35px;
+  height: 20px;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+}
+.switch-wrapper .tgl + .tgl-btn:after, .switch-wrapper .tgl + .tgl-btn:before {
+  position: relative;
+  display: block;
+  content: "";
+  width: 50%;
+  height: 100%;
+}
+.switch-wrapper .tgl + .tgl-btn:after {
+  left: 0;
+}
+.switch-wrapper .tgl + .tgl-btn:before {
+  display: none;
+}
+.switch-wrapper .tgl:checked + .tgl-btn:after {
+  left: 50%;
+}
+.switch-wrapper .tgl-ios + .tgl-btn {
+  background: var(--color-grey);
+  border-radius: 32px;
+  padding: 2px;
+  transition: all 0.4s ease;
+  border: 1px solid #e8eae9;
+}
+.switch-wrapper .tgl-ios + .tgl-btn:after {
+  border-radius: 32px;
+  background: #fbfbfb;
+  transition: left 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), padding 0.3s ease, margin 0.3s ease;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 4px 0 rgba(0, 0, 0, 0.08);
+}
+.switch-wrapper .tgl-ios + .tgl-btn:hover:after {
+  will-change: padding;
+}
+.switch-wrapper .tgl-ios + .tgl-btn:active {
+  box-shadow: inset 0 0 0 32px #e8eae9;
+}
+.switch-wrapper .tgl-ios + .tgl-btn:active:after {
+  padding-right: 12.8px;
+}
+.switch-wrapper .tgl-ios:checked + .tgl-btn {
+  background: var(--color-success);
+}
+.switch-wrapper .tgl-ios:checked + .tgl-btn:active {
+  box-shadow: none;
+}
+.switch-wrapper .tgl-ios:checked + .tgl-btn:active:after {
+  margin-left: -12.8px;
+}
+
 .modal {
   display: none;
   position: fixed;
@@ -1935,6 +2017,18 @@ p {
 }
 .editModal .closeEditUserModal:hover {
   color: var(--color-blue-dark);
+}
+.editModal .switch-wrapper {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.editModal .switch-wrapper span.active {
+  color: var(--color-success);
+}
+.editModal .switch-wrapper span.inactive {
+  color: var(--color-grey);
 }
 
 .deleteOneUserModal {

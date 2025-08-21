@@ -47,7 +47,7 @@ class UserModel {
     //! get All Users
     public function getAllUsers() {
         $stmt = $this->pdo->query("
-            SELECT u.id, u.username, u.email, u.created_at, u.admin, COUNT(b.id) AS blogs_num  
+            SELECT u.id, u.username, u.email, u.created_at, u.admin, u.is_active, COUNT(b.id) AS blogs_num  
             FROM users u LEFT JOIN blogs b ON u.id = b.author_id AND b.is_published = 1
             GROUP BY u.id
             ORDER BY blogs_num DESC;
@@ -58,7 +58,7 @@ class UserModel {
     //! Search Users by username or email
     public function searchUsers($searchTerm) {
         $stmt = $this->pdo->prepare("
-            SELECT u.id, u.username, u.email, u.created_at, u.admin, COUNT(b.id) AS blogs_num FROM users u 
+            SELECT u.id, u.username, u.email, u.created_at, u.admin, u.is_active, COUNT(b.id) AS blogs_num FROM users u 
             LEFT JOIN blogs b ON u.id = b.author_id AND b.is_published = 1
             WHERE u.username LIKE :search OR u.email LIKE :search
             GROUP BY u.id
@@ -69,12 +69,13 @@ class UserModel {
     }
 
     //! Update User
-    public function updateUser($userId, $username, $email) {
-        $stmt = $this->pdo->prepare("UPDATE users SET username = :username, email = :email WHERE id = :id");
+    public function updateUser($userId, $username, $email, $is_active) {
+        $stmt = $this->pdo->prepare("UPDATE users SET username = :username, email = :email, is_active = :is_active WHERE id = :id");
         return $stmt->execute([
             ':username' => $username,
             ':email' => $email,
-            ':id' => $userId
+            ':is_active' => $is_active,
+            ':id' => $userId,
         ]);
     }
 

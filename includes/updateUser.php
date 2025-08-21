@@ -9,6 +9,7 @@ function updateUserService($pdo, $formData, &$errors) {
     $userId = isset($formData["userId"]) ? (int)$formData["userId"] : 0;
     $username = strtolower(trim($formData["username"]));
     $email = strtolower(trim($formData["email"]));
+    $is_active = isset($_POST['is_active']) ? 1 : 0;
 
     // Validate username
     if (empty($username) || !preg_match("/^[a-zA-Z0-9_]{5,20}$/", $username)) {
@@ -59,7 +60,7 @@ function updateUserService($pdo, $formData, &$errors) {
 
     // Attempt update
     try {
-        $success = $userModel->updateUser($userId, $username, $email);
+        $success = $userModel->updateUser($userId, $username, $email, $is_active);
 
         if ($success) {
             $_SESSION["message"] = "User updated successfully";

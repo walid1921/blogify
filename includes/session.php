@@ -16,7 +16,7 @@ if (!isset($_SESSION['LAST_REGEN']) || (time() - $_SESSION['LAST_REGEN']) > 300)
 }
 
 //! Destroy session after inactivity
-if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 600)) { // 600s = 10min
+if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 1800)) { // 1800s = 30min
     session_unset();
     session_destroy();
     redirect("login.php");

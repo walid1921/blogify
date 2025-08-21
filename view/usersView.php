@@ -33,6 +33,7 @@
                 <thead>
                 <tr>
                     <th>Role</th>
+                    <th>Status</th>
                     <th>Username</th>
                     <th>Email</th>
                     <th>Registration Date</th>
@@ -56,6 +57,17 @@
                                 }
                                 ?>
                             </td>
+                            <td>
+                                <?php
+                                    if ($user["is_active"]) {
+                                        echo "<span class='active'>Active</span>";
+                                    } else {
+                                        echo "<span class='inactive'>Inactive</span>";
+                                    }
+                                ?>
+                            </td>
+
+
                             <td><?php echo htmlspecialchars($user["username"]); ?></td>
                             <td><?php echo htmlspecialchars($user["email"]); ?></td>
                             <td><?php echo day_month_year(htmlspecialchars($user["created_at"]));?></td>
@@ -73,6 +85,7 @@
                                                 data-user-id="<?php echo $user['id']; ?>"
                                                 data-username="<?php echo htmlspecialchars($user['username']); ?>"
                                                 data-email="<?php echo htmlspecialchars($user['email']); ?>"
+                                                data-is-active="<?php echo $user['is_active']; ?>"
                                         >
                                             <span class="edit-text">Edit</span>
                                             <span class="edit-icon"><i class="fa-solid fa-pen fa-sm"></i></span>
@@ -172,6 +185,13 @@
                         <span class="error"><?php echo $this->getErrors()['email']; ?></span>
                     <?php endif; ?>
                     <br>
+
+
+                    <div class="switch-wrapper">
+                        <label for="editIsActive">Status:</label>
+                        <input type="checkbox" name="is_active" id="editIsActive" class="tgl tgl-ios" value="1" <?php echo isset($_POST['is_active']) && $_POST['is_active'] === "1" ? "checked" : "" ?>>
+                        <label class="tgl-btn" for="editIsActive"></label>
+                    </div>
 
                     <input type="submit" value="Save changes" name="editUser">
                 </form>

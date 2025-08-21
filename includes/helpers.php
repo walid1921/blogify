@@ -39,10 +39,8 @@ function checkServer($conn, $result) { // to check if the server is working
 
 
 }
-// error_log("This is an error message", 3, "/path/to/logfile.log"); 
-// This sends the error message to a log file instead of displaying it on the screen. 
-// 3 indicates appending to the log file, 
-// /path/to/logfile.log is the path where you want to store the log.
+
+
 function handleError($errno, $errstr, $errfile, $errline) {
     if (!(error_reporting() & $errno)) {
         return false;
