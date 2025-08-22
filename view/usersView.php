@@ -15,6 +15,7 @@
             <div class="table-header">
                 <p><span><?php echo !empty($this->getUsers()) ? count($this->getUsers()) : 0 ?> active users</span></p>
 
+                <!-- Search -->
                 <div class="search">
                     <form method="GET" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                         <input type="text" name="search" placeholder="Search by username or email" value="<?php echo htmlspecialchars($this->getSearchTerm()); ?>">
@@ -43,72 +44,82 @@
                 </thead>
 
                 <tbody>
-                <?php if (!empty($this->getUsers()) && count($this->getUsers()) > 0): ?>
-                    <?php foreach ($this->getUsers() as $user): ?>
-                        <tr>
-                            <td>
-                                <?php
-                                if ($user["id"] === $_SESSION['user_id']) {
-                                    echo "<span class='admin'>you</span>";
-                                } elseif ($user["admin"]) {
-                                    echo "<span class='admin'>admin</span>";
-                                } else {
-                                    echo "<span class='user'>user</span>";
-                                }
-                                ?>
-                            </td>
-                            <td>
-                                <?php
-                                    if ($user["is_active"]) {
-                                        echo "<span class='active'>Active</span>";
+                    <?php if (!empty($this->getUsers()) && count($this->getUsers()) > 0): ?>
+                        <?php foreach ($this->getUsers() as $user): ?>
+                            <tr>
+                                <td>
+                                    <?php
+                                    if ($user["id"] === $_SESSION['user_id']) {
+                                        echo "<span class='admin'>you</span>";
+                                    } elseif ($user["admin"]) {
+                                        echo "<span class='admin'>admin</span>";
                                     } else {
-                                        echo "<span class='inactive'>Inactive</span>";
+                                        echo "<span class='user'>user</span>";
                                     }
-                                ?>
-                            </td>
-
-
-                            <td><?php echo htmlspecialchars($user["username"]); ?></td>
-                            <td><?php echo htmlspecialchars($user["email"]); ?></td>
-                            <td><?php echo day_month_year(htmlspecialchars($user["created_at"]));?></td>
-                            <td><?php echo htmlspecialchars($user["blogs_num"]); ?></td>
-
-                            <?php if ($user["admin"]): ?>
-                                <td>
-                                    <span class="restricted">Restricted!</span>
+                                    ?>
                                 </td>
-                            <?php else: ?>
                                 <td>
-                                    <div class="action-buttons" >
-                                        <button class="edit-btn"
-                                                type="button"
-                                                data-user-id="<?php echo $user['id']; ?>"
-                                                data-username="<?php echo htmlspecialchars($user['username']); ?>"
-                                                data-email="<?php echo htmlspecialchars($user['email']); ?>"
-                                                data-is-active="<?php echo $user['is_active']; ?>"
-                                        >
-                                            <span class="edit-text">Edit</span>
-                                            <span class="edit-icon"><i class="fa-solid fa-pen fa-sm"></i></span>
-                                        </button>
-
-                                        <button class="delete-btn"
-                                                type="button"
-                                                data-user-id="<?php echo $user['id']; ?>">
-                                            <span class="delete-icon"><i class="fa-solid fa-trash fa-sm"></i></span>
-                                            <span class="delete-text">Delete</span>
-                                        </button>
-                                    </div>
+                                    <?php
+                                        if ($user["is_active"]) {
+                                            echo "<span class='active'>Active</span>";
+                                        } else {
+                                            echo "<span class='inactive'>Inactive</span>";
+                                        }
+                                    ?>
                                 </td>
-                            <?php endif; ?>
+
+
+                                <td><?php echo htmlspecialchars($user["username"]); ?></td>
+                                <td><?php echo htmlspecialchars($user["email"]); ?></td>
+                                <td><?php echo day_month_year(htmlspecialchars($user["created_at"]));?></td>
+                                <td><?php echo htmlspecialchars($user["blogs_num"]); ?></td>
+
+                                <?php if ($user["admin"]): ?>
+                                    <td>
+                                        <span class="restricted">Restricted!</span>
+                                    </td>
+                                <?php else: ?>
+                                    <td>
+                                        <div class="action-buttons" >
+                                            <button class="edit-btn"
+                                                    type="button"
+                                                    data-user-id="<?php echo $user['id']; ?>"
+                                                    data-username="<?php echo htmlspecialchars($user['username']); ?>"
+                                                    data-email="<?php echo htmlspecialchars($user['email']); ?>"
+                                                    data-is-active="<?php echo $user['is_active']; ?>"
+                                            >
+                                                <span class="edit-text">Edit</span>
+                                                <span class="edit-icon"><i class="fa-solid fa-pen fa-sm"></i></span>
+                                            </button>
+
+                                            <button class="delete-btn"
+                                                    type="button"
+                                                    data-user-id="<?php echo $user['id']; ?>">
+                                                <span class="delete-icon"><i class="fa-solid fa-trash fa-sm"></i></span>
+                                                <span class="delete-text">Delete</span>
+                                            </button>
+                                        </div>
+                                    </td>
+                                <?php endif; ?>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="8">No users found.</td>
                         </tr>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <tr>
-                        <td colspan="8">No users found.</td>
-                    </tr>
-                <?php endif; ?>
+                    <?php endif; ?>
                 </tbody>
             </table>
+
+            <div class="pagination">
+                <a href="#" class="page-link active">1</a>
+                <a href="#" class="page-link">2</a>
+                <a href="#" class="page-link">3</a>
+                <span class="dots">...</span>
+                <a href="#" class="page-link">10</a>
+                <a href="#" class="next-btn">Next →</a>
+            </div>
+
         </div>
 
         <!-- Register Modal -->

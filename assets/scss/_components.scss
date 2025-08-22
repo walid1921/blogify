@@ -899,6 +899,7 @@
 
 
 //! Blog Page
+
 .blog-page {
 
   max-width: 1200px;
@@ -1000,41 +1001,7 @@
 
 
     .pagination {
-      margin-top: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      gap: 12px;
-      flex-wrap: wrap;
-
-      .page-link, .next-btn {
-        display: inline-block;
-        padding: 10px 16px;
-        border: 1px solid var(--color-purple-1);
-        border-radius: 6px;
-        color: var(--color-purple-1);
-        font-weight: 600;
-        text-decoration: none;
-        font-size: 0.9rem;
-        @include hover-transition;
-
-        &:hover {
-          background-color: var(--color-purple-1);
-          color: var(--color-white);
-        }
-      }
-
-      .active {
-        background-color: var(--color-purple-1);
-        color: var(--color-white);
-      }
-
-      .dots {
-        color: var(--color-purple-1);
-        font-weight: bold;
-        font-size: 1.1rem;
-      }
+      @extend %paginationBtns;
     }
   }
 
@@ -1236,6 +1203,44 @@
     color: var(--color-purple-1);
     font-style: italic;
     word-break: break-word;
+  }
+}
+
+%paginationBtns {
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 12px;
+  flex-wrap: wrap;
+
+  .page-link, .next-btn {
+    display: inline-block;
+    padding: 10px 16px;
+    border: 1px solid var(--color-purple-1);
+    border-radius: 6px;
+    color: var(--color-purple-1);
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 0.9rem;
+    @include hover-transition;
+
+    &:hover {
+      background-color: var(--color-purple-1);
+      color: var(--color-white);
+    }
+
+    .active {
+      background-color: var(--color-purple-1);
+      color: var(--color-white);
+    }
+
+    .dots {
+      color: var(--color-purple-1);
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
   }
 }
 
@@ -1507,7 +1512,7 @@
 .userTable {
   width: 100%;
   max-width: 1200px;
-  margin: 150px auto 0 auto;
+  margin: 150px auto 50px auto;
 
 
     h2 {
@@ -1575,6 +1580,10 @@
       padding: 10px 16px;
 
     }
+  }
+
+  .pagination{
+    @extend %paginationBtns;
   }
 }
 .user-table {

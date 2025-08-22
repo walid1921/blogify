@@ -1081,39 +1081,6 @@ p {
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 40px;
 }
-.blog-page .blogs-wrapper .pagination {
-  margin-top: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-.blog-page .blogs-wrapper .pagination .page-link, .blog-page .blogs-wrapper .pagination .next-btn {
-  display: inline-block;
-  padding: 10px 16px;
-  border: 1px solid var(--color-purple-1);
-  border-radius: 6px;
-  color: var(--color-purple-1);
-  font-weight: 600;
-  text-decoration: none;
-  font-size: 0.9rem;
-  transition: all 0.3s ease-in-out;
-}
-.blog-page .blogs-wrapper .pagination .page-link:hover, .blog-page .blogs-wrapper .pagination .next-btn:hover {
-  background-color: var(--color-purple-1);
-  color: var(--color-white);
-}
-.blog-page .blogs-wrapper .pagination .active {
-  background-color: var(--color-purple-1);
-  color: var(--color-white);
-}
-.blog-page .blogs-wrapper .pagination .dots {
-  color: var(--color-purple-1);
-  font-weight: bold;
-  font-size: 1.1rem;
-}
 .blog-page .blog {
   background-color: var(--color-white);
   border-radius: var(--border-radius);
@@ -1282,6 +1249,40 @@ p {
   color: var(--color-purple-1);
   font-style: italic;
   word-break: break-word;
+}
+
+.tableContainer .pagination, .blog-page .blogs-wrapper .pagination {
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.tableContainer .pagination .page-link, .blog-page .blogs-wrapper .pagination .page-link, .tableContainer .pagination .next-btn, .blog-page .blogs-wrapper .pagination .next-btn {
+  display: inline-block;
+  padding: 10px 16px;
+  border: 1px solid var(--color-purple-1);
+  border-radius: 6px;
+  color: var(--color-purple-1);
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all 0.3s ease-in-out;
+}
+.tableContainer .pagination .page-link:hover, .blog-page .blogs-wrapper .pagination .page-link:hover, .tableContainer .pagination .next-btn:hover, .blog-page .blogs-wrapper .pagination .next-btn:hover {
+  background-color: var(--color-purple-1);
+  color: var(--color-white);
+}
+.tableContainer .pagination .page-link .active, .blog-page .blogs-wrapper .pagination .page-link .active, .tableContainer .pagination .next-btn .active, .blog-page .blogs-wrapper .pagination .next-btn .active {
+  background-color: var(--color-purple-1);
+  color: var(--color-white);
+}
+.tableContainer .pagination .page-link .dots, .blog-page .blogs-wrapper .pagination .page-link .dots, .tableContainer .pagination .next-btn .dots, .blog-page .blogs-wrapper .pagination .next-btn .dots {
+  color: var(--color-purple-1);
+  font-weight: bold;
+  font-size: 1.1rem;
 }
 
 .profilePage {
@@ -1477,7 +1478,7 @@ p {
 .userTable {
   width: 100%;
   max-width: 1200px;
-  margin: 150px auto 0 auto;
+  margin: 150px auto 50px auto;
 }
 .userTable h2 {
   margin-bottom: var(--spacing-lg);
@@ -1535,7 +1536,6 @@ p {
   border-radius: var(--border-full);
   padding: 10px 16px;
 }
-
 .user-table {
   width: 100%;
   border-collapse: collapse;
