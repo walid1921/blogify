@@ -16,6 +16,7 @@
                 <p><span><?php echo !empty($this->getUsers()) ? count($this->getUsers()) : 0 ?> active users</span></p>
 
                 <!-- Search -->
+
                 <div class="search">
                     <form method="GET" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                         <input type="text" name="search" placeholder="Search by username or email" value="<?php echo htmlspecialchars($this->getSearchTerm()); ?>">
