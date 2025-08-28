@@ -30,7 +30,6 @@ class UserModel {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-
     //! Create user
     public function createUser($data) {
         $stmt = $this->pdo->prepare("INSERT INTO users (username, email, password, admin) VALUES (:username, :email, :password, :admin)");
@@ -44,28 +43,66 @@ class UserModel {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    //! get All Users
-    public function getAllUsers() {
-        $stmt = $this->pdo->query("
-            SELECT u.id, u.username, u.email, u.created_at, u.admin, u.is_active, COUNT(b.id) AS blogs_num  
-            FROM users u LEFT JOIN blogs b ON u.id = b.author_id AND b.is_published = 1
-            GROUP BY u.id
-            ORDER BY blogs_num DESC;
-        ");
+    //! get All Users with pagination
+    public function getAllUsers(?int $limit = null, ?int $offset = null, string $search = ''): array {
+        $where= '';
+        $params = [];
+
+        if ($search !== '') {
+            $where = "WHERE u.username LIKE :search OR u.email LIKE :search";
+            $params[':search'] = "%{$search}%";
+        }
+
+        $sql = "
+            SELECT 
+                u.id, u.username, u.email, u.created_at, u.admin, u.is_active,
+                (SELECT COUNT(*) FROM blogs b 
+                 WHERE b.author_id = u.id AND b.is_published = 1) AS blogs_num
+            FROM users u
+            $where
+            ORDER BY u.admin DESC, blogs_num DESC
+        ";
+
+        if ($limit !== null && $offset !== null) {
+            $sql .= " LIMIT :limit OFFSET :offset";
+        }
+
+        $stmt = $this->pdo->prepare($sql);
+
+        foreach ($params as $k => $v) {
+            $stmt->bindValue($k, $v, PDO::PARAM_STR);
+        }
+
+        if ($limit !== null && $offset !== null) {
+            $stmt->bindValue(':limit', (int)$limit, PDO::PARAM_INT);
+            $stmt->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
+        }
+
+        $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    //! Search Users by username or email
-    public function searchUsers($searchTerm) {
-        $stmt = $this->pdo->prepare("
-            SELECT u.id, u.username, u.email, u.created_at, u.admin, u.is_active, COUNT(b.id) AS blogs_num FROM users u 
-            LEFT JOIN blogs b ON u.id = b.author_id AND b.is_published = 1
-            WHERE u.username LIKE :search OR u.email LIKE :search
-            GROUP BY u.id
-            ORDER BY blogs_num DESC;
-        ");
-        $stmt->execute(['search' => "%$searchTerm%"]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    //! Count Users
+    public function countUsers(string $search= ''): int {
+        if ($search !== '') {
+            $stmt = $this->pdo->prepare(
+                "SELECT COUNT(*) 
+                 FROM users 
+                 WHERE username LIKE :search OR email LIKE :search"
+            );
+            $stmt->execute([':search' => "%{$search}%"]);
+        } else {
+            $stmt = $this->pdo->query("SELECT COUNT(*) FROM users");
+        }
+        return (int)$stmt->fetchColumn();
+    }
+
+
+
+
+    // (kept for compatibility; not used anymore – use getAllUsers with $search instead)
+    public function searchUsers(string $searchTerm): array {
+        return $this->getAllUsers(null, null, $searchTerm);
     }
 
     //! Update User

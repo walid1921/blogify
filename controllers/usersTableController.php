@@ -5,11 +5,14 @@ require_once __DIR__ . '/../includes/helpers.php';
 require_once __DIR__ . '/../models/userModel.php';
 
 class UsersTableController {
-    private $pdo;
-    private $userModel;
-    private $errors = [];
-    private $users = [];
-    private $search = "";
+    private PDO $pdo;
+    private UserModel $userModel;
+
+    private array $errors = [];
+    private array $users = [];
+    private string $search = "";
+    private array $pagination = [];
+    private int $totalUsers = 0;
 
     public function __construct() {
         $db = new Database();
@@ -18,23 +21,35 @@ class UsersTableController {
     }
 
     public function handleRequest() {
-        if ($_SERVER["REQUEST_METHOD"] === "GET") {
-            $this->handleGetRequest();
-        } elseif ($_SERVER["REQUEST_METHOD"] === "POST") {
+        if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $this->handlePostRequest();
+            // PRG pattern: redirect back to GET to avoid resubmission
+            $params = $_GET; // preserve current filters like ?search=
+            $qs = $params ? ('?' . http_build_query($params)) : '';
+            header('Location: ' . $_SERVER['PHP_SELF'] . $qs);
+            exit;
         }
 
+        // GET request
+        $this->handleGetRequest();
         $this->showUsersTable();
     }
 
     private function handleGetRequest() {
         $this->search = isset($_GET['search']) ? trim($_GET['search']) : "";
 
-        if (!empty($this->search)) {
-            $this->users = $this->userModel->searchUsers($this->search);
-        } else {
-            $this->users = $this->userModel->getAllUsers();
-        }
+        // 1) Count AFTER applying search
+        $this->totalUsers = $this->userModel->countUsers($this->search);
+
+        // 2) Build pagination
+        $this->pagination = paginate($this->totalUsers, 8); // 5 users per page
+
+        // 3) Fetch current page slice using SAME search
+        $this->users = $this->userModel->getAllUsers(
+            $this->pagination['limit'],
+            $this->pagination['offset'],
+            $this->search
+        );
     }
 
     private function handlePostRequest() {
@@ -54,26 +69,23 @@ class UsersTableController {
             $userId = isset($_POST["userId"]) ? (int)$_POST["userId"] : 0;
             deleteUserService($this->pdo, $userId, $this->errors);
         }
-
-        // Refresh user list after POST operations
-        $this->users = $this->userModel->getAllUsers();
+        // No need to fetch users here; we redirect to GET afterward
     }
 
     private function showUsersTable() {
+        // Expose locals for the view (avoid $this in templates if you prefer)
+        $users       = $this->users;
+        $pagination  = $this->pagination;
+        $totalUsers  = $this->totalUsers;
+        $searchTerm  = $this->search;
+
         include __DIR__ . '/../components/header.php';
         include __DIR__ . '/../view/usersView.php';
         include __DIR__ . '/../components/footer.php';
     }
 
-    public function getErrors() {
-        return $this->errors;
-    }
-
-    public function getUsers() {
-        return $this->users;
-    }
-
-    public function getSearchTerm() {
-        return $this->search;
-    }
+    // Keep these only if your view still references $this->...
+    public function getErrors()    { return $this->errors; }
+    public function getUsers()     { return $this->users; }
+    public function getSearchTerm(){ return $this->search; }
 }

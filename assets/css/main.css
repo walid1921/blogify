@@ -1275,7 +1275,7 @@ p {
   background-color: var(--color-purple-1);
   color: var(--color-white);
 }
-.tableContainer .pagination .page-link .active, .blog-page .blogs-wrapper .pagination .page-link .active, .tableContainer .pagination .next-btn .active, .blog-page .blogs-wrapper .pagination .next-btn .active {
+.tableContainer .pagination .page-link.active, .blog-page .blogs-wrapper .pagination .page-link.active, .tableContainer .pagination .next-btn.active, .blog-page .blogs-wrapper .pagination .next-btn.active {
   background-color: var(--color-purple-1);
   color: var(--color-white);
 }

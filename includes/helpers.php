@@ -40,6 +40,32 @@ function checkServer($conn, $result) { // to check if the server is working
 
 }
 
+function paginate ($totalItems, $perPage = 10){
+
+    // Get current page from URL, default = 1
+    $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+    if ($page < 1) $page = 1;
+
+    // Calculate total pages
+    $totalPages = ceil($totalItems / $perPage);
+
+    // Prevent going beyond last page
+    if ($page > $totalPages && $totalPages > 0){
+        $page = $totalPages;
+    }
+
+    // Calculate offset for SQL query
+    $offset = ($page - 1) * $perPage;
+
+    return [
+        'limit' => $perPage,
+        'offset' => $offset,
+        'currentPage' => $page,
+        'totalPages' => $totalPages
+    ];
+
+}
+
 
 function handleError($errno, $errstr, $errfile, $errline) {
     if (!(error_reporting() & $errno)) {
