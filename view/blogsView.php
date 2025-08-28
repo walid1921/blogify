@@ -14,17 +14,29 @@
     <div class="blog-page">
         <?php if (!empty($blogs)): ?>
 
-            <div class="filter-bar">
-                    <div class="filters">
-                        <button class="filter-btn active">Filter</button>
+            <div class="blog-header">
+                <div class="header-content">
+                    <h2>The freshest ecommerce insights, expert advice, and product news</h2>
+                    <p>From global business trends and hot product news to community events and developer know-how. Get all the content you need to stay ahead.</p>
+                </div>
 
-                        <?php foreach ($categories as $category): ?>
-                            <button class="filter-btn"><?php echo htmlspecialchars($category['name']); ?></button>
-                        <?php endforeach; ?>
-                    </div>
+                <img class="img-container" src="assets/images/meeting.jpg" alt="">
+
+            </div>
+
+            <div class="filter-bar">
+                <div class="filters">
+                    <button class="filter-btn active">All articles</button>
+
+                    <?php foreach ($categories as $category): ?>
+                        <button class="filter-btn">
+                            <?php echo htmlspecialchars($category['name']); ?>
+                        </button>
+                    <?php endforeach; ?>
+                </div>
 
                 <?php if(isLoggedIn() && !isAdmin()):?>
-                    <button class="filter-btn">
+                    <button class="filter-btn active">
                         <a href="createBlog.php">
                             New Blog
                             <i class=" fa-solid fa-plus fa-md"></i>
@@ -33,20 +45,21 @@
                 <?php endif;?>
             </div>
 
-        <?php if (isLoggedIn() && isAdmin()): ?>
-                <div class="counts">
-                    <span class="published"><?php echo $totalBlogs['total_blogs']; ?> Published Blogs</span>
-                </div>
-        <?php elseif (isLoggedIn() && !isAdmin()): ?>
-                <div class="counts">
-                    <span class="published"><?php echo $totalBlogs['published_blogs']; ?> Published Blogs</span>
-                    <span class="pending"><?php echo $totalBlogs['pending_blogs']; ?> Pending Blogs</span>
-                </div>
-        <?php endif; ?>
+
+            <?php if (isLoggedIn() && isAdmin()): ?>
+                    <div class="counts">
+                        <span class="published"><?php echo $totalBlogs['total_blogs']; ?> Published Blogs</span>
+                    </div>
+            <?php elseif (isLoggedIn() && !isAdmin()): ?>
+                    <div class="counts">
+                        <span class="published"><?php echo $totalBlogs['published_blogs']; ?> Published Blogs</span>
+                        <span class="pending"><?php echo $totalBlogs['pending_blogs']; ?> Pending Blogs</span>
+                    </div>
+            <?php endif; ?>
 
             <div class="blogs-wrapper">
                     <?php foreach ($blogs as $blog): ?>
-                        <div class="blog" id="blogCard">
+                        <div class="blog-card" id="blogCard">
 
                             <?php if((isAdmin() || $blog['author_id'] === $_SESSION['user_id'])): ?>
                                 <button class="deleteBlog"
@@ -56,10 +69,24 @@
                                 </button>
                             <?php endif; ?>
 
-                            <img src="/assets/images/laptop.jpg" alt="Blog Post Image">
-                            <div class="content">
-                                <h2><?php echo htmlspecialchars($blog['title']); ?></h2>
 
+
+                            <div class="blog-image-wrapper">
+                                <img src="/assets/images/blog.webp" alt="Blog Post Image">
+
+                                <?php
+                                $createAt = new DateTime($blog['updated_at']);
+                                $now = new DateTime();
+                                $diff = $now->diff($createAt);
+
+                                if($diff->days < 3){
+                                    echo "<span class='new_tag'>New</span>";
+                                }
+                                ?>
+                            </div>
+
+
+                            <div class="card-content">
 
                                 <div class="tags">
                                     <?php if (!empty($blog['category_names'])): ?>
@@ -76,7 +103,12 @@
                                     <span class="created-date"><?php echo day_month_year($blog['created_at']); ?></span>
                                 </div>
 
-                                <p><?php echo $blog['content']; ?></p>
+                                <div class="text-content">
+                                    <h6><?php echo htmlspecialchars($blog['title']); ?></h6>
+                                    <p><?php echo $blog['content']; ?></p>
+                                </div>
+
+
 
 
                                 <?php if(isLoggedIn() && !isAdmin()):?>
@@ -103,16 +135,14 @@
                         </div>
                     <?php endforeach; ?>
 
-
-
-                    <div class="pagination">
-                        <a href="#" class="page-link active">1</a>
-                        <a href="#" class="page-link">2</a>
-                        <a href="#" class="page-link">3</a>
-                        <span class="dots">...</span>
-                        <a href="#" class="page-link">10</a>
-                        <a href="#" class="next-btn">Next →</a>
-                    </div>
+                <div class="pagination">
+                    <a href="#" class="page-link active">1</a>
+                    <a href="#" class="page-link">2</a>
+                    <a href="#" class="page-link">3</a>
+                    <span class="dots">...</span>
+                    <a href="#" class="page-link">10</a>
+                    <a href="#" class="next-btn">Next →</a>
+                </div>
             </div>
         <?php else: ?>
             <?php include __DIR__ . '/../components/emptyPage.php'; ?>

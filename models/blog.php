@@ -28,7 +28,7 @@ class Blog {
             LEFT JOIN users u ON b.author_id = u.id
         WHERE b.is_published = 1
         GROUP BY b.id, b.title, b.content, b.author_id, b.created_at, b.updated_at, b.is_published, u.username
-        ORDER BY b.created_at DESC";
+        ORDER BY b.updated_at DESC, b.created_at DESC";
 
         return $this->pdo->query($query)->fetchAll(PDO::FETCH_ASSOC);
     }
