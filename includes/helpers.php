@@ -67,7 +67,7 @@ function paginate ($totalItems, $perPage = 10){
 }
 
 
-function handleError($errno, $errstr, $errfile, $errline) {
+function handleError($errno, $errstr, $errfile, $errline): bool {
     if (!(error_reporting() & $errno)) {
         return false;
     }
